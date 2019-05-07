@@ -1,0 +1,96 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.solaLettura {
+    color: white;
+    background-color: #CCCCCC;
+}
+
+.deleteImg {
+    display: block;
+    background: url( deleteFile.png ) no-repeat;
+    width: 32px;
+    height: 32px;
+    text-indent: -9999px; /*hides the link text*/
+}
+
+.searchImg {
+    display: block;
+    background: url( cercaCap.png ) no-repeat;
+    width: 32px;
+    height: 32px;
+    text-indent: -9999px; /*hides the link text*/
+}
+
+.photoImg {
+    display: block;
+    background: url( image.png ) no-repeat;
+    width: 32px;
+    height: 32px;
+    text-indent: -9999px; /*hides the link text*/
+}
+
+.uplImg {
+    display: block;
+    background: url( paperclip.png ) no-repeat;
+    width: 32px;
+    height: 32px;
+    text-indent: -9999px; /*hides the link text*/
+}
+.documentImg {
+    display: block;
+    background: url( document_24x24.png ) no-repeat;
+    width: 32px;
+    height: 32px;
+    text-indent: -9999px; /*hides the link text*/
+}
+
+summary::-webkit-details-marker {
+    display: none
+}
+
+summary:after {
+    /*background: white;
+    border-radius: 5px;*/
+    content: "+ Legenda";
+    /*color: #000;
+    float: left;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: -5px 10px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 20px;*/
+}
+
+details[open] summary:after {
+    content: "- Clicca x chiudere...";
+}
+
+.tableborder {
+   
+    border: 1px solid green;
+    background-color: lightcyan;
+    
+}

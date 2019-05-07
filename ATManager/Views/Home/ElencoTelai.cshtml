@@ -1,0 +1,124 @@
+﻿@model ATManager.Models.HomeModel
+
+@{
+    ViewBag.Title = "ElencoTelai";
+}
+
+<h2>ElencoTelai</h2>
+<div>
+    @Html.ActionLink("Torna a selezione telai", "Index")
+    <p></p>
+</div>
+
+<table class="table">
+
+    <tr>
+        @*<td  >Finito</td>*@
+        <td  ><b>Targa</b></td>
+        <td  ><b>Produttore</b></td>
+        <td  ><b>Azioni</b></td>
+        
+        @{var myScelta = @Session["Status"].ToString();}
+
+    </tr>
+    @foreach (var item in Model.AT_ListaPratiche_vw)
+    {
+    <tr>
+        <td  >
+            @Html.DisplayFor(modelItem => item.Targa)
+        </td>
+
+        <td  >
+            @Html.DisplayFor(modelItem => item.Prod_Descr)
+        </td>
+
+
+
+        @*@Html.ActionLink("Create", "Create", new { id = item.Perizie_ID }, new { @class = "searchImg" })*@
+
+        @if (myScelta == "TUTTE")
+        {
+            @*<td  >
+                @Html.ActionLink("Create", "Create", new { id = item.Perizie_ID, marca = item.Prod_Descr })
+            </td>
+            <td  >
+                @Html.ActionLink("Edit", "Edit", new { id = item.Perizie_ID })
+            </td>
+            <td  >
+                @Html.ActionLink("Delete", "Delete", new { id = item.Perizie_ID })
+            </td>*@
+
+        }
+        else if (myScelta == "DA FARE")
+        {
+            <td  >
+                @Html.ActionLink("Inserisci scheda", "Create", new {
+               id = item.Perizie_ID,
+               dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
+               marca = item.Prod_Descr,
+               targa = item.Targa,
+               dataimmatricolazione = item.DataImmatricolazione,
+               km = item.Km,
+               luogoperizia = item.DescrITA,
+               modello = item.Mod_Descr,
+               cartacircolazione = item.CartaCircolazione,
+               matricola = item.Matricola,
+               telaio = item.Chassis1 + item.Chassis2,
+               dataultimarevisione = item.DataUltimaRevisione
+
+           })
+            </td>
+            <td  >
+                @Html.ActionLink("Foto", "Image", new { id = item.Perizie_ID }, new { @class = "photoImg" })
+            </td>
+        }
+
+        else if (myScelta == "FATTE")
+        {
+            <td  >
+                @Html.ActionLink("Modifica scheda", "Edit", new {
+               id = item.Perizie_ID,
+               dataperizia = item.Perizie_DataPerizia,
+               marca = item.Prod_Descr,
+               targa = item.Targa,
+               dataimmatricolazione = item.DataImmatricolazione,
+               km = item.Km,
+               luogoperizia = item.DescrITA,
+               modello = item.Mod_Descr,
+               blocked = "NO"
+           })
+            </td>
+            <td  >
+                @Html.ActionLink("Elimina scheda", "Delete", new { id = item.Perizie_ID })
+            </td>
+            <td  >
+                @Html.ActionLink("Foto", "Image", new { id = item.Perizie_ID }, new { @class = "photoImg" })
+            </td>
+        }
+        else if (myScelta == "FATTECHIUSE")
+        {
+            <td  >
+                @Html.ActionLink("Visualizza scheda", "Edit", new {
+               id = item.Perizie_ID,
+               dataperizia = item.Perizie_DataPerizia,
+               marca = item.Prod_Descr,
+               targa = item.Targa,
+               dataimmatricolazione = item.DataImmatricolazione,
+               km = item.Km,
+               luogoperizia = item.DescrITA,
+               modello = item.Mod_Descr,
+               blocked = "SI"
+           })
+            </td>
+            <td  >
+                @Html.ActionLink("Foto", "Image", new { id = item.Perizie_ID }, new { @class = "photoImg" })
+            </td>
+        }
+
+    </tr>
+    }
+
+</table>
+<div>
+    @Html.ActionLink("Torna a selezione telai", "Index")
+</div>
