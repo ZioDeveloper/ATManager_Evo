@@ -316,17 +316,34 @@ namespace ATManager.Controllers
 
             if (ModelState.IsValid)
             {
+
+                // Aggiorno ultimo status
+                if (aT_SchedaTecnica.IsCompleted == true)
+                {
+                    //var sql = @" INSERT INTO SDU_StoricoStatusPerizia SET DataPubblicazionePerizia = @DataPubblicazionePerizia WHERE ID = @ID_perizia AND 0=0 ";
+
+                    //int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
+                    //    new SqlParameter("@ID_perizia", myIDerizia),
+                    //    new SqlParameter("@DataPubblicazionePerizia", myDataUltimaRevisione));
+                }
+
+                // Aggiorno Data ultima revisione
                 var sql = @" UPDATE SDU_PERIZIE SET DataPubblicazionePerizia = @DataPubblicazionePerizia WHERE ID = @ID_perizia AND 0=0 ";
                 var myScheda = from s in db.AT_ListaPratiche_vw
                                where s.Perizie_ID == aT_SchedaTecnica.ID
-                select s.Perizie_ID;
+                               select s.Perizie_ID;
                 int myIDerizia = myScheda.FirstOrDefault();
 
-                string myDataUltimaRevisione = txtdataultimarevisione.Substring(6, 4) + txtdataultimarevisione.Substring(3, 2) + txtdataultimarevisione.Substring(0, 2);
+                if (!String.IsNullOrEmpty(txtdataultimarevisione))
+                {
+                    string myDataUltimaRevisione = txtdataultimarevisione.Substring(6, 4) + txtdataultimarevisione.Substring(3, 2) + txtdataultimarevisione.Substring(0, 2);
 
-                int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
-                    new SqlParameter("@ID_perizia", myIDerizia),
-                    new SqlParameter("@DataPubblicazionePerizia" , myDataUltimaRevisione));
+                    int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
+                        new SqlParameter("@ID_perizia", myIDerizia),
+                        new SqlParameter("@DataPubblicazionePerizia", myDataUltimaRevisione));
+                }
+
+
 
 
                 db.AT_SchedaTecnica.Add(aT_SchedaTecnica);

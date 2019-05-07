@@ -104,20 +104,22 @@
 
 </div>
 
+    @*<p><a class="btn btn-default" href="~/Utente/Login">More info and code examples by loggin in ! &raquo;</a></p>*@
 
-    <table border="0">
+    <table border="0" width="100%" style="text-align:center">
         <tr>
-            <td>Foto veicolo : </td>
+            @*<td>Foto veicolo : </td>*@
             <td>
-                @Html.ActionLink("Foto veicolo ", "FotoPerizia", new { id = ViewBag.IDPerizia }, new { @class = "photoImg" })
+                @Html.ActionLink("Foto veicolo ", "FotoPerizia", new { id = ViewBag.IDPerizia })
             </td>
-            <td>Foto documenti : </td>
+            <td>&nbsp; | &nbsp;</td>
             <td>
-                @Html.ActionLink("Foto documenti ", "FotoPratica", new { id = ViewBag.IDPerizia }, new { @class = "photoImg" })
+                @Html.ActionLink("Foto documenti ", "FotoPratica", new { id = ViewBag.IDPerizia })
             </td>
-            <td>Visualizza documenti :</td>
+            @*<td>Visualizza documenti :</td>*@
+            <td>&nbsp; | &nbsp;</td>
             <td>
-                @Html.ActionLink("Foto", "Images", new { ViewBag.IDPerizia }, new { @class = "uplImg" })
+                @Html.ActionLink("Visualizza ", "Images", new { ViewBag.IDPerizia })
             </td>
         </tr>
 
@@ -702,7 +704,7 @@
                     </div>
                     <table border="1" style="vertical-align:top;border-collapse:collapse;" cellpadding="1" width="100%" align="center">
                         <tr>
-                            <td style="width:50px" class="azzurro"><div class="testoVerticale">NOTE</div></td>
+                            <td style="width:50px" class="azzurro"><div class="testoVerticale">DANNO NOTE </div></td>
                             <td>@Html.TextAreaFor(model => model.Note_danno, new { style = "width:370px; height:75px;" })</td>
                         </tr>
                     </table>
@@ -717,7 +719,7 @@
 
     <table border="1" style="vertical-align:top;border-collapse:collapse;" cellpadding="1" width="100%" align="center">
         <tr>
-            <td style="width:50px" class="azzurro"><div class="testoVerticale">NOTE GENERALI</div></td>
+            <td style="width:50px" class="azzurro"><div class="testoVerticale">SCHEDA NOTE</div></td>
             <td>@Html.TextAreaFor(model => model.Note_generali, new { style = "width:370px; height:75px;" })</td>
         </tr>
     </table>
@@ -738,20 +740,21 @@
 
 }
 
-<table border="0">
-    <tr>
-        <td>Foto veicolo : </td>
-        <td>
-            @Html.ActionLink("Foto veicolo ", "FotoPerizia", new { id = ViewBag.IDPerizia }, new { @class = "photoImg" })
-        </td>
-        <td>Foto documenti : </td>
-        <td>
-            @Html.ActionLink("Foto documenti ", "FotoPratica", new { id = ViewBag.IDPerizia }, new { @class = "photoImg" })
-        </td>
-        <td>Visualizza documenti :</td>
-        <td>
-            @Html.ActionLink("Foto", "Images", new { ViewBag.IDPerizia }, new { @class = "uplImg" })
-        </td>
-    </tr>
+    <table border="0" width="100%" style="text-align:center">
+        <tr>
+            @*<td>Foto veicolo : </td>*@
+            <td>
+                @Html.ActionLink("Foto veicolo ", "FotoPerizia", new { id = ViewBag.IDPerizia })
+            </td>
+            <td>&nbsp; | &nbsp;</td>
+            <td>
+                @Html.ActionLink("Foto documenti ", "FotoPratica", new { id = ViewBag.IDPerizia })
+            </td>
+            @*<td>Visualizza documenti :</td>*@
+            <td>&nbsp; | &nbsp;</td>
+            <td>
+                @Html.ActionLink("Visualizza ", "Images", new { ViewBag.IDPerizia })
+            </td>
+        </tr>
 
-</table>
+    </table>
