@@ -106,25 +106,7 @@
 
     @*<p><a class="btn btn-default" href="~/Utente/Login">More info and code examples by loggin in ! &raquo;</a></p>*@
 
-    <table border="0" width="100%" style="text-align:center">
-        <tr>
-            @*<td>Foto veicolo : </td>*@
-            <td>
-                @Html.ActionLink("Foto veicolo ", "FotoPerizia", new { id = ViewBag.IDPerizia })
-            </td>
-            <td>&nbsp; | &nbsp;</td>
-            <td>
-                @Html.ActionLink("Foto documenti ", "FotoPratica", new { id = ViewBag.IDPerizia })
-            </td>
-            @*<td>Visualizza documenti :</td>*@
-            <td>&nbsp; | &nbsp;</td>
-            <td>
-                @Html.ActionLink("Visualizza ", "Images", new { ViewBag.IDPerizia })
-            </td>
-        </tr>
-
-    </table>
-
+   
     <table class="fontDimensione" width="100%">
         <tr>
             <td>
@@ -740,21 +722,4 @@
 
 }
 
-    <table border="0" width="100%" style="text-align:center">
-        <tr>
-            @*<td>Foto veicolo : </td>*@
-            <td>
-                @Html.ActionLink("Foto veicolo ", "FotoPerizia", new { id = ViewBag.IDPerizia })
-            </td>
-            <td>&nbsp; | &nbsp;</td>
-            <td>
-                @Html.ActionLink("Foto documenti ", "FotoPratica", new { id = ViewBag.IDPerizia })
-            </td>
-            @*<td>Visualizza documenti :</td>*@
-            <td>&nbsp; | &nbsp;</td>
-            <td>
-                @Html.ActionLink("Visualizza ", "Images", new { ViewBag.IDPerizia })
-            </td>
-        </tr>
-
-    </table>
+    

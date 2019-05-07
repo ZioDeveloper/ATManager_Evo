@@ -172,6 +172,22 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descrizioneDocumento" Type="varchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="SDU_StoricoStatusPerizia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDPerizia" Type="int" Nullable="false" />
+          <Property Name="IDStato" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Data" Type="datetime" />
+          <Property Name="Importo" Type="int" />
+          <Property Name="InsertUser" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="InsertTime" Type="datetime" Nullable="false" />
+          <Property Name="Note" Type="varchar" MaxLength="3000" />
+          <Property Name="Giorni" Type="int" StoreGeneratedPattern="Computed" />
+          <Property Name="MassimoID" Type="varchar" MaxLength="39" StoreGeneratedPattern="Computed" />
+          <Property Name="Ordine" Type="bigint" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'AUTOSDU.dbo.AT_ListaPratiche_vw' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AT_ListaPratiche_vw">
@@ -779,6 +795,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <EntitySet Name="Luoghi" EntityType="Self.Luoghi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDU_documentiPratica" EntityType="Self.SDU_documentiPratica" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDU_documentiTipi" EntityType="Self.SDU_documentiTipi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SDU_StoricoStatusPerizia" EntityType="Self.SDU_StoricoStatusPerizia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AT_ListaPratiche_vw" EntityType="Self.AT_ListaPratiche_vw" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [AT_ListaPratiche_vw].[TipoPerizia_ID] AS [TipoPerizia_ID], 
@@ -1448,6 +1465,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
             <End Role="SDU_documentiTipi" EntitySet="SDU_documentiTipi" />
             <End Role="SDU_documentiPratica" EntitySet="SDU_documentiPratica" />
           </AssociationSet>
+          <EntitySet Name="SDU_StoricoStatusPerizia" EntityType="AUTOSDUModel.SDU_StoricoStatusPerizia" />
         </EntityContainer>
         <EntityType Name="AT_ListaPratiche_vw">
           <Key>
@@ -2088,6 +2106,22 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="SDU_StoricoStatusPerizia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDPerizia" Type="Int32" Nullable="false" />
+          <Property Name="IDStato" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="Data" Type="DateTime" Precision="3" />
+          <Property Name="Importo" Type="Int32" />
+          <Property Name="InsertUser" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="InsertTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="Giorni" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="MassimoID" Type="String" MaxLength="39" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="Ordine" Type="Int64" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2317,6 +2351,23 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
             <EntityTypeMapping TypeName="AUTOSDUModel.SDU_documentiTipi">
               <MappingFragment StoreEntitySet="SDU_documentiTipi">
                 <ScalarProperty Name="descrizioneDocumento" ColumnName="descrizioneDocumento" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDU_StoricoStatusPerizia">
+            <EntityTypeMapping TypeName="AUTOSDUModel.SDU_StoricoStatusPerizia">
+              <MappingFragment StoreEntitySet="SDU_StoricoStatusPerizia">
+                <ScalarProperty Name="Ordine" ColumnName="Ordine" />
+                <ScalarProperty Name="MassimoID" ColumnName="MassimoID" />
+                <ScalarProperty Name="Giorni" ColumnName="Giorni" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="InsertTime" ColumnName="InsertTime" />
+                <ScalarProperty Name="InsertUser" ColumnName="InsertUser" />
+                <ScalarProperty Name="Importo" ColumnName="Importo" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="IDStato" ColumnName="IDStato" />
+                <ScalarProperty Name="IDPerizia" ColumnName="IDPerizia" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

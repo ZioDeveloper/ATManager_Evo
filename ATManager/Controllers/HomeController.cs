@@ -95,6 +95,7 @@ namespace ATManager.Controllers
 
         public ActionResult Index(string Opt1, string CercaTarga, string SearchLocation)
         {
+            Session["User"] = "VIG";
 
             using (AUTOSDUEntities val = new AUTOSDUEntities())
             {
@@ -282,6 +283,10 @@ namespace ATManager.Controllers
                                     string luogoperizia,string modello, string cartacircolazione,string matricola,string telaio,string dataultimarevisione)
         {
 
+            if (ID == null)
+                ID = TempData["IDPerizia"].ToString();
+            else
+                TempData["IDPerizia"] = ID;
 
             ViewBag.IDPerizia = ID;
             ViewBag.dataperizia = dataperizia;
@@ -320,11 +325,22 @@ namespace ATManager.Controllers
                 // Aggiorno ultimo status
                 if (aT_SchedaTecnica.IsCompleted == true)
                 {
-                    //var sql = @" INSERT INTO SDU_StoricoStatusPerizia SET DataPubblicazionePerizia = @DataPubblicazionePerizia WHERE ID = @ID_perizia AND 0=0 ";
+                    var mySchedaStatus = from s in db.AT_ListaPratiche_vw
+                                   where s.Perizie_ID == aT_SchedaTecnica.ID
+                                   select s.Perizie_ID;
+                    int myIDeriziaStatus = mySchedaStatus.FirstOrDefault();
 
-                    //int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
-                    //    new SqlParameter("@ID_perizia", myIDerizia),
-                    //    new SqlParameter("@DataPubblicazionePerizia", myDataUltimaRevisione));
+                    string myDataUltimaRevisione = txtdataultimarevisione.Substring(6, 4) + txtdataultimarevisione.Substring(0, 2) + txtdataultimarevisione.Substring(3, 2);
+
+                    var p1 = new SqlParameter("@login", Session["User"]);
+                    var p2 = new SqlParameter("@ID_perizia", myIDeriziaStatus);
+                    var p3 = new SqlParameter("@ID_Stato", "00H");
+                    var p4 = new SqlParameter("@DataStato", myDataUltimaRevisione);
+                    var p5 = new SqlParameter("@Note", "");
+                    
+                    int noOfRowInserted = db.Database.ExecuteSqlCommand("EXEC sp_InsertStatus {0}, {1}, {2}, {3} , {4}", p1.Value, p2.Value, p3.Value, p4.Value , p5.Value);
+
+
                 }
 
                 // Aggiorno Data ultima revisione
@@ -570,7 +586,9 @@ namespace ATManager.Controllers
 
         public ActionResult UploadFotoPerizia(IEnumerable<HttpPostedFileBase> files, int? ID)
         {
-            
+
+          
+
             string path = "";
             //var model = new Models.AT_ListaPratiche_vw();
             var myScheda = from s in db.AT_ListaPratiche_vw
@@ -591,13 +609,14 @@ namespace ATManager.Controllers
                             DateTime.Now.Minute.ToString("00") + 
                             DateTime.Now.Second.ToString("00");
 
+            //string fullPath = Request.MapPath("~/UploadedFiles/" + picName);
 
             foreach (var file in files)
             {
-                int fileCount = (from filecnt in Directory.EnumerateFiles(@"\\gewisfsrv\SDU\0036", myBarcode + "*.*", SearchOption.AllDirectories)
+                int fileCount = (from filecnt in Directory.EnumerateFiles(Request.MapPath(@"~\FotoPerizia"), myBarcode + "*.*", SearchOption.AllDirectories)
                                  select file).Count();
 
-                path = System.IO.Path.Combine(@"\\gewisfsrv\SDU\0036\", myBarcode + "_" +
+                path = System.IO.Path.Combine(Request.MapPath(@"~\FotoPerizia"), myBarcode + "_" +
                                                                         myTarga + "_" +
                                                                         fileCount.ToString("000") + "_" +
                                                                         System.IO.Path.GetExtension(file.FileName));
@@ -605,13 +624,20 @@ namespace ATManager.Controllers
                 {
                     file.SaveAs(path);
                 }
-
+                
                 
 
             }
 
+            var model = new Models.HomeModel();
+            var telai = from s in db.AT_ListaPratiche_vw
+                        where s.Perizie_ID == ID
+                        select s;
+            model.AT_ListaPratiche_vw = telai.ToList();
 
-            return RedirectToAction("DoRefresh", "Home");
+            return View("ElencoTelai",model);
+
+                                                          
         }
 
         public ActionResult UploadFotoPratica(IEnumerable<HttpPostedFileBase> files, int? ID , FormCollection form)
@@ -635,11 +661,11 @@ namespace ATManager.Controllers
             foreach (var file in files)
             {
 
-                int fileCount = (from filecnt in Directory.EnumerateFiles(@"\\gewisfsrv\SDU\0036", IDPratica + "*.*", SearchOption.AllDirectories)
+                int fileCount = (from filecnt in Directory.EnumerateFiles(Request.MapPath(@"~\FotoPratica"), IDPratica + "*.*", SearchOption.AllDirectories)
                                  select file).Count();
                 fileCount++;
 
-                path = System.IO.Path.Combine(@"\\gewisfsrv\SDU\0036\", IDPratica + "_" + 
+                path = System.IO.Path.Combine(Request.MapPath(@"~\FotoPratica"), IDPratica + "_" + 
                                                                         myDate + "_" + 
                                                                         fileCount.ToString("000") + "_" + 
                                                                         myIDTipoDoc + 
@@ -663,8 +689,8 @@ namespace ATManager.Controllers
             }
 
 
-
-            return RedirectToAction("DoRefresh", "Home");
+            return RedirectToAction("Create", "Home", ID);
+            //return RedirectToAction("DoRefresh", "Home");
         }
 
         protected override void Dispose(bool disposing)

@@ -52,6 +52,8 @@ public partial class AUTOSDUEntities : DbContext
 
     public virtual DbSet<SDU_documentiTipi> SDU_documentiTipi { get; set; }
 
+    public virtual DbSet<SDU_StoricoStatusPerizia> SDU_StoricoStatusPerizia { get; set; }
+
 }
 
 }

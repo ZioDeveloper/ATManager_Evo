@@ -51,26 +51,28 @@
         }
         else if (myScelta == "DA FARE")
         {
-            <td  >
-                @Html.ActionLink("Inserisci scheda", "Create", new {
-               id = item.Perizie_ID,
-               dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
-               marca = item.Prod_Descr,
-               targa = item.Targa,
-               dataimmatricolazione = item.DataImmatricolazione,
-               km = item.Km,
-               luogoperizia = item.DescrITA,
-               modello = item.Mod_Descr,
-               cartacircolazione = item.CartaCircolazione,
-               matricola = item.Matricola,
-               telaio = item.Chassis1 + item.Chassis2,
-               dataultimarevisione = item.DataUltimaRevisione
+        <td>
+            @Html.ActionLink("Inserisci scheda", "Create", new {
+           id = item.Perizie_ID,
+           dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
+           marca = item.Prod_Descr,
+           targa = item.Targa,
+           dataimmatricolazione = item.DataImmatricolazione,
+           km = item.Km,
+           luogoperizia = item.DescrITA,
+           modello = item.Mod_Descr,
+           cartacircolazione = item.CartaCircolazione,
+           matricola = item.Matricola,
+           telaio = item.Chassis1 + item.Chassis2,
+           dataultimarevisione = item.DataUltimaRevisione
 
-           })
-            </td>
-            <td  >
-                @Html.ActionLink("Foto", "Image", new { id = item.Perizie_ID }, new { @class = "photoImg" })
-            </td>
+
+       })
+            <br></br>@Html.ActionLink("Inserisci Foto perizia", "FotoPerizia", new { id = item.Perizie_ID })
+        </td>
+            @*<td  >
+                @Html.ActionLink("Foto perizia", "FotoPerizia", new { id = item.Perizie_ID })
+            </td>*@
         }
 
         else if (myScelta == "FATTE")
