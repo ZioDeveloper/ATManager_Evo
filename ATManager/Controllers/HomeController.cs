@@ -111,9 +111,18 @@ namespace ATManager.Controllers
                             where s.UserName.ToString() == "percossi"
                             select s.ID_zona).FirstOrDefault();
 
+            var myNome = (from s in db.AT_PeritiXZone
+                          where s.UserName.ToString() == "percossi"
+                          select s.Nome).FirstOrDefault();
 
+            var myCognome = (from s in db.AT_PeritiXZone
+                          where s.UserName.ToString() == "percossi"
+                          select s.Cognome).FirstOrDefault();
 
-           Session["Zona"] = myZone;
+            ViewBag.nome = myNome;
+            ViewBag.cognome = myCognome;
+
+            Session["Zona"] = myZone;
 
             using (AUTOSDUEntities val = new AUTOSDUEntities())
             {

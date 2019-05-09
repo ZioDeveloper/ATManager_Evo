@@ -20,6 +20,8 @@
           <Property Name="ID_Perito" Type="int" />
           <Property Name="ID_zona" Type="varchar" MaxLength="10" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cognome" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="AT_PreventiviDanno">
           <Key>
@@ -2144,6 +2146,8 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <Property Name="ID_Perito" Type="Int32" />
           <Property Name="ID_zona" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cognome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2399,6 +2403,8 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <EntitySetMapping Name="AT_PeritiXZone">
             <EntityTypeMapping TypeName="AUTOSDUModel.AT_PeritiXZone">
               <MappingFragment StoreEntitySet="AT_PeritiXZone">
+                <ScalarProperty Name="Cognome" ColumnName="Cognome" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="ID_zona" ColumnName="ID_zona" />
                 <ScalarProperty Name="ID_Perito" ColumnName="ID_Perito" />

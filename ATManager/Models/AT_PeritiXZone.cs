@@ -26,6 +26,10 @@ public partial class AT_PeritiXZone
 
     public string UserName { get; set; }
 
+    public string Nome { get; set; }
+
+    public string Cognome { get; set; }
+
 }
 
 }
