@@ -12,6 +12,15 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Descr" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="AT_PeritiXZone">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Perito" Type="int" />
+          <Property Name="ID_zona" Type="varchar" MaxLength="10" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="AT_PreventiviDanno">
           <Key>
             <PropertyRef Name="ID" />
@@ -161,7 +170,7 @@
           <Property Name="ID_tipoDocumento" Type="int" />
           <Property Name="KM" Type="int" />
           <Property Name="noteDocumento" Type="varchar" MaxLength="250" />
-          <Property Name="percorsoFile" Type="varchar" MaxLength="80" />
+          <Property Name="percorsoFile" Type="varchar" MaxLength="200" />
           <Property Name="insertUser" Type="varchar" MaxLength="50" />
           <Property Name="insertTime" Type="datetime" Nullable="false" />
         </EntityType>
@@ -235,6 +244,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.AT_ListaPratiche_vw' does not have a p
           <Property Name="CartaCircolazione" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="Matricola" Type="varchar" MaxLength="500" />
           <Property Name="DataUltimaRevisione" Type="datetime" />
+          <Property Name="Trilettera" Type="varchar" MaxLength="3" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -788,6 +798,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
         </Association>
         <EntityContainer Name="AUTOSDUModelStoreContainer">
           <EntitySet Name="AT_IndiciValutazione" EntityType="Self.AT_IndiciValutazione" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AT_PeritiXZone" EntityType="Self.AT_PeritiXZone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AT_PreventiviDanno" EntityType="Self.AT_PreventiviDanno" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AT_SchedaTecnica" EntityType="Self.AT_SchedaTecnica" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AT_StatiMezzo" EntityType="Self.AT_StatiMezzo" Schema="dbo" store:Type="Tables" />
@@ -835,7 +846,8 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
     [AT_ListaPratiche_vw].[UltimoStatus] AS [UltimoStatus], 
     [AT_ListaPratiche_vw].[CartaCircolazione] AS [CartaCircolazione], 
     [AT_ListaPratiche_vw].[Matricola] AS [Matricola], 
-    [AT_ListaPratiche_vw].[DataUltimaRevisione] AS [DataUltimaRevisione]
+    [AT_ListaPratiche_vw].[DataUltimaRevisione] AS [DataUltimaRevisione], 
+    [AT_ListaPratiche_vw].[Trilettera] AS [Trilettera]
     FROM [dbo].[AT_ListaPratiche_vw] AS [AT_ListaPratiche_vw]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Luoghi_vw" EntityType="Self.Luoghi_vw" store:Type="Views" store:Schema="dbo">
@@ -1466,6 +1478,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
             <End Role="SDU_documentiPratica" EntitySet="SDU_documentiPratica" />
           </AssociationSet>
           <EntitySet Name="SDU_StoricoStatusPerizia" EntityType="AUTOSDUModel.SDU_StoricoStatusPerizia" />
+          <EntitySet Name="AT_PeritiXZone" EntityType="AUTOSDUModel.AT_PeritiXZone" />
         </EntityContainer>
         <EntityType Name="AT_ListaPratiche_vw">
           <Key>
@@ -1510,6 +1523,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <Property Name="CartaCircolazione" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="Matricola" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="DataUltimaRevisione" Type="DateTime" Precision="3" />
+          <Property Name="Trilettera" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="CE110">
           <End Type="AUTOSDUModel.AT_IndiciValutazione" Role="AT_IndiciValutazione" Multiplicity="0..1" />
@@ -2080,7 +2094,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <Property Name="ID_pratica" Type="Int32" Nullable="false" />
           <Property Name="ID_tipoDocumento" Type="Int32" />
           <Property Name="noteDocumento" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="percorsoFile" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="percorsoFile" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="insertUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="insertTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="SDU_documentiTipi" Relationship="AUTOSDUModel.FK_SDU_documentiPratica_SDU_documentiTipi" FromRole="SDU_documentiPratica" ToRole="SDU_documentiTipi" />
@@ -2121,6 +2135,15 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <Property Name="Giorni" Type="Int32" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="MassimoID" Type="String" MaxLength="39" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="Ordine" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AT_PeritiXZone">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Perito" Type="Int32" />
+          <Property Name="ID_zona" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2257,6 +2280,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <EntitySetMapping Name="AT_ListaPratiche_vw">
             <EntityTypeMapping TypeName="AUTOSDUModel.AT_ListaPratiche_vw">
               <MappingFragment StoreEntitySet="AT_ListaPratiche_vw">
+                <ScalarProperty Name="Trilettera" ColumnName="Trilettera" />
                 <ScalarProperty Name="DataUltimaRevisione" ColumnName="DataUltimaRevisione" />
                 <ScalarProperty Name="Matricola" ColumnName="Matricola" />
                 <ScalarProperty Name="CartaCircolazione" ColumnName="CartaCircolazione" />
@@ -2368,6 +2392,16 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
                 <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="IDStato" ColumnName="IDStato" />
                 <ScalarProperty Name="IDPerizia" ColumnName="IDPerizia" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AT_PeritiXZone">
+            <EntityTypeMapping TypeName="AUTOSDUModel.AT_PeritiXZone">
+              <MappingFragment StoreEntitySet="AT_PeritiXZone">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ID_zona" ColumnName="ID_zona" />
+                <ScalarProperty Name="ID_Perito" ColumnName="ID_Perito" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

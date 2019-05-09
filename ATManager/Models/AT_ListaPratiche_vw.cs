@@ -94,6 +94,8 @@ public partial class AT_ListaPratiche_vw
 
     public Nullable<System.DateTime> DataUltimaRevisione { get; set; }
 
+    public string Trilettera { get; set; }
+
 }
 
 }

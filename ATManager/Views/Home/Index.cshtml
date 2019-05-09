@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>AT Manager</h2>
+<h3>AT Manager</h3>
 
 
 @using (Html.BeginForm("DoRefresh", "Home", FormMethod.Get))
@@ -14,7 +14,12 @@
     @{var Scelta03 = "Schede aperte :";}
     @{var Scelta04 = "Schede chiuse    :";}
 
-
+    <table border="0">
+        <tr>
+            <td>Perito : </td>
+            <td>@ViewBag.Perito</td>
+        </tr>
+    </table>
 
     <table border="0">
         <tr>

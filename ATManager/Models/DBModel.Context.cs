@@ -54,6 +54,8 @@ public partial class AUTOSDUEntities : DbContext
 
     public virtual DbSet<SDU_StoricoStatusPerizia> SDU_StoricoStatusPerizia { get; set; }
 
+    public virtual DbSet<AT_PeritiXZone> AT_PeritiXZone { get; set; }
+
 }
 
 }

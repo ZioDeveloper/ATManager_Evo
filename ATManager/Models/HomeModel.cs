@@ -19,6 +19,8 @@ namespace ATManager.Models
 
         public IEnumerable<SDU_documentiTipi> SDU_documentiTipi { get; set; }
 
+        public IEnumerable<AT_PeritiXZone> AT_PeritiXZone { get; set; }
+
 
     }
 }

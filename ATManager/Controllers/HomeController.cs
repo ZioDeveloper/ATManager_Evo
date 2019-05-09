@@ -18,115 +18,135 @@ namespace ATManager.Controllers
 
 
         private AUTOSDUEntities db = new AUTOSDUEntities();
-        public ActionResult Index(string usr, string Opt1, string CercaTarga, string SearchLocation)
-        {
-
-            if (usr != null)
-                Session["User"] = usr;
-            if (usr == null)
-                usr = Session["User"].ToString();
-
-            bool isAuth = false;
-
-            if (usr != String.Empty)
-            {
-                string UserName = "";
-
-                string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
-                HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
-                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
-                UserName = ticket.Name; //You have the UserName!
-
-
-                if (usr == UserName)
-                {
-                    ViewBag.Messaggio = "BENE il cookie corrisponde!";
-                    //ViewBag.Messaggio = personaggio;
-                    isAuth = true;
-                    using (AUTOSDUEntities val = new AUTOSDUEntities())
-                    {
-                        Session["Status"] = "";
-
-                        var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA");
-                        ViewData["Luoghi"] = fromDatabaseEF;
-
-
-                    }
-
-                    if (String.IsNullOrEmpty(CercaTarga))
-                    {
-                        return View();
-                    }
-                    else if (!String.IsNullOrEmpty(CercaTarga))
-                    {
-                        var model = new Models.HomeModel();
-                        var telai = from s in db.AT_ListaPratiche_vw
-                                    where s.Targa.ToString() == CercaTarga
-                                    select s;
-                        model.AT_ListaPratiche_vw = telai.ToList();
-                        return View("ElencoTelai", model);
-                    }
-                    else
-                    {
-                        return View();
-                    }
-                }
-                else
-                {
-                    ViewBag.Messaggio = "il cookie contenente lo 'username' non corrisponde allo User della queryString!";
-                    isAuth = false;
-                    return View("IncorrectLogin");
-                }
-
-            }
-            else
-            {
-                string UserName = "";
-
-                string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
-                HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
-                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
-                UserName = ticket.Name; //You have the UserName!
-            }
-            return View();
-
-
-        }
-
-        //public ActionResult Index(string Opt1, string CercaTarga, string SearchLocation)
+        //public ActionResult Index(string usr, string Opt1, string CercaTarga, string SearchLocation)
         //{
-        //    Session["User"] = "percossi";
 
-        //    using (AUTOSDUEntities val = new AUTOSDUEntities())
+        //    if (usr != null)
+        //        Session["User"] = usr;
+        //    if (usr == null)
+        //        usr = Session["User"].ToString();
+
+        //var myZone = (from s in db.AT_PeritiXZone
+        //              where s.UserName.ToString() == "percossi"
+        //              select s.ID_zona).FirstOrDefault();
+
+
+        //Session["Zona"] = myZone;
+
+        //    bool isAuth = false;
+
+        //    if (usr != String.Empty)
         //    {
-        //        Session["Status"] = "";
+        //        string UserName = "";
 
-        //        var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA");
-        //        ViewData["Luoghi"] = fromDatabaseEF;
+        //        string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
+        //        HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
+        //        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
+        //        UserName = ticket.Name; //You have the UserName!
 
 
-        //    }
+        //        if (usr == UserName)
+        //        {
+        //            ViewBag.Messaggio = "BENE il cookie corrisponde!";
+        //            //ViewBag.Messaggio = personaggio;
+        //            isAuth = true;
+        //            using (AUTOSDUEntities val = new AUTOSDUEntities())
+        //            {
+        //                Session["Status"] = "";
 
-        //    if (String.IsNullOrEmpty(CercaTarga))
-        //    {
-        //        return View();
-        //    }
-        //    else if (!String.IsNullOrEmpty(CercaTarga))
-        //    {
-        //        var model = new Models.HomeModel();
-        //        var telai = from s in db.AT_ListaPratiche_vw
-        //                    where s.Targa.ToString() == CercaTarga
-        //                    select s;
-        //        model.AT_ListaPratiche_vw = telai.ToList();
-        //        return View("ElencoTelai", model);
+        //                var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA");
+        //                ViewData["Luoghi"] = fromDatabaseEF;
+
+
+        //            }
+
+        //            if (String.IsNullOrEmpty(CercaTarga))
+        //            {
+        //                return View();
+        //            }
+        //            else if (!String.IsNullOrEmpty(CercaTarga))
+        //            {
+        //                string myZone = Session["Zona"].ToString();
+        //                var model = new Models.HomeModel();
+        //                var telai = from s in db.AT_ListaPratiche_vw
+        //                            where s.Targa.ToString() == CercaTarga
+        //                            where s.Trilettera == myZone
+        //                            select s;
+        //                model.AT_ListaPratiche_vw = telai.ToList();
+        //                return View("ElencoTelai", model);
+        //            }
+        //            else
+        //            {
+        //                return View();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            ViewBag.Messaggio = "il cookie contenente lo 'username' non corrisponde allo User della queryString!";
+        //            isAuth = false;
+        //            return View("IncorrectLogin");
+        //        }
+
         //    }
         //    else
         //    {
-        //        return View();
-        //    }
+        //        string UserName = "";
 
-        //    //return RedirectToAction("DoRefresh", "Home");
+        //        string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
+        //        HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
+        //        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
+        //        UserName = ticket.Name; //You have the UserName!
+        //    }
+        //    return View();
+
+
         //}
+
+        public ActionResult Index(string Opt1, string CercaTarga, string SearchLocation)
+        {
+            Session["User"] = "percossi";
+            ViewBag.perito = Session["User"].ToString();
+
+            var myZone = (from s in db.AT_PeritiXZone
+                            where s.UserName.ToString() == "percossi"
+                            select s.ID_zona).FirstOrDefault();
+
+
+
+           Session["Zona"] = myZone;
+
+            using (AUTOSDUEntities val = new AUTOSDUEntities())
+            {
+                Session["Status"] = "";
+
+                var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA");
+                ViewData["Luoghi"] = fromDatabaseEF;
+
+
+            }
+
+            if (String.IsNullOrEmpty(CercaTarga))
+            {
+                return View();
+            }
+            else if (!String.IsNullOrEmpty(CercaTarga))
+            {
+                
+                var model = new Models.HomeModel();
+                var telai = from s in db.AT_ListaPratiche_vw
+                            where s.Targa.ToString() == CercaTarga
+                            where s.Trilettera == myZone
+                            select s;
+                model.AT_ListaPratiche_vw = telai.ToList();
+                return View("ElencoTelai", model);
+            }
+            else
+            {
+                return View();
+            }
+
+            //return RedirectToAction("DoRefresh", "Home");
+        }
 
         public ActionResult DoRefresh(string Opt1, string CercaTarga, string SearchLocation)
         {
@@ -155,16 +175,19 @@ namespace ATManager.Controllers
 
             if (CercaTarga != null && CercaTarga != "")
             {
+                string myZone = Session["Zona"].ToString();
+
                 Session["TipoRicerca"] = "MONO";
                 var IsInserted = (from s in db.AT_ListaPratiche_vw
-                        where s.Targa.ToString() == CercaTarga
-                        select s.Perizie_ID).Count();
+                                  where s.Targa.ToString() == CercaTarga
+                                  select s.Perizie_ID).Count();
                 if (IsInserted > 0)
                 {
                     try
                     {
                         var IsClosed = (from s in db.AT_ListaPratiche_vw
                                         where s.Targa.ToString() == CercaTarga
+                                        where s.Trilettera == myZone
                                         select s.IsCompleted).FirstOrDefault();
                         if (IsClosed.Value == false)
                             Session["Status"] = "FATTE";
@@ -175,8 +198,8 @@ namespace ATManager.Controllers
                     {
                         Session["Status"] = "DA FARE";
                     }
-                    
-                   
+
+
                 }
                 else
                 {
@@ -186,6 +209,7 @@ namespace ATManager.Controllers
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.Targa.ToString() == CercaTarga
+                            where s.Trilettera == myZone
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
                 return View("ElencoTelai", model);
@@ -193,43 +217,46 @@ namespace ATManager.Controllers
 
             else if (Opt1 == "TUTTE")
             {
-
+                string myZone = Session["Zona"].ToString();
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
-                            //where s.ID_LuogoIntervento == SearchLocation
+                            where s.Trilettera == myZone
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
                 return View("ElencoTelai", model);
             }
-           
+
             else if (Opt1 == "DA FARE")
             {
+                string myZone = Session["Zona"].ToString();
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.ID_SchedaTecnica == null
-                            //where s.ID_LuogoIntervento == SearchLocation
+                            where s.Trilettera == myZone
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
                 return View("ElencoTelai", model);
             }
             else if (Opt1 == "FATTE")
             {
+                string myZone = Session["Zona"].ToString();
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.ID_SchedaTecnica != null
                             where s.IsCompleted == false
-                            //where s.ID_LuogoIntervento == SearchLocation
+                            where s.Trilettera == myZone
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
                 return View("ElencoTelai", model);
             }
             else if (Opt1 == "FATTECHIUSE")
             {
+                string myZone = Session["Zona"].ToString();
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.ID_SchedaTecnica != null
                             where s.IsCompleted == true
-                            //where s.ID_LuogoIntervento == SearchLocation
+                            where s.Trilettera == myZone
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
                 return View("ElencoTelai", model);
@@ -348,7 +375,7 @@ namespace ATManager.Controllers
                 // Aggiorno Targa
                 var mySchedaXTarga = from s in db.AT_ListaPratiche_vw
                                where s.Perizie_ID == aT_SchedaTecnica.IDPerizia
-                               select s.PRAT_ID;
+                                     select s.PRAT_ID;
                 int myIDPratica = mySchedaXTarga.ToList().First();
 
                 var sqlTarga = @" UPDATE SDU_Pratiche SET Targa = @Targa WHERE ID = @IDPratica AND 0=0 ";
@@ -376,8 +403,8 @@ namespace ATManager.Controllers
                 if (aT_SchedaTecnica.IsCompleted == true)
                 {
                     var mySchedaStatus = from s in db.AT_ListaPratiche_vw
-                                   where s.Perizie_ID == aT_SchedaTecnica.ID
-                                   select s.Perizie_ID;
+                                         where s.Perizie_ID == aT_SchedaTecnica.ID
+                                         select s.Perizie_ID;
                     int myIDeriziaStatus = mySchedaStatus.FirstOrDefault();
 
                     string myDataUltimaRevisione = txtdataultimarevisione.Substring(6, 4) + txtdataultimarevisione.Substring(0, 2) + txtdataultimarevisione.Substring(3, 2);
@@ -435,7 +462,7 @@ namespace ATManager.Controllers
             var model = new Models.AT_ListaPratiche_vw();
             var myScheda = from s in db.AT_ListaPratiche_vw
                         where s.Perizie_ID == id
-                        select s.Targa;
+                           select s.Targa;
             model.Targa = myScheda.ToList().First();
             return View(model);
         }
@@ -593,8 +620,8 @@ namespace ATManager.Controllers
 
                 var sqlTarga = @" UPDATE SDU_Pratiche SET Targa = @Targa WHERE ID = @IDPratica AND 0=0 ";
                 var mySchedaTarga = from s in db.AT_ListaPratiche_vw
-                                 where s.Perizie_ID == aT_SchedaTecnica.ID
-                                 select s.Perizie_ID;
+                                    where s.Perizie_ID == aT_SchedaTecnica.ID
+                                    select s.Perizie_ID;
                 int myIDeriziaTarga = mySchedaTarga.FirstOrDefault();
                 int noOfRowInsertedTarga = db.Database.ExecuteSqlCommand(sqlTarga,
                         new SqlParameter("@IDPratica", myIDPratica),

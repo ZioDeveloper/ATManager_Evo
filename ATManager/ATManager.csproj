@@ -167,6 +167,9 @@
     <Compile Include="Models\AT_ListaPratiche_vw.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AT_PeritiXZone.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AT_PreventiviDanno.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>

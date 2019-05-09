@@ -55,14 +55,15 @@
         <AssociationConnector Association="AUTOSDUModel.CE420" />
         <AssociationConnector Association="AUTOSDUModel.PS410" />
         <AssociationConnector Association="AUTOSDUModel.CI1135" />
-        <EntityTypeShape EntityType="AUTOSDUModel.Luoghi" Width="1.5" PointX="7.375" PointY="8.75" />
-        <EntityTypeShape EntityType="AUTOSDUModel.Luoghi_vw" Width="1.5" PointX="9.375" PointY="8.75" />
+        <EntityTypeShape EntityType="AUTOSDUModel.Luoghi" Width="1.5" PointX="14" PointY="8.125" />
+        <EntityTypeShape EntityType="AUTOSDUModel.Luoghi_vw" Width="1.5" PointX="9.375" PointY="9.75" />
         <EntityTypeShape EntityType="AUTOSDUModel.AT_PreventiviDanno" Width="1.5" PointX="11.375" PointY="0.875" />
         <AssociationConnector Association="AUTOSDUModel.FK_AT_SchedaTecnica_AT_PreventiviDanno" />
         <EntityTypeShape EntityType="AUTOSDUModel.SDU_documentiPratica" Width="1.5" PointX="13.625" PointY="4" />
         <EntityTypeShape EntityType="AUTOSDUModel.SDU_documentiTipi" Width="1.5" PointX="11.375" PointY="4.375" />
         <AssociationConnector Association="AUTOSDUModel.FK_SDU_documentiPratica_SDU_documentiTipi" />
         <EntityTypeShape EntityType="AUTOSDUModel.SDU_StoricoStatusPerizia" Width="1.5" PointX="11.375" PointY="7.75" />
+        <EntityTypeShape EntityType="AUTOSDUModel.AT_PeritiXZone" Width="1.5" PointX="9.375" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
