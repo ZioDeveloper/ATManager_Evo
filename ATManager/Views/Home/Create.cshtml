@@ -74,7 +74,7 @@
 </style>
 
 
-<h3>Inserimento scheda</h3>
+<h2>Inserimento scheda</h2>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -131,7 +131,7 @@
                     <tr>
                         <td class="azzurrino">Targa</td>
                         @*<td>@ViewBag.targa</td>*@
-                        <td>@ViewBag.targa</td>
+                        <td>@Html.TextBox("txtTarga", (string)ViewBag.targa)</td>
                         <td class="azzurrino">Matricola</td>
                         <td>@ViewBag.matricola</td>
                     </tr>
@@ -143,7 +143,7 @@
                     </tr>
                     <tr>
                         <td class="azzurrino">Km</td>
-                        <td>@ViewBag.km</td>
+                        <td>@Html.TextBox("txtKm", (string)ViewBag.km)</td>
                         <td class="azzurrino">Azienda utilizzatrice</td>
                         <td>&nbsp;</td>
                     </tr>
@@ -684,10 +684,10 @@
                             @Html.DropDownList("IDPreventivoDanno", null, htmlAttributes: new { @class = "form-control" })
                         </div>
                     </div>
-                    <table border="1" style="vertical-align:top;border-collapse:collapse;" cellpadding="1" width="100%" align="center">
+                    <table border="1" style="vertical-align:top;border-collapse:collapse;" cellpadding="1" width="100%" align="left">
                         <tr>
-                            <td style="width:50px" class="azzurro"><div class="testoVerticale">DANNO NOTE </div></td>
-                            <td>@Html.TextAreaFor(model => model.Note_danno, new { style = "width:370px; height:75px;" })</td>
+                            <td style="width:50px" class="giallo"><div class="testoVerticale">DANNO NOTE </div></td>
+                            <td align="left">@Html.TextAreaFor(model => model.Note_danno, new { style = "width:370px; height:75px;"})</td>
                         </tr>
                     </table>
 
@@ -699,7 +699,7 @@
 
     </table>
 
-    <table border="1" style="vertical-align:top;border-collapse:collapse;" cellpadding="1" width="100%" align="center">
+    <table border="1" style="vertical-align:top;border-collapse:collapse;" cellpadding="1" width="100%" align="left">
         <tr>
             <td style="width:50px" class="azzurro"><div class="testoVerticale">SCHEDA NOTE</div></td>
             <td>@Html.TextAreaFor(model => model.Note_generali, new { style = "width:370px; height:75px;" })</td>
