@@ -101,18 +101,20 @@
         </div>
 
     </div>
-
-    <table>
-        <tr>
-            <td>
-                @Html.ActionLink("Inserisci Foto perizia", "FotoPeriziaEdit", new { id = ViewBag.IDPerizia })
-            </td>
-            <td> &nbsp;|| &nbsp; </td>
-            <td>
-                @Html.ActionLink("Inserisci Foto pratica", "FotoPraticaEdit", new { id = ViewBag.IDPerizia })
-            </td>
-        </tr>
-    </table>
+    if (!Model.IsCompleted)
+    {
+        <table>
+            <tr>
+                <td>
+                    @Html.ActionLink("Inserisci Foto perizia", "FotoPeriziaEdit", new { id = ViewBag.IDPerizia })
+                </td>
+                <td> &nbsp;|| &nbsp; </td>
+                <td>
+                    @Html.ActionLink("Inserisci Foto pratica", "FotoPraticaEdit", new { id = ViewBag.IDPerizia })
+                </td>
+            </tr>
+        </table>
+    }
 
     <table class="fontDimensione" width="100%">
         <tr>

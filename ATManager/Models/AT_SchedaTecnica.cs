@@ -14,8 +14,9 @@ namespace ATManager.Models
 
 using System;
     using System.Collections.Generic;
-    
-public partial class AT_SchedaTecnica
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class AT_SchedaTecnica
 {
 
     public int ID { get; set; }
@@ -210,9 +211,17 @@ public partial class AT_SchedaTecnica
 
     public System.DateTime insertTime { get; set; }
 
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if (CE110.Value == 1 && CE112.Value == 1)
+        {
+            yield return new ValidationResult(
+                $"fanculo");
+        }
+    }
 
 
-    public virtual AT_StatiMezzo AT_StatiMezzo { get; set; }
+        public virtual AT_StatiMezzo AT_StatiMezzo { get; set; }
 
     public virtual AT_TipiScheda AT_TipiScheda { get; set; }
 
@@ -305,5 +314,6 @@ public partial class AT_SchedaTecnica
     public virtual AT_PreventiviDanno AT_PreventiviDanno { get; set; }
 
 }
+
 
 }

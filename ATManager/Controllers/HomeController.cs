@@ -959,6 +959,33 @@ namespace ATManager.Controllers
             return View();
         }
 
+        public ActionResult FotoPraticaEdit(int? ID)
+        {
+
+            var model = new Models.HomeModel();
+            var telai = from s in db.AT_ListaPratiche_vw
+                        where s.Perizie_ID.ToString() == ID.ToString()
+                        select s;
+            model.AT_ListaPratiche_vw = telai.ToList();
+
+            ViewBag.SDU_DocTipi = new SelectList(db.SDU_documentiTipi, "ID", "descrizioneDocumento");
+            ViewBag.IDPerizia = ID;
+            ViewBag.targa = telai.FirstOrDefault().Targa;
+            ViewBag.marca = telai.FirstOrDefault().Prod_Descr;
+            ViewBag.dataimmatricolazione = telai.FirstOrDefault().DataImmatricolazione;
+            ViewBag.km = telai.FirstOrDefault().Km;
+            ViewBag.luogoperizia = telai.FirstOrDefault().DescrITA;
+            ViewBag.modello = telai.FirstOrDefault().Mod_Descr;
+            ViewBag.cartacircolazione = telai.FirstOrDefault().CartaCircolazione;
+            ViewBag.matricola = telai.FirstOrDefault().Matricola;
+
+            ViewBag.telaio = telai.FirstOrDefault().Chassis1 + telai.FirstOrDefault().Chassis2;
+            ViewBag.dataultimarevisione = telai.FirstOrDefault().DataUltimaRevisione;
+            ViewBag.aziendautilizzatrice = telai.FirstOrDefault().DescrizioneAzienda;
+            ViewBag.blocked = "NO";
+            return View();
+        }
+
 
 
         public ActionResult UploadFotoPerizia(IEnumerable<HttpPostedFileBase> files, int? ID ,string marca, string targa, string dataimmatricolazione, string km,
