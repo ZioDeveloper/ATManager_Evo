@@ -48,10 +48,25 @@
     <p></p><p></p>
     <table border="0">
         <tr>
-            <td >
-                Targa : @Html.TextBox("CercaTarga", null, new { style = "width:80px" })
+            <td>
+                Targa : &nbsp;&nbsp;&nbsp;&nbsp; @Html.TextBox("CercaTarga", null, new { style = "width:80px" })
                 @Html.ValidationMessage("CercaTarga")
-                <input type="submit" value="Cerca targa" />
+                <input type="submit" value="Cerca x targa" />
+            </td>
+
+            
+        </tr>
+        <tr>
+            <td>
+-
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+                Matricola : @Html.TextBox("CercaMatricola", null, new { style = "width:80px" })
+                @Html.ValidationMessage("CercaMatricola")
+                <input type="submit" value="Cerca x matricola" />
             </td>
         </tr>
         <tr>

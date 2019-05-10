@@ -96,6 +96,10 @@ public partial class AT_ListaPratiche_vw
 
     public string Trilettera { get; set; }
 
+    public Nullable<int> ID_AziendaUtilizzatrice { get; set; }
+
+    public string DescrizioneAzienda { get; set; }
+
 }
 
 }

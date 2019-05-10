@@ -247,6 +247,8 @@ warning 6002: The table/view 'AUTOSDU.dbo.AT_ListaPratiche_vw' does not have a p
           <Property Name="Matricola" Type="varchar" MaxLength="500" />
           <Property Name="DataUltimaRevisione" Type="datetime" />
           <Property Name="Trilettera" Type="varchar" MaxLength="3" />
+          <Property Name="ID_AziendaUtilizzatrice" Type="int" />
+          <Property Name="DescrizioneAzienda" Type="varchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -849,7 +851,9 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
     [AT_ListaPratiche_vw].[CartaCircolazione] AS [CartaCircolazione], 
     [AT_ListaPratiche_vw].[Matricola] AS [Matricola], 
     [AT_ListaPratiche_vw].[DataUltimaRevisione] AS [DataUltimaRevisione], 
-    [AT_ListaPratiche_vw].[Trilettera] AS [Trilettera]
+    [AT_ListaPratiche_vw].[Trilettera] AS [Trilettera], 
+    [AT_ListaPratiche_vw].[ID_AziendaUtilizzatrice] AS [ID_AziendaUtilizzatrice], 
+    [AT_ListaPratiche_vw].[DescrizioneAzienda] AS [DescrizioneAzienda]
     FROM [dbo].[AT_ListaPratiche_vw] AS [AT_ListaPratiche_vw]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Luoghi_vw" EntityType="Self.Luoghi_vw" store:Type="Views" store:Schema="dbo">
@@ -1526,6 +1530,8 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <Property Name="Matricola" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="DataUltimaRevisione" Type="DateTime" Precision="3" />
           <Property Name="Trilettera" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="ID_AziendaUtilizzatrice" Type="Int32" />
+          <Property Name="DescrizioneAzienda" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="CE110">
           <End Type="AUTOSDUModel.AT_IndiciValutazione" Role="AT_IndiciValutazione" Multiplicity="0..1" />
@@ -2284,6 +2290,8 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <EntitySetMapping Name="AT_ListaPratiche_vw">
             <EntityTypeMapping TypeName="AUTOSDUModel.AT_ListaPratiche_vw">
               <MappingFragment StoreEntitySet="AT_ListaPratiche_vw">
+                <ScalarProperty Name="DescrizioneAzienda" ColumnName="DescrizioneAzienda" />
+                <ScalarProperty Name="ID_AziendaUtilizzatrice" ColumnName="ID_AziendaUtilizzatrice" />
                 <ScalarProperty Name="Trilettera" ColumnName="Trilettera" />
                 <ScalarProperty Name="DataUltimaRevisione" ColumnName="DataUltimaRevisione" />
                 <ScalarProperty Name="Matricola" ColumnName="Matricola" />

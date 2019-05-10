@@ -18,7 +18,7 @@ namespace ATManager.Controllers
 
 
         private AUTOSDUEntities db = new AUTOSDUEntities();
-        //public ActionResult Index(string usr, string Opt1, string CercaTarga, string SearchLocation)
+        //public ActionResult Index(string usr, string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
         //{
 
         //    if (usr != null)
@@ -26,12 +26,30 @@ namespace ATManager.Controllers
         //    if (usr == null)
         //        usr = Session["User"].ToString();
 
-        //var myZone = (from s in db.AT_PeritiXZone
-        //              where s.UserName.ToString() == "percossi"
-        //              select s.ID_zona).FirstOrDefault();
+            
+        //    ViewBag.perito = Session["User"].ToString();
 
+        //    var myZone = (from s in db.AT_PeritiXZone
+        //                  where s.UserName.ToString() == "percossi"
+        //                  select s.ID_zona).FirstOrDefault();
 
-        //Session["Zona"] = myZone;
+        //    var myNome = (from s in db.AT_PeritiXZone
+        //                  where s.UserName.ToString() == "percossi"
+        //                  select s.Nome).FirstOrDefault();
+
+        //    var myCognome = (from s in db.AT_PeritiXZone
+        //                     where s.UserName.ToString() == "percossi"
+        //                     select s.Cognome).FirstOrDefault();
+
+        //    var myIDPErito = (from s in db.AT_PeritiXZone
+        //                      where s.UserName.ToString() == "percossi"
+        //                      select s.ID_Perito).FirstOrDefault();
+
+        //    ViewBag.nome = myNome;
+        //    ViewBag.cognome = myCognome;
+
+        //    Session["Zona"] = myZone;
+        //    Session["IDPErito"] = myIDPErito;
 
         //    bool isAuth = false;
 
@@ -60,13 +78,29 @@ namespace ATManager.Controllers
 
         //            }
 
+        //            if (String.IsNullOrEmpty(CercaMatricola))
+        //            {
+        //                return View();
+        //            }
+        //            else
+        //            {
+        //                var model = new Models.HomeModel();
+        //                var telai = from s in db.AT_ListaPratiche_vw
+        //                            where s.Matricola.ToString() == CercaMatricola
+        //                            where s.Trilettera == myZone
+        //                            select s;
+        //                model.AT_ListaPratiche_vw = telai.ToList();
+        //                return View("ElencoTelai", model);
+        //            }
+
+
         //            if (String.IsNullOrEmpty(CercaTarga))
         //            {
         //                return View();
         //            }
         //            else if (!String.IsNullOrEmpty(CercaTarga))
         //            {
-        //                string myZone = Session["Zona"].ToString();
+        //                //string myZone = Session["Zona"].ToString();
         //                var model = new Models.HomeModel();
         //                var telai = from s in db.AT_ListaPratiche_vw
         //                            where s.Targa.ToString() == CercaTarga
@@ -102,27 +136,32 @@ namespace ATManager.Controllers
 
         //}
 
-        public ActionResult Index(string Opt1, string CercaTarga, string SearchLocation)
+        public ActionResult Index(string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
         {
             Session["User"] = "percossi";
             ViewBag.perito = Session["User"].ToString();
 
             var myZone = (from s in db.AT_PeritiXZone
-                            where s.UserName.ToString() == "percossi"
-                            select s.ID_zona).FirstOrDefault();
+                          where s.UserName.ToString() == "percossi"
+                          select s.ID_zona).FirstOrDefault();
 
             var myNome = (from s in db.AT_PeritiXZone
                           where s.UserName.ToString() == "percossi"
                           select s.Nome).FirstOrDefault();
 
             var myCognome = (from s in db.AT_PeritiXZone
-                          where s.UserName.ToString() == "percossi"
-                          select s.Cognome).FirstOrDefault();
+                             where s.UserName.ToString() == "percossi"
+                             select s.Cognome).FirstOrDefault();
+
+            var myIDPErito = (from s in db.AT_PeritiXZone
+                              where s.UserName.ToString() == "percossi"
+                              select s.ID_Perito).FirstOrDefault();
 
             ViewBag.nome = myNome;
             ViewBag.cognome = myCognome;
 
             Session["Zona"] = myZone;
+            Session["IDPErito"] = myIDPErito;
 
             using (AUTOSDUEntities val = new AUTOSDUEntities())
             {
@@ -136,11 +175,24 @@ namespace ATManager.Controllers
 
             if (String.IsNullOrEmpty(CercaTarga))
             {
-                return View();
+                if (String.IsNullOrEmpty(CercaMatricola))
+                {
+                    return View();
+                }
+                else
+                {
+                    var model = new Models.HomeModel();
+                    var telai = from s in db.AT_ListaPratiche_vw
+                                where s.Matricola.ToString() == CercaMatricola
+                                where s.Trilettera == myZone
+                                select s;
+                    model.AT_ListaPratiche_vw = telai.ToList();
+                    return View("ElencoTelai", model);
+                }
             }
             else if (!String.IsNullOrEmpty(CercaTarga))
             {
-                
+
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.Targa.ToString() == CercaTarga
@@ -157,7 +209,7 @@ namespace ATManager.Controllers
             //return RedirectToAction("DoRefresh", "Home");
         }
 
-        public ActionResult DoRefresh(string Opt1, string CercaTarga, string SearchLocation)
+        public ActionResult DoRefresh(string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
         {
 
             //string UserName = "";
@@ -166,6 +218,8 @@ namespace ATManager.Controllers
             //HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
             //FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
             //UserName = ticket.Name; //You have the UserName!
+
+
 
             if (Opt1 != null)
                 Session["Status"] = Opt1;
@@ -180,6 +234,50 @@ namespace ATManager.Controllers
                 ViewData["Luoghi"] = fromDatabaseEF;
 
 
+            }
+
+           
+
+            if (!String.IsNullOrEmpty(CercaMatricola))
+            {
+                string myZone = Session["Zona"].ToString();
+
+                Session["TipoRicerca"] = "MONO";
+                var IsInserted = (from s in db.AT_ListaPratiche_vw
+                                  where s.Matricola.ToString() == CercaMatricola
+                                  select s.Perizie_ID).Count();
+                if (IsInserted > 0)
+                {
+                    try
+                    {
+                        var IsClosed = (from s in db.AT_ListaPratiche_vw
+                                        where s.Matricola.ToString() == CercaMatricola
+                                        where s.Trilettera == myZone
+                                        select s.IsCompleted).FirstOrDefault();
+                        if (IsClosed.Value == false)
+                            Session["Status"] = "FATTE";
+                        else
+                            Session["Status"] = "FATTECHIUSE";
+                    }
+                    catch
+                    {
+                        Session["Status"] = "DA FARE";
+                    }
+
+
+                }
+                else
+                {
+                    Session["Status"] = "DA FARE";
+                }
+
+                var model = new Models.HomeModel();
+                var telai = from s in db.AT_ListaPratiche_vw
+                            where s.Matricola.ToString() == CercaMatricola
+                            where s.Trilettera == myZone
+                            select s;
+                model.AT_ListaPratiche_vw = telai.ToList();
+                return View("ElencoTelai", model);
             }
 
             if (CercaTarga != null && CercaTarga != "")
@@ -316,7 +414,7 @@ namespace ATManager.Controllers
 
         public ActionResult Create(string ID, string marca, string dataperizia, 
                                     string targa,string dataimmatricolazione,string km,
-                                    string luogoperizia,string modello, string cartacircolazione,string matricola,string telaio,string dataultimarevisione)
+                                    string luogoperizia,string modello, string cartacircolazione,string matricola,string telaio,string dataultimarevisione, string aziendautilizzatrice)
         {
 
             if (ID == null)
@@ -350,6 +448,7 @@ namespace ATManager.Controllers
             ViewBag.modello = modello;
             ViewBag.matricola = matricola;
             ViewBag.telaio = telaio;
+            ViewBag.aziendautilizzatrice = aziendautilizzatrice;
 
             if (!string.IsNullOrEmpty(dataultimarevisione))
             {
@@ -416,7 +515,7 @@ namespace ATManager.Controllers
                                          select s.Perizie_ID;
                     int myIDeriziaStatus = mySchedaStatus.FirstOrDefault();
 
-                    string myDataUltimaRevisione = txtdataultimarevisione.Substring(6, 4) + txtdataultimarevisione.Substring(0, 2) + txtdataultimarevisione.Substring(3, 2);
+                    //string myDataUltimaRevisione = txtdataultimarevisione.Substring(6, 4) + txtdataultimarevisione.Substring(0, 2) + txtdataultimarevisione.Substring(3, 2);
 
                     var p1 = new SqlParameter("@login", Session["User"]);
                     var p2 = new SqlParameter("@ID_perizia", myIDeriziaStatus);
@@ -425,6 +524,25 @@ namespace ATManager.Controllers
                     var p5 = new SqlParameter("@Note", "");
                     
                     int noOfRowInserted = db.Database.ExecuteSqlCommand("EXEC sp_InsertStatus {0}, {1}, {2}, {3} , {4}", p1.Value, p2.Value, p3.Value, p4.Value , p5.Value);
+
+                    // Aggiorno IDPerito Scheda
+                    string myIDPerito = Session["IDPErito"].ToString();
+
+                    var sqlperito = @" UPDATE SDU_PERIZIE SET ID_Perito = @ID_Perito WHERE ID = @ID_perizia AND 0=0 ";
+                    var mySchedaperito = from s in db.AT_ListaPratiche_vw
+                                     where s.Perizie_ID == aT_SchedaTecnica.ID
+                                     select s.Perizie_ID;
+                    int myIDeriziaperito = mySchedaperito.FirstOrDefault();
+                    int noOfRowInsertedperito = db.Database.ExecuteSqlCommand(sqlperito,
+                            new SqlParameter("@ID_perizia", myIDeriziaperito),
+                            new SqlParameter("@ID_Perito", myIDPerito));
+
+                    // Aggiorno IDPerito Pratica
+                    var sqllink = @" UPDATE SDU_Link_Pratica_Periti_Incarico SET IDPerito = @IDPerito WHERE ID = @ID_perizia AND 0=0 ";
+                    
+                    int noOfRowInsertedlink = db.Database.ExecuteSqlCommand(sqllink,
+                            new SqlParameter("@ID_perizia", myIDeriziaperito),
+                            new SqlParameter("@IDPerito", myIDPerito));
 
 
                 }
@@ -493,7 +611,8 @@ namespace ATManager.Controllers
 
         public ActionResult Edit(string id, string marca, string dataperizia,
                                     string targa, string dataimmatricolazione, string km,
-                                    string luogoperizia, string modello, string cartacircolazione, string matricola, string telaio, string dataultimarevisione, string blocked)
+                                    string luogoperizia, string modello, string cartacircolazione, string matricola, string telaio, 
+                                    string dataultimarevisione, string blocked, string aziendautilizzatrice)
         {
             if (id == null)
             {
@@ -533,7 +652,9 @@ namespace ATManager.Controllers
             ViewBag.modello = modello;
             ViewBag.matricola = matricola;
             ViewBag.telaio = telaio;
-           if (!string.IsNullOrEmpty(dataultimarevisione))
+            ViewBag.aziendautilizzatrice = aziendautilizzatrice;
+
+            if (!string.IsNullOrEmpty(dataultimarevisione))
             {
                 tmpDate = DateTime.ParseExact(dataultimarevisione, "MM/dd/yyyy hh:mm:ss", null);
                 ViewBag.dataultimarevisione = tmpDate.ToString("dd/MM/yyyy"); 
@@ -652,6 +773,26 @@ namespace ATManager.Controllers
                 // Aggiorno ultimo status
                 if (aT_SchedaTecnica.IsCompleted == true)
                 {
+
+                    // Aggiorno IDPerito Scheda
+                    string myIDPerito = Session["IDPErito"].ToString();
+
+                    var sqlperito = @" UPDATE SDU_PERIZIE SET ID_Perito = @ID_Perito WHERE ID = @ID_perizia AND 0=0 ";
+                    var mySchedaperito = from s in db.AT_ListaPratiche_vw
+                                         where s.Perizie_ID == aT_SchedaTecnica.ID
+                                         select s.Perizie_ID;
+                    int myIDeriziaperito = mySchedaperito.FirstOrDefault();
+                    int noOfRowInsertedperito = db.Database.ExecuteSqlCommand(sqlperito,
+                            new SqlParameter("@ID_perizia", myIDeriziaperito),
+                            new SqlParameter("@ID_Perito", myIDPerito));
+
+                    // Aggiorno IDPerito Pratica
+                    var sqllink = @" UPDATE SDU_Link_Pratica_Periti_Incarico SET IDPerito = @IDPerito WHERE ID_perizia = @ID_perizia AND 0=0 ";
+
+                    int noOfRowInsertedlink = db.Database.ExecuteSqlCommand(sqllink,
+                            new SqlParameter("@ID_perizia", myIDeriziaperito),
+                            new SqlParameter("@IDPerito", myIDPerito));
+
                     var mySchedaStatus = from s in db.AT_ListaPratiche_vw
                                          where s.Perizie_ID == aT_SchedaTecnica.ID
                                          select s.Perizie_ID;
@@ -746,7 +887,48 @@ namespace ATManager.Controllers
 
         public ActionResult FotoPerizia(int? ID)
         {
+            var model = new Models.HomeModel();
+            var telai = from s in db.AT_ListaPratiche_vw
+                        where s.Perizie_ID.ToString() == ID.ToString()
+                        select s;
+            model.AT_ListaPratiche_vw = telai.ToList();
+            ViewBag.targa = telai.FirstOrDefault().Targa;
+            ViewBag.marca = telai.FirstOrDefault().Prod_Descr;
+            ViewBag.dataimmatricolazione = telai.FirstOrDefault().DataImmatricolazione;
+            ViewBag.km = telai.FirstOrDefault().Km;
+            ViewBag.luogoperizia = telai.FirstOrDefault().DescrITA;
+            ViewBag.modello = telai.FirstOrDefault().Mod_Descr;
+            ViewBag.cartacircolazione = telai.FirstOrDefault().CartaCircolazione;
+            ViewBag.matricola = telai.FirstOrDefault().Matricola;
 
+            ViewBag.telaio = telai.FirstOrDefault().Chassis1 + telai.FirstOrDefault().Chassis2;
+            ViewBag.dataultimarevisione = telai.FirstOrDefault().DataUltimaRevisione;
+            ViewBag.aziendautilizzatrice = telai.FirstOrDefault().DescrizioneAzienda;
+
+            ViewBag.IDPerizia = ID;
+            return View();
+        }
+
+        public ActionResult FotoPeriziaEdit(int? ID)
+        {
+            var model = new Models.HomeModel();
+            var telai = from s in db.AT_ListaPratiche_vw
+                        where s.Perizie_ID.ToString() == ID.ToString()
+                        select s;
+            model.AT_ListaPratiche_vw = telai.ToList();
+            ViewBag.targa = telai.FirstOrDefault().Targa;
+            ViewBag.marca = telai.FirstOrDefault().Prod_Descr;
+            ViewBag.dataimmatricolazione = telai.FirstOrDefault().DataImmatricolazione;
+            ViewBag.km = telai.FirstOrDefault().Km;
+            ViewBag.luogoperizia = telai.FirstOrDefault().DescrITA;
+            ViewBag.modello = telai.FirstOrDefault().Mod_Descr;
+            ViewBag.cartacircolazione = telai.FirstOrDefault().CartaCircolazione;
+            ViewBag.matricola = telai.FirstOrDefault().Matricola;
+
+            ViewBag.telaio = telai.FirstOrDefault().Chassis1 + telai.FirstOrDefault().Chassis2;
+            ViewBag.dataultimarevisione = telai.FirstOrDefault().DataUltimaRevisione;
+            ViewBag.aziendautilizzatrice = telai.FirstOrDefault().DescrizioneAzienda;
+            ViewBag.blocked = "NO";
             ViewBag.IDPerizia = ID;
             return View();
         }
@@ -754,14 +936,34 @@ namespace ATManager.Controllers
         public ActionResult FotoPratica(int? ID)
         {
 
+            var model = new Models.HomeModel();
+            var telai = from s in db.AT_ListaPratiche_vw
+                        where s.Perizie_ID.ToString() == ID.ToString()
+                        select s;
+            model.AT_ListaPratiche_vw = telai.ToList();
+
             ViewBag.SDU_DocTipi = new SelectList(db.SDU_documentiTipi, "ID", "descrizioneDocumento");
             ViewBag.IDPerizia = ID;
+            ViewBag.targa = telai.FirstOrDefault().Targa;
+            ViewBag.marca = telai.FirstOrDefault().Prod_Descr;
+            ViewBag.dataimmatricolazione = telai.FirstOrDefault().DataImmatricolazione;
+            ViewBag.km = telai.FirstOrDefault().Km;
+            ViewBag.luogoperizia = telai.FirstOrDefault().DescrITA;
+            ViewBag.modello = telai.FirstOrDefault().Mod_Descr;
+            ViewBag.cartacircolazione = telai.FirstOrDefault().CartaCircolazione;
+            ViewBag.matricola = telai.FirstOrDefault().Matricola;
+
+            ViewBag.telaio = telai.FirstOrDefault().Chassis1 + telai.FirstOrDefault().Chassis2;
+            ViewBag.dataultimarevisione = telai.FirstOrDefault().DataUltimaRevisione;
+            ViewBag.aziendautilizzatrice = telai.FirstOrDefault().DescrizioneAzienda;
             return View();
         }
 
 
 
-        public ActionResult UploadFotoPerizia(IEnumerable<HttpPostedFileBase> files, int? ID)
+        public ActionResult UploadFotoPerizia(IEnumerable<HttpPostedFileBase> files, int? ID ,string marca, string targa, string dataimmatricolazione, string km,
+                                              string luogoperizia, string modello, string cartacircolazione, string matricola, string telaio ,
+                                              string dataultimarevisione, string aziendautilizzatrice)
         {
 
           
@@ -812,12 +1014,101 @@ namespace ATManager.Controllers
                         select s;
             model.AT_ListaPratiche_vw = telai.ToList();
 
-            return View("ElencoTelai",model);
+            return RedirectToAction("Create", "Home", new
+            {
+                ID,
+                marca,
+                targa,
+                km,
+                luogoperizia,
+                modello,
+                cartacircolazione,
+                matricola,
+                telaio,
+                dataultimarevisione,
+                aziendautilizzatrice
+            });
+
 
                                                           
         }
 
-        public ActionResult UploadFotoPratica(IEnumerable<HttpPostedFileBase> files, int? ID , FormCollection form)
+        public ActionResult UploadFotoPeriziaEdit(IEnumerable<HttpPostedFileBase> files, int? ID, string marca, string targa, string dataimmatricolazione, string km,
+                                              string luogoperizia, string modello, string cartacircolazione, string matricola, string telaio,
+                                              string dataultimarevisione, string aziendautilizzatrice, string blocked)
+        {
+
+
+
+            string path = "";
+            //var model = new Models.AT_ListaPratiche_vw();
+            var myScheda = from s in db.AT_ListaPratiche_vw
+                           where s.Perizie_ID == ID
+                           select s.Perizie_Barcode;
+            string myBarcode = myScheda.ToList().First();
+
+            var myScheda2 = from s in db.AT_ListaPratiche_vw
+                            where s.Perizie_ID == ID
+                            select s.Targa;
+            string myTarga = myScheda2.ToList().First();
+
+
+            string myDate = DateTime.Now.Year.ToString("0000") +
+                            DateTime.Now.Month.ToString("00") +
+                            DateTime.Now.Day.ToString("00") +
+                            DateTime.Now.Hour.ToString("00") +
+                            DateTime.Now.Minute.ToString("00") +
+                            DateTime.Now.Second.ToString("00");
+
+            //string fullPath = Request.MapPath("~/UploadedFiles/" + picName);
+
+            foreach (var file in files)
+            {
+                int fileCount = (from filecnt in Directory.EnumerateFiles(Request.MapPath(@"~\FotoPerizia"), myBarcode + "*.*", SearchOption.AllDirectories)
+                                 select file).Count();
+
+                path = System.IO.Path.Combine(Request.MapPath(@"~\FotoPerizia"), myBarcode + "_" +
+                                                                        myTarga + "_" +
+                                                                        fileCount.ToString("000") + "_" +
+                                                                        System.IO.Path.GetExtension(file.FileName));
+                if (file != null)
+                {
+                    file.SaveAs(path);
+                }
+
+
+
+            }
+
+            var model = new Models.HomeModel();
+            var telai = from s in db.AT_ListaPratiche_vw
+                        where s.Perizie_ID == ID
+                        select s;
+            model.AT_ListaPratiche_vw = telai.ToList();
+
+            return RedirectToAction("Edit", "Home", new
+            {
+                ID,
+                marca,
+                targa,
+                km,
+                luogoperizia,
+                modello,
+                cartacircolazione,
+                matricola,
+                telaio,
+                dataultimarevisione,
+                aziendautilizzatrice,
+                blocked
+            });
+
+
+
+        }
+
+        public ActionResult UploadFotoPratica(IEnumerable<HttpPostedFileBase> files, int? ID , FormCollection form,  string marca, string targa, string dataimmatricolazione, string km,
+                                              string luogoperizia, string modello, string cartacircolazione, string matricola, string telaio,
+                                              string dataultimarevisione, string aziendautilizzatrice)
         {
 
             string path = "";
@@ -866,7 +1157,89 @@ namespace ATManager.Controllers
             }
 
 
-            return RedirectToAction("Create", "Home", ID);
+            return RedirectToAction("Create", "Home", new
+            {
+                ID,
+                marca,
+                targa,
+                km,
+                luogoperizia,
+                modello,
+                cartacircolazione,
+                matricola,
+                telaio,
+                dataultimarevisione,
+                aziendautilizzatrice
+            });
+            //return RedirectToAction("DoRefresh", "Home");
+        }
+
+        public ActionResult UploadFotoPraticaEdit(IEnumerable<HttpPostedFileBase> files, int? ID, FormCollection form, string marca, string targa, string dataimmatricolazione, string km,
+                                              string luogoperizia, string modello, string cartacircolazione, string matricola, string telaio,
+                                              string dataultimarevisione, string aziendautilizzatrice,string blocked)
+        {
+
+            string path = "";
+            string myIDTipoDoc = form["SDU_DocTipi"].ToString();
+
+            var model = new Models.AT_ListaPratiche_vw();
+            var myScheda = from s in db.AT_ListaPratiche_vw
+                           where s.Perizie_ID == ID
+                           select s.PRAT_ID;
+            int IDPratica = myScheda.ToList().First();
+            string myDate = DateTime.Now.Year.ToString("0000") +
+                            DateTime.Now.Month.ToString("00") +
+                            DateTime.Now.Day.ToString("00") +
+                            DateTime.Now.Hour.ToString("00") +
+                            DateTime.Now.Minute.ToString("00") +
+                            DateTime.Now.Second.ToString("00");
+
+            foreach (var file in files)
+            {
+
+                int fileCount = (from filecnt in Directory.EnumerateFiles(Request.MapPath(@"~\FotoPratica"), IDPratica + "*.*", SearchOption.AllDirectories)
+                                 select file).Count();
+                fileCount++;
+
+                path = System.IO.Path.Combine(Request.MapPath(@"~\FotoPratica"), IDPratica + "_" +
+                                                                        myDate + "_" +
+                                                                        fileCount.ToString("000") + "_" +
+                                                                        myIDTipoDoc +
+                                                                        System.IO.Path.GetExtension(file.FileName));
+
+
+
+                if (file != null)
+                {
+                    file.SaveAs(path);
+                }
+
+                var sql = @"INSERT INTO SDU_documentiPratica (ID_pratica, ID_tipoDocumento,percorsoFile) Values (@ID_pratica, 
+                                                                                                                 @ID_tipoDocumento, 
+                                                                                                                 @percorsoFile)";
+                int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
+                    new SqlParameter("@ID_pratica", IDPratica),
+                    new SqlParameter("@ID_tipoDocumento", myIDTipoDoc),
+                    new SqlParameter("@percorsoFile", path));
+
+            }
+
+
+            return RedirectToAction("Edit", "Home", new
+            {
+                ID,
+                marca,
+                targa,
+                km,
+                luogoperizia,
+                modello,
+                cartacircolazione,
+                matricola,
+                telaio,
+                dataultimarevisione,
+                aziendautilizzatrice,
+                blocked
+            });
             //return RedirectToAction("DoRefresh", "Home");
         }
 

@@ -102,6 +102,17 @@
 
     </div>
 
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("Inserisci Foto perizia", "FotoPeriziaEdit", new { id = ViewBag.IDPerizia })
+            </td>
+            <td> &nbsp;|| &nbsp; </td>
+            <td>
+                @Html.ActionLink("Inserisci Foto pratica", "FotoPraticaEdit", new { id = ViewBag.IDPerizia })
+            </td>
+        </tr>
+    </table>
 
     <table class="fontDimensione" width="100%">
         <tr>
@@ -141,7 +152,7 @@
                         <td class="azzurrino">Km</td>
                         <td>@Html.TextBox("txtKm", (string)ViewBag.km)</td>
                         <td class="azzurrino">Azienda utilizzatrice</td>
-                        <td>&nbsp;</td>
+                        <td>@ViewBag.aziendautilizzatrice</td>
                     </tr>
                     <tr>
                         <td class="azzurrino">Carta di circolazione </td>
@@ -687,7 +698,7 @@
 
     </table>
 
-    <table border="1" >
+    <table border="1">
         <tr>
             <td style="width:50px" class="azzurro"><div class="testoVerticale">SCHEDA NOTE</div></td>
             <td align="left" width="600px">@Html.TextAreaFor(model => model.Note_generali, new { style = "width:370px; height:75px;" })</td>
@@ -712,7 +723,7 @@
     {
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Salva" class="btn btn-default"  />
+                <input type="submit" value="Salva" class="btn btn-default" />
                 <font color="red">Scheda Chiusa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
                 @Html.EditorFor(model => model.IsCompleted)
                 @Html.ValidationMessageFor(model => model.IsCompleted, "", new { @class = "text-danger" })

@@ -7,7 +7,7 @@
 <h2>Foto legate alla pratica</h2>
 <br />
 <br />
-@using (Html.BeginForm("UploadFotoPratica", "Home", new 
+@using (Html.BeginForm("UploadFotoPratica", "Home", new
 {
     ID = ViewBag.IDPerizia,
     ViewBag.marca,
@@ -20,7 +20,8 @@
     ViewBag.matricola,
     ViewBag.telaio,
     ViewBag.dataultimarevisione,
-    ViewBag.aziendautilizzatrice
+    ViewBag.aziendautilizzatrice,
+    ViewBag.blocked
 }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 
@@ -37,4 +38,3 @@
         <input type="submit" value="UploadFotoPratica" class="submit" />
     </div>
 }
-

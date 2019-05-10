@@ -1,13 +1,10 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "FotoPerizia";
 }
-
 <h2>Foto legate alla perizia</h2>
-
 <br />
 <br />
-@using (Html.BeginForm("UploadFotoPerizia", "Home", new
+@using (Html.BeginForm("UploadFotoPeriziaEdit", "Home", new
 {
     ID = ViewBag.IDPerizia,
     ViewBag.marca,
@@ -20,8 +17,9 @@
     ViewBag.matricola,
     ViewBag.telaio,
     ViewBag.dataultimarevisione,
-    ViewBag.aziendautilizzatrice
-}, FormMethod.Post, new { enctype = "multipart/form-data"}))
+    ViewBag.aziendautilizzatrice,
+    ViewBag.blocked 
+}, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <label for="file">Upload Image:</label>
     <input type="file" name="files[0]" id="files_0" />
