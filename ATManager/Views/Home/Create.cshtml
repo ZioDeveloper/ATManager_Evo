@@ -84,6 +84,8 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
+
+
     <div style="display:none">
 
         <div class="form-group">
@@ -732,7 +734,8 @@
             @Html.ValidationMessageFor(model => model.IsCompleted, "", new { @class = "text-danger" })
         </div>
     </div>
-
-
-    }
+}
+    <div>
+        @Html.ActionLink("Torna a lista telai...", "DoRefresh")
+    </div>
 

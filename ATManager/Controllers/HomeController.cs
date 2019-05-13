@@ -18,6 +18,7 @@ namespace ATManager.Controllers
 
 
         private AUTOSDUEntities db = new AUTOSDUEntities();
+
         //public ActionResult Index(string usr, string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
         //{
 
@@ -414,7 +415,8 @@ namespace ATManager.Controllers
 
         public ActionResult Create(string ID, string marca, string dataperizia, 
                                     string targa,string dataimmatricolazione,string km,
-                                    string luogoperizia,string modello, string cartacircolazione,string matricola,string telaio,string dataultimarevisione, string aziendautilizzatrice)
+                                    string luogoperizia,string modello, string cartacircolazione,string matricola,string telaio,
+                                    string dataultimarevisione, string aziendautilizzatrice)
         {
 
             if (ID == null)
@@ -457,7 +459,15 @@ namespace ATManager.Controllers
             }
             else
             {
-                ViewBag.dataultimarevisione = dataultimarevisione; }
+                ViewBag.dataultimarevisione = dataultimarevisione;
+            }
+
+            var myScheda = (from s in db.AT_ListaPratiche_vw
+                              where s.Perizie_ID.ToString() == ID
+                                select s.CartaCircolazione).FirstOrDefault();
+            ViewBag.cartacircolazione = myScheda.ToString();
+
+            
 
             ViewBag.IDTipoScheda = new SelectList(db.AT_TipiScheda, "ID", "Descr");
             ViewBag.IDStatoMezzo = new SelectList(db.AT_StatiMezzo, "ID", "Descr");
@@ -465,6 +475,14 @@ namespace ATManager.Controllers
 
             return View();
         }
+
+        public string CompileErrorMessage(string aFiled)
+        {
+            string myMessage = "Campo " + aFiled + ", selezionare un valore";
+
+            return myMessage;
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -475,7 +493,59 @@ namespace ATManager.Controllers
                                                    "Note_danno, Note_generali")] AT_SchedaTecnica aT_SchedaTecnica,string txtdataultimarevisione,string txtTarga, string txtKm)
         {
 
+            if (aT_SchedaTecnica.CE110 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE110", CompileErrorMessage("CE110"));
 
+            if (aT_SchedaTecnica.CE112 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE112", CompileErrorMessage("CE112"));
+
+            if (aT_SchedaTecnica.CE115 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE115", CompileErrorMessage("CE115"));
+
+            if (aT_SchedaTecnica.CE840 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE840", CompileErrorMessage("CE840"));
+
+            if (aT_SchedaTecnica.CE841 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE841", CompileErrorMessage("CE841"));
+
+            if (aT_SchedaTecnica.CE842 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE842", CompileErrorMessage("CE842"));
+
+            if (aT_SchedaTecnica.CE843 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE843", CompileErrorMessage("CE843"));
+
+            if (aT_SchedaTecnica.CE816 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE816", CompileErrorMessage("CE816"));
+
+            if (aT_SchedaTecnica.CE265 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE265", CompileErrorMessage("CE265"));
+
+            if (aT_SchedaTecnica.CE135 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE135", CompileErrorMessage("CE135"));
+
+            if (aT_SchedaTecnica.CE160 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE160", CompileErrorMessage("CE160"));
+
+            if (aT_SchedaTecnica.CE145 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE145", CompileErrorMessage("CE145"));
+
+            if (aT_SchedaTecnica.CE150 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE150", CompileErrorMessage("CE150"));
+
+            if (aT_SchedaTecnica.CI820 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CI820", CompileErrorMessage("CI820"));
+
+            if (aT_SchedaTecnica.CI825 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CI825", CompileErrorMessage("CI825"));
+
+            if (aT_SchedaTecnica.CI835 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CI835", CompileErrorMessage("CI835"));
+
+            if (aT_SchedaTecnica.CI837 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CI837", CompileErrorMessage("CI837"));
+
+            if (aT_SchedaTecnica.CI1135 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CI1135", CompileErrorMessage("CI1135"));
 
             if (ModelState.IsValid)
             {
@@ -653,6 +723,15 @@ namespace ATManager.Controllers
             ViewBag.matricola = matricola;
             ViewBag.telaio = telaio;
             ViewBag.aziendautilizzatrice = aziendautilizzatrice;
+
+            
+            ViewBag.cartacircolazione = myScheda.ToString();
+
+            var mySchedacc = (from s in db.AT_ListaPratiche_vw
+                            where s.Perizie_ID.ToString() == id
+                            select s.CartaCircolazione).FirstOrDefault();
+            ViewBag.cartacircolazione = mySchedacc.ToString();
+
 
             if (!string.IsNullOrEmpty(dataultimarevisione))
             {
@@ -1030,8 +1109,16 @@ namespace ATManager.Controllers
                 {
                     file.SaveAs(path);
                 }
-                
-                
+
+                //var sql = @"INSERT INTO SDU_DocumentiPerizia (ID_Perizia, percorsoFile) Values (@ID_pratica, 
+                //                                                                                                 @ID_tipoDocumento, 
+                //                                                                                                 @percorsoFile)";
+                //int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
+                //    new SqlParameter("@ID_pratica", IDPratica),
+                //    new SqlParameter("@ID_tipoDocumento", myIDTipoDoc),
+                //    new SqlParameter("@percorsoFile", path));
+
+
 
             }
 

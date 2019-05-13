@@ -7,7 +7,7 @@
 <h2>Foto legate alla pratica</h2>
 <br />
 <br />
-@using (Html.BeginForm("UploadFotoPratica", "Home", new
+@using (Html.BeginForm("UploadFotoPraticaEdit", "Home", new
 {
     ID = ViewBag.IDPerizia,
     ViewBag.marca,
@@ -35,6 +35,6 @@
         <label for="file">Upload Image:</label>
         <input type="file" name="files[0]" id="files_0" />
         <br />
-        <input type="submit" value="UploadFotoPratica" class="submit" />
+        <input type="submit" value="UploadFotoPraticaEdit" class="submit" />
     </div>
 }

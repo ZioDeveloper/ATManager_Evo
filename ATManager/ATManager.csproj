@@ -295,6 +295,7 @@
     <Content Include="Views\Home\EditNew.cshtml" />
     <Content Include="Views\Home\FotoPeriziaEdit.cshtml" />
     <Content Include="Views\Home\FotoPraticaEdit.cshtml" />
+    <Content Include="Views\Home\Images.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

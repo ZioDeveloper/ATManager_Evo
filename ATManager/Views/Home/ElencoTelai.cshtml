@@ -69,7 +69,7 @@
 
 
        })
-            <br></br>@Html.ActionLink("Inserisci Foto perizia", "FotoPerizia", new { id = item.Perizie_ID })
+            @*<br></br>@Html.ActionLink("Inserisci Foto perizia", "FotoPerizia", new { id = item.Perizie_ID })*@
         </td>
             @*<td  >
                 @Html.ActionLink("Foto perizia", "FotoPerizia", new { id = item.Perizie_ID })
@@ -99,9 +99,9 @@
             <td  >
                 @Html.ActionLink("Elimina scheda", "Delete", new { id = item.Perizie_ID })
             </td>
-            <td  >
+            @*<td  >
                 @Html.ActionLink("Foto", "Image", new { id = item.Perizie_ID }, new { @class = "photoImg" })
-            </td>
+            </td>*@
         }
         else if (myScelta == "FATTECHIUSE")
         {
@@ -119,9 +119,9 @@
                blocked = "SI"
            })
             </td>
-            <td  >
+            @*<td  >
                 @Html.ActionLink("Foto", "Image", new { id = item.Perizie_ID }, new { @class = "photoImg" })
-            </td>
+            </td>*@
         }
 
     </tr>

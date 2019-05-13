@@ -7,6 +7,8 @@
 
 <br />
 <br />
+
+
 @using (Html.BeginForm("UploadFotoPerizia", "Home", new
 {
     ID = ViewBag.IDPerizia,
@@ -21,7 +23,7 @@
     ViewBag.telaio,
     ViewBag.dataultimarevisione,
     ViewBag.aziendautilizzatrice
-}, FormMethod.Post, new { enctype = "multipart/form-data"}))
+}, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <label for="file">Upload Image:</label>
     <input type="file" name="files[0]" id="files_0" />

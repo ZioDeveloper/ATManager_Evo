@@ -4,8 +4,12 @@
 <h2>Foto legate alla perizia</h2>
 <br />
 <br />
+
 @using (Html.BeginForm("UploadFotoPeriziaEdit", "Home", new
 {
+
+
+
     ID = ViewBag.IDPerizia,
     ViewBag.marca,
     ViewBag.targa,
@@ -18,13 +22,13 @@
     ViewBag.telaio,
     ViewBag.dataultimarevisione,
     ViewBag.aziendautilizzatrice,
-    ViewBag.blocked 
+    ViewBag.blocked
 }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <label for="file">Upload Image:</label>
     <input type="file" name="files[0]" id="files_0" />
 
     <br />
-    <input type="submit" value="UploadFotoPerizia" class="submit" />
+    <input type="submit" value="UploadFotoPeriziaEdit" class="submit" />
 }
 

@@ -79,6 +79,10 @@
 <script src="~/Scripts/JQuery/JavaScript.js"></script>
 @using (Html.BeginForm())
 {
+    <div>
+        @Html.ActionLink("Torna a lista telai...", "DoRefresh")
+    </div>
+
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
