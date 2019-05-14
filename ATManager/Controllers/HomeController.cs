@@ -1062,6 +1062,9 @@ namespace ATManager.Controllers
 
         public ActionResult FotoPerizia(int? ID)
         {
+            if (ID == null)
+                ID = (int)TempData["myIDPerizia"];
+
             var model = new Models.HomeModel();
             var telai = from s in db.AT_ListaPratiche_vw
                         where s.Perizie_ID.ToString() == ID.ToString()
@@ -1081,11 +1084,16 @@ namespace ATManager.Controllers
             ViewBag.aziendautilizzatrice = telai.FirstOrDefault().DescrizioneAzienda;
 
             ViewBag.IDPerizia = ID;
+            TempData["myIDPerizia"] = ID;
             return View();
         }
 
         public ActionResult FotoPeriziaEdit(int? ID)
         {
+            int myIDPerizia = 0;
+            if (TempData["myIDPerizia"] != null)
+                myIDPerizia = (int)TempData["myIDPerizia"];
+
             var model = new Models.HomeModel();
             var telai = from s in db.AT_ListaPratiche_vw
                         where s.Perizie_ID.ToString() == ID.ToString()
@@ -1168,7 +1176,8 @@ namespace ATManager.Controllers
                                               string dataultimarevisione, string aziendautilizzatrice)
         {
 
-          
+
+            int myIDPerizia = (int)TempData["myIDPerizia"];
 
             string path = "";
             //var model = new Models.AT_ListaPratiche_vw();
@@ -1221,6 +1230,8 @@ namespace ATManager.Controllers
                         where s.Perizie_ID == ID
                         select s;
             model.AT_ListaPratiche_vw = telai.ToList();
+
+            TempData["myIDPerizia"] = myIDPerizia;
 
             return RedirectToAction("Create", "Home", new
             {
@@ -1504,6 +1515,35 @@ namespace ATManager.Controllers
             return View(foto);
         }
 
+        public ActionResult DeleteSingleFotoPerizia(int id,  string picName , int? IDPerizia)
+        {
+
+            var sql = @"DELETE FROM SDU_DocumentiPerizia WHERE ID = @IDFoto";
+            int myRecordCounter = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@IDFoto", id));
+
+            string fullPath = Request.MapPath("~/FotoPerizia/" + picName);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+
+            var model = new Models.HomeModel();
+            int myIDPerizia = 0;
+            if (TempData["myIDPerizia"] != null)
+                myIDPerizia = (int)TempData["myIDPerizia"];
+            else
+                myIDPerizia = (int)IDPerizia;
+
+
+            var foto = from s in db.SDU_DocumentiPerizia
+                       where s.ID_Perizia.ToString() == IDPerizia.ToString()
+                       select s;
+            model.SDU_DocumentiPerizia = foto.ToList();
+
+           
+
+            return View("PerizieImages", foto);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

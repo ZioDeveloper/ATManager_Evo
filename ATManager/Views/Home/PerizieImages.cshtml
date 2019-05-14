@@ -13,16 +13,19 @@
 
 @foreach (var item in Model)
 {
-    
+
     <table>
         <tr>
             <td>
                 <img src="@Url.Content("~/FotoPerizia/" + item.PercorsoFile)" title="@Url.Content(item.PercorsoFile)" alt="Image" style='height: 400px; width: 400px; object-fit: contain' />
-                @*<img src="@item.PercorsoFile" style='height: 400px; width: 400px; object-fit: contain' />*@
                 <p>-</p>
-            </td>
-            <td>
-                @*@Html.ActionLink("Delete Foto", "DeleteSingleFoto", new { id = item.ID, idTelaio = item.IDTelaio, picName = item.NomeFile }, new { @class = "deleteImg" })*@
+
+             </td>
+
+
+
+             <td>
+                @Html.ActionLink("Delete Foto", "DeleteSingleFotoPerizia", new { id = item.ID,  picName = item.PercorsoFile, IDPerizia = item.ID_Perizia }, new { @class = "deleteImg" })
             </td>
         </tr>
     </table>
