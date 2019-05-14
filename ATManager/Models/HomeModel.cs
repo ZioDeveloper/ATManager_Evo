@@ -21,6 +21,9 @@ namespace ATManager.Models
 
         public IEnumerable<AT_PeritiXZone> AT_PeritiXZone { get; set; }
 
+        public IEnumerable<SDU_DocumentiPerizia> SDU_DocumentiPerizia { get; set; }
+
+        public IEnumerable<SDU_documentiPratica> SDU_documentiPratica { get; set; }
 
     }
 }

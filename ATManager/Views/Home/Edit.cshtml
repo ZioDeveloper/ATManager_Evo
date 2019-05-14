@@ -107,17 +107,26 @@
     </div>
     if (!Model.IsCompleted)
     {
-        <table>
-            <tr>
-                <td>
-                    @Html.ActionLink("Inserisci Foto perizia", "FotoPeriziaEdit", new { id = ViewBag.IDPerizia })
-                </td>
-                <td> &nbsp;|| &nbsp; </td>
-                <td>
-                    @Html.ActionLink("Inserisci Foto pratica", "FotoPraticaEdit", new { id = ViewBag.IDPerizia })
-                </td>
-            </tr>
-        </table>
+    <table>
+        <tr>
+            <td>
+                @Html.ActionLink("Inserisci Foto perizia", "FotoPeriziaEdit", new { id = ViewBag.IDPerizia })
+            </td>
+            <td> &nbsp;|| &nbsp; </td>
+            <td>
+                @Html.ActionLink("Inserisci Foto pratica", "FotoPraticaEdit", new { id = ViewBag.IDPerizia })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("Visualizza Foto perizia", "PerizieImages", new { id = ViewBag.IDPerizia })
+            </td>
+            <td> &nbsp;|| &nbsp; </td>
+            <td>
+                @Html.ActionLink("Visualizza Foto pratica", "PraticheImages", new { id = ViewBag.IDPerizia })
+            </td>
+        </tr>
+    </table>
     }
 
     <table class="fontDimensione" width="100%">

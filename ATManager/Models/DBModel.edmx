@@ -163,6 +163,16 @@
           <Property Name="Longitudine" Type="float" />
           <Property Name="ID_Localita" Type="int" />
         </EntityType>
+        <EntityType Name="SDU_DocumentiPerizia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Perizia" Type="int" Nullable="false" />
+          <Property Name="PercorsoFile" Type="varchar" MaxLength="200" />
+          <Property Name="insertUser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="insertTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="SDU_documentiPratica">
           <Key>
             <PropertyRef Name="ID" />
@@ -808,6 +818,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <EntitySet Name="AT_StatiMezzo" EntityType="Self.AT_StatiMezzo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AT_TipiScheda" EntityType="Self.AT_TipiScheda" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Luoghi" EntityType="Self.Luoghi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SDU_DocumentiPerizia" EntityType="Self.SDU_DocumentiPerizia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDU_documentiPratica" EntityType="Self.SDU_documentiPratica" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDU_documentiTipi" EntityType="Self.SDU_documentiTipi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDU_StoricoStatusPerizia" EntityType="Self.SDU_StoricoStatusPerizia" Schema="dbo" store:Type="Tables" />
@@ -1485,6 +1496,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           </AssociationSet>
           <EntitySet Name="SDU_StoricoStatusPerizia" EntityType="AUTOSDUModel.SDU_StoricoStatusPerizia" />
           <EntitySet Name="AT_PeritiXZone" EntityType="AUTOSDUModel.AT_PeritiXZone" />
+          <EntitySet Name="SDU_DocumentiPerizia" EntityType="AUTOSDUModel.SDU_DocumentiPerizia" />
         </EntityContainer>
         <EntityType Name="AT_ListaPratiche_vw">
           <Key>
@@ -2155,6 +2167,16 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Cognome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="SDU_DocumentiPerizia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Perizia" Type="Int32" Nullable="false" />
+          <Property Name="PercorsoFile" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="insertUser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="insertTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2416,6 +2438,17 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="ID_zona" ColumnName="ID_zona" />
                 <ScalarProperty Name="ID_Perito" ColumnName="ID_Perito" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDU_DocumentiPerizia">
+            <EntityTypeMapping TypeName="AUTOSDUModel.SDU_DocumentiPerizia">
+              <MappingFragment StoreEntitySet="SDU_DocumentiPerizia">
+                <ScalarProperty Name="insertTime" ColumnName="insertTime" />
+                <ScalarProperty Name="insertUser" ColumnName="insertUser" />
+                <ScalarProperty Name="PercorsoFile" ColumnName="PercorsoFile" />
+                <ScalarProperty Name="ID_Perizia" ColumnName="ID_Perizia" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

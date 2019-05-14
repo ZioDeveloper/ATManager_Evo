@@ -27,7 +27,7 @@ namespace ATManager.Controllers
         //    if (usr == null)
         //        usr = Session["User"].ToString();
 
-            
+
         //    ViewBag.perito = Session["User"].ToString();
 
         //    var myZone = (from s in db.AT_PeritiXZone
@@ -547,6 +547,12 @@ namespace ATManager.Controllers
             if (aT_SchedaTecnica.CI1135 == null && aT_SchedaTecnica.IsCompleted == true)
                 ModelState.AddModelError("CI1135", CompileErrorMessage("CI1135"));
 
+            if (aT_SchedaTecnica.IDStatoMezzo == 2  && aT_SchedaTecnica.IDPreventivoDanno == 0  )
+                ModelState.AddModelError("IDStatoMezzo", "Valorizzazione mezzo obbligatoria.");
+
+            if (aT_SchedaTecnica.IDStatoMezzo != 2 && aT_SchedaTecnica.IDPreventivoDanno != 0)
+                ModelState.AddModelError("IDStatoMezzo", "Valorizzazione mezzo non ammessa.");
+
             if (ModelState.IsValid)
             {
 
@@ -813,10 +819,70 @@ namespace ATManager.Controllers
                                                    "Note_danno, Note_generali")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm)
         {
 
-           
-            int myID = (int)TempData["myIDScheda"];
 
+            int myID = 0;
+            myID = (int)TempData["myIDScheda"];
+            
 
+            if (aT_SchedaTecnica.CE110 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE110", CompileErrorMessage("CE110"));
+
+            if (aT_SchedaTecnica.CE112 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE112", CompileErrorMessage("CE112"));
+
+            if (aT_SchedaTecnica.CE115 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE115", CompileErrorMessage("CE115"));
+
+            if (aT_SchedaTecnica.CE840 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE840", CompileErrorMessage("CE840"));
+
+            if (aT_SchedaTecnica.CE841 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE841", CompileErrorMessage("CE841"));
+
+            if (aT_SchedaTecnica.CE842 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE842", CompileErrorMessage("CE842"));
+
+            if (aT_SchedaTecnica.CE843 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE843", CompileErrorMessage("CE843"));
+
+            if (aT_SchedaTecnica.CE816 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE816", CompileErrorMessage("CE816"));
+
+            if (aT_SchedaTecnica.CE265 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE265", CompileErrorMessage("CE265"));
+
+            if (aT_SchedaTecnica.CE135 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE135", CompileErrorMessage("CE135"));
+
+            if (aT_SchedaTecnica.CE160 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE160", CompileErrorMessage("CE160"));
+
+            if (aT_SchedaTecnica.CE145 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE145", CompileErrorMessage("CE145"));
+
+            if (aT_SchedaTecnica.CE150 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CE150", CompileErrorMessage("CE150"));
+
+            if (aT_SchedaTecnica.CI820 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CI820", CompileErrorMessage("CI820"));
+
+            if (aT_SchedaTecnica.CI825 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CI825", CompileErrorMessage("CI825"));
+
+            if (aT_SchedaTecnica.CI835 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CI835", CompileErrorMessage("CI835"));
+
+            if (aT_SchedaTecnica.CI837 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CI837", CompileErrorMessage("CI837"));
+
+            if (aT_SchedaTecnica.CI1135 == null && aT_SchedaTecnica.IsCompleted == true)
+                ModelState.AddModelError("CI1135", CompileErrorMessage("CI1135"));
+
+            if (aT_SchedaTecnica.IDStatoMezzo == 2 && aT_SchedaTecnica.IDPreventivoDanno == 0)
+                ModelState.AddModelError("IDStatoMezzo", "Valorizzazione mezzo obbligatoria.");
+
+            if (aT_SchedaTecnica.IDStatoMezzo != 2 && aT_SchedaTecnica.IDPreventivoDanno != 0)
+                ModelState.AddModelError("IDStatoMezzo", "Valorizzazione mezzo non ammessa.");
 
             if (ModelState.IsValid)
             {
@@ -1110,20 +1176,18 @@ namespace ATManager.Controllers
                     file.SaveAs(path);
                 }
 
-                //var sql = @"INSERT INTO SDU_DocumentiPerizia (ID_Perizia, percorsoFile) Values (@ID_pratica, 
-                //                                                                                                 @ID_tipoDocumento, 
-                //                                                                                                 @percorsoFile)";
-                //int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
-                //    new SqlParameter("@ID_pratica", IDPratica),
-                //    new SqlParameter("@ID_tipoDocumento", myIDTipoDoc),
-                //    new SqlParameter("@percorsoFile", path));
+                string myFileName = Path.GetFileName(path);
+                var sql = @"INSERT INTO SDU_DocumentiPerizia (ID_Perizia, percorsoFile) Values (@ID_Perizia, @percorsoFile)";
+                int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
+                    new SqlParameter("@ID_Perizia", ID),
+                    new SqlParameter("@percorsoFile", myFileName));
 
 
 
             }
 
             var model = new Models.HomeModel();
-            var telai = from s in db.AT_ListaPratiche_vw
+                var telai = from s in db.AT_ListaPratiche_vw
                         where s.Perizie_ID == ID
                         select s;
             model.AT_ListaPratiche_vw = telai.ToList();
@@ -1190,6 +1254,11 @@ namespace ATManager.Controllers
                     file.SaveAs(path);
                 }
 
+                string myFileName = Path.GetFileName(path);
+                var sql = @"INSERT INTO SDU_DocumentiPerizia (ID_Perizia, percorsoFile) Values (@ID_Perizia, @percorsoFile)";
+                int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
+                    new SqlParameter("@ID_Perizia", ID),
+                    new SqlParameter("@percorsoFile", myFileName));
 
 
             }
@@ -1260,13 +1329,16 @@ namespace ATManager.Controllers
                     file.SaveAs(path);
                 }
 
+                string myFileName = Path.GetFileName(path);
+                
+
                 var sql = @"INSERT INTO SDU_documentiPratica (ID_pratica, ID_tipoDocumento,percorsoFile) Values (@ID_pratica, 
                                                                                                                  @ID_tipoDocumento, 
                                                                                                                  @percorsoFile)";
                 int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
                     new SqlParameter("@ID_pratica", IDPratica),
                     new SqlParameter("@ID_tipoDocumento", myIDTipoDoc),
-                    new SqlParameter("@percorsoFile",path));
+                    new SqlParameter("@percorsoFile", myFileName));
 
             }
 
@@ -1328,13 +1400,15 @@ namespace ATManager.Controllers
                     file.SaveAs(path);
                 }
 
+                string myFileName = Path.GetFileName(path);
+
                 var sql = @"INSERT INTO SDU_documentiPratica (ID_pratica, ID_tipoDocumento,percorsoFile) Values (@ID_pratica, 
                                                                                                                  @ID_tipoDocumento, 
                                                                                                                  @percorsoFile)";
                 int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
                     new SqlParameter("@ID_pratica", IDPratica),
                     new SqlParameter("@ID_tipoDocumento", myIDTipoDoc),
-                    new SqlParameter("@percorsoFile", path));
+                    new SqlParameter("@percorsoFile", myFileName));
 
             }
 
@@ -1355,6 +1429,49 @@ namespace ATManager.Controllers
                 blocked
             });
             //return RedirectToAction("DoRefresh", "Home");
+        }
+
+        public ActionResult PerizieImages(int? ID)
+        {
+            var model = new Models.HomeModel();
+            int myIDTelaio = 0;
+            if (TempData["myIDTelaio"] != null)
+                myIDTelaio = (int)TempData["myIDTelaio"];
+            else
+                myIDTelaio = (int)ID;
+
+
+            var foto = from s in db.SDU_DocumentiPerizia
+                       where s.ID_Perizia.ToString() == ID.ToString()
+                       select s;
+            model.SDU_DocumentiPerizia = foto.ToList();
+
+            //TempData["myIDTelaio"] = myIDTelaio;
+
+            return View(foto);
+        }
+
+        public ActionResult PraticheImages(int? ID)
+        {
+            var model = new Models.HomeModel();
+            int myIDTelaio = 0;
+            if (TempData["myIDTelaio"] != null)
+                myIDTelaio = (int)TempData["myIDTelaio"];
+            else
+                myIDTelaio = (int)ID;
+
+            var myScheda = from s in db.AT_ListaPratiche_vw
+                           where s.Perizie_ID == ID
+                           select s.PRAT_ID;
+
+            var foto = from m in db.SDU_documentiPratica
+                       where m.ID_pratica.ToString() == myScheda.FirstOrDefault().ToString()
+                       select m;
+            model.SDU_documentiPratica = foto.ToList();
+
+            //TempData["myIDTelaio"] = myIDTelaio;
+
+            return View(foto);
         }
 
         protected override void Dispose(bool disposing)

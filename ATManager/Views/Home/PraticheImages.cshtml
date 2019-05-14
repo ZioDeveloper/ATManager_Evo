@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ATManager.Models.SDU_documentiPratica>
+
+
+@{
+    ViewBag.Title = "Images";
+}
+
+<h2>Images</h2>
+
+@Html.ActionLink("Torna alla lista", "DoRefresh")
+<br />
+<br />
+
+@foreach (var item in Model)
+{
+
+    <table>
+        <tr>
+            <td>
+                <img src="@Url.Content("~/FotoPratica/" + item.percorsoFile)" title="@Url.Content(item.percorsoFile)" alt="Image" style='height: 400px; width: 400px; object-fit: contain' />
+                @*<img src="@item.PercorsoFile" style='height: 400px; width: 400px; object-fit: contain' />*@
+                <p>-</p>
+            </td>
+            <td>
+                @*@Html.ActionLink("Delete Foto", "DeleteSingleFoto", new { id = item.ID, idTelaio = item.IDTelaio, picName = item.NomeFile }, new { @class = "deleteImg" })*@
+            </td>
+        </tr>
+    </table>
+
+}

@@ -14,19 +14,16 @@ namespace ATManager.Models
 
 using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-
-
-    public partial class AT_SchedaTecnica
-    {
+    
+public partial class AT_SchedaTecnica
+{
 
     public int ID { get; set; }
 
     public int IDTipoScheda { get; set; }
 
     public int IDStatoMezzo { get; set; }
-    
+
     public Nullable<int> CE110 { get; set; }
 
     public Nullable<int> CE112 { get; set; }
@@ -213,7 +210,8 @@ using System;
 
     public System.DateTime insertTime { get; set; }
 
- 
+
+
     public virtual AT_StatiMezzo AT_StatiMezzo { get; set; }
 
     public virtual AT_TipiScheda AT_TipiScheda { get; set; }
@@ -307,21 +305,5 @@ using System;
     public virtual AT_PreventiviDanno AT_PreventiviDanno { get; set; }
 
 }
-
-    public class MyValidator : ValidationAttribute
-    {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            if (value == null )
-            {
-
-                return new ValidationResult("" + validationContext.DisplayName + " is required");
-            }
-            else
-            {
-                return new ValidationResult("" + validationContext.DisplayName + " is required");
-            }
-        }
-    }
 
 }

@@ -204,6 +204,9 @@
     <Compile Include="Models\Luoghi_vw.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SDU_DocumentiPerizia.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SDU_documentiPratica.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -295,7 +298,8 @@
     <Content Include="Views\Home\EditNew.cshtml" />
     <Content Include="Views\Home\FotoPeriziaEdit.cshtml" />
     <Content Include="Views\Home\FotoPraticaEdit.cshtml" />
-    <Content Include="Views\Home\Images.cshtml" />
+    <Content Include="Views\Home\PerizieImages.cshtml" />
+    <Content Include="Views\Home\PraticheImages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
