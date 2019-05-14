@@ -547,11 +547,24 @@ namespace ATManager.Controllers
             if (aT_SchedaTecnica.CI1135 == null && aT_SchedaTecnica.IsCompleted == true)
                 ModelState.AddModelError("CI1135", CompileErrorMessage("CI1135"));
 
-            if (aT_SchedaTecnica.IDStatoMezzo == 2  && aT_SchedaTecnica.IDPreventivoDanno == 0  )
+            if (aT_SchedaTecnica.IDStatoMezzo == 2  && aT_SchedaTecnica.IDPreventivoDanno == 0 && aT_SchedaTecnica.IsCompleted == true)
                 ModelState.AddModelError("IDStatoMezzo", "Valorizzazione mezzo obbligatoria.");
 
-            if (aT_SchedaTecnica.IDStatoMezzo != 2 && aT_SchedaTecnica.IDPreventivoDanno != 0)
-                ModelState.AddModelError("IDStatoMezzo", "Valorizzazione mezzo non ammessa.");
+            var myPRatID = from s in db.AT_ListaPratiche_vw
+                           where s.Perizie_ID == aT_SchedaTecnica.IDPerizia
+                           select s.PRAT_ID;
+            int myIDPrat = myPRatID.ToList().First();
+
+            var myDocID = from s in db.SDU_documentiPratica
+                          where s.ID_pratica == myIDPrat
+                          select s.ID;
+
+            if ((String.IsNullOrEmpty(txtdataultimarevisione)) && (!String.IsNullOrEmpty(myDocID.ToString())) && (aT_SchedaTecnica.IsCompleted == true))
+            {
+                ModelState.AddModelError("IDStatoMezzo", "Data ultima revisione obbligatoria");
+            }
+
+
 
             if (ModelState.IsValid)
             {
@@ -822,7 +835,9 @@ namespace ATManager.Controllers
 
             int myID = 0;
             myID = (int)TempData["myIDScheda"];
-            
+           
+
+
 
             if (aT_SchedaTecnica.CE110 == null && aT_SchedaTecnica.IsCompleted == true)
                 ModelState.AddModelError("CE110", CompileErrorMessage("CE110"));
@@ -884,6 +899,19 @@ namespace ATManager.Controllers
             if (aT_SchedaTecnica.IDStatoMezzo != 2 && aT_SchedaTecnica.IDPreventivoDanno != 0)
                 ModelState.AddModelError("IDStatoMezzo", "Valorizzazione mezzo non ammessa.");
 
+            var myPRatID = from s in db.AT_ListaPratiche_vw
+                           where s.Perizie_ID == aT_SchedaTecnica.IDPerizia
+                           select s.PRAT_ID;
+            int myIDPrat = myPRatID.ToList().First();
+
+            var myDocID = from s in db.SDU_documentiPratica
+                           where s.ID_pratica == myIDPrat
+                           select s.ID;
+
+            if ((txtdataultimarevisione.ToString().ToUpper() == "SI" ) && (String.IsNullOrEmpty(myDocID.ToString())))
+            {
+                ModelState.AddModelError("IDStatoMezzo", "Data ultima revisione obbligatoria");
+            }
             if (ModelState.IsValid)
             {
 
@@ -974,6 +1002,7 @@ namespace ATManager.Controllers
 
 
                 aT_SchedaTecnica.ID = myID;// model.ID;
+                TempData["myIDScheda"] = myID;
                 db.Entry(aT_SchedaTecnica).State = EntityState.Modified;
                 
                 db.SaveChanges();
@@ -1027,6 +1056,7 @@ namespace ATManager.Controllers
             ViewBag.CI1135 = new SelectList(db.AT_IndiciValutazione, "ID", "Descr", aT_SchedaTecnica.CI1135);
             ViewBag.NoteCE110 = new SelectList(db.AT_IndiciValutazione, "ID", "Descr", aT_SchedaTecnica.NoteCE110);
             ViewBag.IDPreventivoDanno = new SelectList(db.AT_PreventiviDanno, "ID", "Descr", aT_SchedaTecnica.IDPreventivoDanno);
+            TempData["myIDScheda"] = myID ;
             return View(aT_SchedaTecnica);
         }
 
