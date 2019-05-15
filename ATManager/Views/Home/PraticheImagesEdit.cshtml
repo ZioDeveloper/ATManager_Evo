@@ -7,7 +7,7 @@
 
 <h2>Images</h2>
 
-@Html.ActionLink("Torna alla scheda", "Create", new
+@Html.ActionLink("Torna alla scheda", "Edit", new
 {
     ID = ViewBag.IDPerizia,
     ViewBag.marca,
@@ -20,7 +20,8 @@
     ViewBag.matricola,
     ViewBag.telaio,
     ViewBag.dataultimarevisione,
-    ViewBag.aziendautilizzatrice
+    ViewBag.aziendautilizzatrice,
+    ViewBag.blocked
 })
 <br />
 <br />
@@ -32,12 +33,13 @@
         <tr>
             <td>
                 <img src="@Url.Content("~/FotoPratica/" + item.percorsoFile)" title="@Url.Content(item.percorsoFile)" alt="Image" style='height: 400px; width: 400px; object-fit: contain' />
-                
+
             </td>
             <td>
-                @Html.ActionLink("Delete Foto", "DeleteSingleFotoPratica", new { id = item.ID, picName = item.percorsoFile , IDPratica = item.ID_pratica }, new { @class = "deleteImg" })
+                @Html.ActionLink("Delete Foto", "DeleteSingleFotoPraticaEdit", new { id = item.ID, picName = item.percorsoFile, IDPratica = item.ID_pratica }, new { @class = "deleteImg" })
             </td>
         </tr>
     </table>
 
 }
+

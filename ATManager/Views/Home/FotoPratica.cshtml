@@ -4,10 +4,26 @@
 
     ViewBag.Title = "FotoPratica";
 }
-<h2>Foto legate alla pratica</h2>
+<h2>Foto relative ai documenti</h2>
 <br />
-<br />
-@using (Html.BeginForm("UploadFotoPratica", "Home", new 
+@Html.ActionLink("Torna alla scheda", "Create", new
+{
+    ID = ViewBag.IDPerizia,
+    ViewBag.marca,
+    ViewBag.targa,
+    ViewBag.dataimmatricolazione,
+    ViewBag.km,
+    ViewBag.luogoperizia,
+    ViewBag.modello,
+    ViewBag.cartacircolazione,
+    ViewBag.matricola,
+    ViewBag.telaio,
+    ViewBag.dataultimarevisione,
+    ViewBag.aziendautilizzatrice
+})
+
+<br /><br />
+@using (Html.BeginForm("UploadFotoPratica", "Home", new
 {
     ID = ViewBag.IDPerizia,
     ViewBag.marca,
@@ -30,11 +46,12 @@
             @Html.DropDownList("SDU_DocTipi", null, htmlAttributes: new { @class = "form-control" })
         </div>
     </div>
+
     <div class="form-group">
-        <label for="file">Upload Image:</label>
+        <label for="file">Inserisci foto doc.</label>
         <input type="file" name="files[0]" id="files_0" />
         <br />
-        <input type="submit" value="UploadFotoPratica" class="submit" />
+        <input type="submit" value="Inserici foto documento" class="submit" />
     </div>
 }
 

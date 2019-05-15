@@ -1,10 +1,25 @@
 ﻿@{
     ViewBag.Title = "FotoPerizia";
 }
-<h2>Foto legate alla perizia</h2>
+<h2>Foto relative al mezzo</h2>
 <br />
-<br />
+@Html.ActionLink("Torna alla scheda", "Edit", new {
+    ID = ViewBag.IDPerizia,
+    ViewBag.marca,
+    ViewBag.targa,
+    ViewBag.dataimmatricolazione,
+    ViewBag.km,
+    ViewBag.luogoperizia,
+    ViewBag.modello,
+    ViewBag.cartacircolazione,
+    ViewBag.matricola,
+    ViewBag.telaio,
+    ViewBag.dataultimarevisione,
+    ViewBag.aziendautilizzatrice,
+    ViewBag.blocked
+})
 
+<br /><br />
 @using (Html.BeginForm("UploadFotoPeriziaEdit", "Home", new
 {
 
@@ -29,6 +44,6 @@
     <input type="file" multiple name="files[0]" id="files_0" />
 
     <br />
-    <input type="submit" value="UploadFotoPeriziaEdit" class="submit" />
+    <input type="submit" value="Inserici foto mezzo" class="submit" />
 }
 

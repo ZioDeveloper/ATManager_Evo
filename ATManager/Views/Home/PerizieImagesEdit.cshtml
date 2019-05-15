@@ -7,8 +7,7 @@
 
 <h2>Images</h2>
 
-@*@Html.ActionLink("Torna alla lista", "DoRefresh")*@
-@Html.ActionLink("Torna alla scheda", "Create", new {
+@Html.ActionLink("Torna alla scheda", "Edit", new {
     ID = ViewBag.IDPerizia,
     ViewBag.marca,
     ViewBag.targa,
@@ -20,7 +19,8 @@
     ViewBag.matricola,
     ViewBag.telaio,
     ViewBag.dataultimarevisione,
-    ViewBag.aziendautilizzatrice
+    ViewBag.aziendautilizzatrice,
+    ViewBag.blocked
 })
 <br />
 <br />
@@ -35,10 +35,11 @@
 
             </td>
             <td>
-                @Html.ActionLink("Delete Foto", "DeleteSingleFotoPerizia", new { id = item.ID, picName = item.PercorsoFile, IDPerizia = item.ID_Perizia }, new { @class = "deleteImg" })
+                @Html.ActionLink("Delete Foto", "DeleteSingleFotoPeriziaEdit", new { id = item.ID, picName = item.PercorsoFile, IDPerizia = item.ID_Perizia }, new { @class = "deleteImg" })
             </td>
         </tr>
     </table>
 
 }
+
 

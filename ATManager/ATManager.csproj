@@ -300,6 +300,8 @@
     <Content Include="Views\Home\FotoPraticaEdit.cshtml" />
     <Content Include="Views\Home\PerizieImages.cshtml" />
     <Content Include="Views\Home\PraticheImages.cshtml" />
+    <Content Include="Views\Home\PerizieImagesEdit.cshtml" />
+    <Content Include="Views\Home\PraticheImagesEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

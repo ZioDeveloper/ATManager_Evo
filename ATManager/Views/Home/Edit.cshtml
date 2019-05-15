@@ -103,10 +103,18 @@
 
             </div>
         </div>
-
+        @Html.TextBox("txtMatricola", (string)ViewBag.matricola)
+        @Html.TextBox("txtDataPerizia", (string)ViewBag.dataperizia)
+        @Html.TextBox("txtMarca", (string)ViewBag.marca)
+        @Html.TextBox("txtDataImmatricolazione", (string)ViewBag.dataimmatricolazione)
+        @Html.TextBox("txtCartaCircolazione", (string)ViewBag.cartacircolazione)
+        @Html.TextBox("txtLuogoPerizia", (string)ViewBag.luogoperizia)
+        @Html.TextBox("txtModello", (string)ViewBag.modello)
+        @Html.TextBox("txtTelaio", (string)ViewBag.luogoperizia)
+        @Html.TextBox("txtAziendaUtilizzatrice", (string)ViewBag.modello)
     </div>
-    if (!Model.IsCompleted)
-    {
+    //if (!Model.IsCompleted)
+    //{
     <table>
         <tr>
             <td>
@@ -119,15 +127,15 @@
         </tr>
         <tr>
             <td>
-                @Html.ActionLink("Visualizza foto mezzo", "PerizieImages", new { id = ViewBag.IDPerizia })
+                @Html.ActionLink("Visualizza foto mezzo", "PerizieImagesEdit", new { id = ViewBag.IDPerizia })
             </td>
             <td> &nbsp;|| &nbsp; </td>
             <td>
-                @Html.ActionLink("Visualizza foto documento", "PraticheImages", new { id = ViewBag.IDPerizia })
+                @Html.ActionLink("Visualizza foto documento", "PraticheImagesEdit", new { id = ViewBag.IDPerizia })
             </td>
         </tr>
     </table>
-    }
+    @*}*@
 
     <table class="fontDimensione" width="100%">
         <tr>
