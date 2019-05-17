@@ -73,7 +73,7 @@ summary::-webkit-details-marker {
 summary:after {
     /*background: white;
     border-radius: 5px;*/
-    content: "+ Legenda";
+    content: "+ Espandi...";
     /*color: #000;
     float: left;
     font-size: 1.5em;
@@ -85,7 +85,7 @@ summary:after {
 }
 
 details[open] summary:after {
-    content: "- Clicca x chiudere...";
+    content: "- Chiudi...";
 }
 
 .tableborder {

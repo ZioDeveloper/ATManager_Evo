@@ -76,6 +76,10 @@
 
 <h2>Inserimento scheda</h2>
 
+      <div>
+          @Html.ActionLink("Torna a lista telai...", "DoRefresh")
+      </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="~/Scripts/JQuery/JavaScript.js"></script>
@@ -739,19 +743,17 @@
             </tr>
         </table>
 
-
-
-
+               
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Salva" class="btn btn-default" />
+                <input type="submit" value="Salva e continua" class="btn btn-default" id="Esci" />
                 <font color="red">Scheda Chiusa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
                 @Html.EditorFor(model => model.IsCompleted)
                 @Html.ValidationMessageFor(model => model.IsCompleted, "", new { @class = "text-danger" })
             </div>
         </div>
-        }
+}
         <div>
             @Html.ActionLink("Torna a lista telai...", "DoRefresh")
         </div>
