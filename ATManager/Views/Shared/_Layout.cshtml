@@ -25,7 +25,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     @if (Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink(@Html.Encode(User.Identity.Name) + "panel", "RitornaPannelloUtente", "Home")</li>
+                        @*<li>@Html.ActionLink(@Html.Encode(User.Identity.Name) + "panel", "RitornaPannelloUtente", "Home")</li>*@
                         <li>@Html.ActionLink("Disconnetti", "Logout", "Home")</li>
                     }
                     else

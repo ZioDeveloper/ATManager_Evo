@@ -5,7 +5,7 @@
 
 <script type="text/javascript">
     function show1() {
-        document.getElementById('divA').style.display = 'none';
+        document.getElementById('divA').style.display = 'block';
     }
     function show2() {
         document.getElementById('divA').style.display = 'block';
@@ -113,8 +113,8 @@
         @Html.TextBox("txtTelaio", (string)ViewBag.luogoperizia)
         @Html.TextBox("txtAziendaUtilizzatrice", (string)ViewBag.modello)
     </div>
-    //if (!Model.IsCompleted)
-    //{
+    if (!Model.IsCompleted)
+    {
     <table>
         <tr>
             <td>
@@ -135,7 +135,7 @@
             </td>
         </tr>
     </table>
-    @*}*@
+    }
 
     <table class="fontDimensione" width="100%">
         <tr>
@@ -698,7 +698,7 @@
         <tr>
             <td colspan="3" width="100%">
 
-                <div id="divA" class="arancio" style="text-align:center;display:none;">
+                <div id="divA" class="arancio" style="text-align:center;display:block;">
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.IDPreventivoDanno, "2 - DANNO PREVENTIVABILE CIRCA DI", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -735,7 +735,7 @@
     {
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Salva" class="btn btn-default" />
+                <input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" /> 
                 <font color="red">Scheda Chiusa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
                 @Html.EditorFor(model => model.IsCompleted)
                 @Html.ValidationMessageFor(model => model.IsCompleted, "", new { @class = "text-danger" })
@@ -746,7 +746,7 @@
     {
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Salva" class="btn btn-default" />
+                <input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
                 <font color="red">Scheda Chiusa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
                 @Html.EditorFor(model => model.IsCompleted)
                 @Html.ValidationMessageFor(model => model.IsCompleted, "", new { @class = "text-danger" })

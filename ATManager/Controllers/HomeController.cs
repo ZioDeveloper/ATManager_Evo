@@ -19,127 +19,15 @@ namespace ATManager.Controllers
 
         private AUTOSDUEntities db = new AUTOSDUEntities();
 
-        //public ActionResult Index(string usr, string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
-        //{
-
-        //    if (usr != null)
-        //        Session["User"] = usr;
-        //    if (usr == null)
-        //        usr = Session["User"].ToString();
-
-
-        //    ViewBag.perito = Session["User"].ToString();
-
-        //    var myZone = (from s in db.AT_PeritiXZone
-        //                  where s.UserName.ToString() == "percossi"
-        //                  select s.ID_zona).FirstOrDefault();
-
-        //    var myNome = (from s in db.AT_PeritiXZone
-        //                  where s.UserName.ToString() == "percossi"
-        //                  select s.Nome).FirstOrDefault();
-
-        //    var myCognome = (from s in db.AT_PeritiXZone
-        //                     where s.UserName.ToString() == "percossi"
-        //                     select s.Cognome).FirstOrDefault();
-
-        //    var myIDPErito = (from s in db.AT_PeritiXZone
-        //                      where s.UserName.ToString() == "percossi"
-        //                      select s.ID_Perito).FirstOrDefault();
-
-        //    ViewBag.nome = myNome;
-        //    ViewBag.cognome = myCognome;
-
-        //    Session["Zona"] = myZone;
-        //    Session["IDPErito"] = myIDPErito;
-
-        //    bool isAuth = false;
-
-        //    if (usr != String.Empty)
-        //    {
-        //        string UserName = "";
-
-        //        string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
-        //        HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
-        //        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
-        //        UserName = ticket.Name; //You have the UserName!
-
-
-        //        if (usr == UserName)
-        //        {
-        //            ViewBag.Messaggio = "BENE il cookie corrisponde!";
-        //            //ViewBag.Messaggio = personaggio;
-        //            isAuth = true;
-        //            using (AUTOSDUEntities val = new AUTOSDUEntities())
-        //            {
-        //                Session["Status"] = "";
-
-        //                var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA");
-        //                ViewData["Luoghi"] = fromDatabaseEF;
-
-
-        //            }
-
-        //            if (String.IsNullOrEmpty(CercaMatricola))
-        //            {
-        //                return View();
-        //            }
-        //            else
-        //            {
-        //                var model = new Models.HomeModel();
-        //                var telai = from s in db.AT_ListaPratiche_vw
-        //                            where s.Matricola.ToString() == CercaMatricola
-        //                            where s.Trilettera == myZone
-        //                            select s;
-        //                model.AT_ListaPratiche_vw = telai.ToList();
-        //                return View("ElencoTelai", model);
-        //            }
-
-
-        //            if (String.IsNullOrEmpty(CercaTarga))
-        //            {
-        //                return View();
-        //            }
-        //            else if (!String.IsNullOrEmpty(CercaTarga))
-        //            {
-        //                //string myZone = Session["Zona"].ToString();
-        //                var model = new Models.HomeModel();
-        //                var telai = from s in db.AT_ListaPratiche_vw
-        //                            where s.Targa.ToString() == CercaTarga
-        //                            where s.Trilettera == myZone
-        //                            select s;
-        //                model.AT_ListaPratiche_vw = telai.ToList();
-        //                return View("ElencoTelai", model);
-        //            }
-        //            else
-        //            {
-        //                return View();
-        //            }
-        //        }
-        //        else
-        //        {
-        //            ViewBag.Messaggio = "il cookie contenente lo 'username' non corrisponde allo User della queryString!";
-        //            isAuth = false;
-        //            return View("IncorrectLogin");
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        string UserName = "";
-
-        //        string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
-        //        HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
-        //        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
-        //        UserName = ticket.Name; //You have the UserName!
-        //    }
-        //    return View();
-
-
-        //}
-
-        public ActionResult Index(string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
+        public ActionResult Index(string usr, string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
         {
-            Session["User"] = "percossi";
+
+            if (usr != null)
+                Session["User"] = usr;
+            if (usr == null)
+                usr = Session["User"].ToString();
+
+
             ViewBag.perito = Session["User"].ToString();
 
             var myZone = (from s in db.AT_PeritiXZone
@@ -164,51 +52,196 @@ namespace ATManager.Controllers
             Session["Zona"] = myZone;
             Session["IDPErito"] = myIDPErito;
 
-            using (AUTOSDUEntities val = new AUTOSDUEntities())
+            bool isAuth = false;
+
+            if (usr != String.Empty)
             {
-                Session["Status"] = "";
+                string UserName = "";
 
-                var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA");
-                ViewData["Luoghi"] = fromDatabaseEF;
+                string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
+                HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
+                UserName = ticket.Name; //You have the UserName!
 
 
-            }
-
-            if (String.IsNullOrEmpty(CercaTarga))
-            {
-                if (String.IsNullOrEmpty(CercaMatricola))
+                if (usr == UserName)
                 {
-                    return View();
+                    ViewBag.Messaggio = "BENE il cookie corrisponde!";
+                    //ViewBag.Messaggio = personaggio;
+                    isAuth = true;
+                    using (AUTOSDUEntities val = new AUTOSDUEntities())
+                    {
+                        Session["Status"] = "";
+
+                        var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA");
+                        ViewData["Luoghi"] = fromDatabaseEF;
+
+
+                    }
+
+                    if (String.IsNullOrEmpty(CercaTarga))
+                    {
+                        if (String.IsNullOrEmpty(CercaMatricola))
+                        {
+                            return View();
+                        }
+                        else
+                        {
+                            var model = new Models.HomeModel();
+                            var telai = from s in db.AT_ListaPratiche_vw
+                                        where s.Matricola.ToString() == CercaMatricola
+                                        where s.Trilettera == myZone
+                                        select s;
+                            model.AT_ListaPratiche_vw = telai.ToList();
+                            return View("ElencoTelai", model);
+                        }
+                    }
+                    else if (!String.IsNullOrEmpty(CercaTarga))
+                    {
+
+                        var model = new Models.HomeModel();
+                        var telai = from s in db.AT_ListaPratiche_vw
+                                    where s.Targa.ToString() == CercaTarga
+                                    where s.Trilettera == myZone
+                                    select s;
+                        model.AT_ListaPratiche_vw = telai.ToList();
+                        return View("ElencoTelai", model);
+                    }
+                    else
+                    {
+                        return View();
+                    }
+
+                    ////if (String.IsNullOrEmpty(CercaMatricola))
+                    ////{
+                    ////    return View();
+                    ////}
+                    ////else
+                    ////{
+                    ////    var model = new Models.HomeModel();
+                    ////    var telai = from s in db.AT_ListaPratiche_vw
+                    ////                where s.Matricola.ToString() == CercaMatricola
+                    ////                where s.Trilettera == myZone
+                    ////                select s;
+                    ////    model.AT_ListaPratiche_vw = telai.ToList();
+                    ////    return View("ElencoTelai", model);
+                    ////}
+
+
+                    ////if (String.IsNullOrEmpty(CercaTarga))
+                    ////{
+                    ////    return View();
+                    ////}
+                    ////else if (!String.IsNullOrEmpty(CercaTarga))
+                    ////{
+                    ////    string myZone2 = Session["Zona"].ToString();
+                    ////    var model = new Models.HomeModel();
+                    ////    var telai = from s in db.AT_ListaPratiche_vw
+                    ////                where s.Targa.ToString() == CercaTarga
+                    ////                where s.Trilettera == myZone
+                    ////                select s;
+                    ////    model.AT_ListaPratiche_vw = telai.ToList();
+                    ////    return View("ElencoTelai", model);
+                    ////}
+                    ////else
+                    ////{
+                    ////    return View();
+                    ////}
                 }
                 else
                 {
-                    var model = new Models.HomeModel();
-                    var telai = from s in db.AT_ListaPratiche_vw
-                                where s.Matricola.ToString() == CercaMatricola
-                                where s.Trilettera == myZone
-                                select s;
-                    model.AT_ListaPratiche_vw = telai.ToList();
-                    return View("ElencoTelai", model);
+                    ViewBag.Messaggio = "il cookie contenente lo 'username' non corrisponde allo User della queryString!";
+                    isAuth = false;
+                    return View("IncorrectLogin");
                 }
-            }
-            else if (!String.IsNullOrEmpty(CercaTarga))
-            {
 
-                var model = new Models.HomeModel();
-                var telai = from s in db.AT_ListaPratiche_vw
-                            where s.Targa.ToString() == CercaTarga
-                            where s.Trilettera == myZone
-                            select s;
-                model.AT_ListaPratiche_vw = telai.ToList();
-                return View("ElencoTelai", model);
             }
             else
             {
-                return View();
-            }
+                string UserName = "";
 
-            //return RedirectToAction("DoRefresh", "Home");
+                string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
+                HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
+                UserName = ticket.Name; //You have the UserName!
+            }
+            return View();
+
+
         }
+
+        //public ActionResult Index(string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
+        //{
+        //    Session["User"] = "percossi";
+        //    ViewBag.perito = Session["User"].ToString();
+
+        //    var myZone = (from s in db.AT_PeritiXZone
+        //                  where s.UserName.ToString() == "percossi"
+        //                  select s.ID_zona).FirstOrDefault();
+
+        //    var myNome = (from s in db.AT_PeritiXZone
+        //                  where s.UserName.ToString() == "percossi"
+        //                  select s.Nome).FirstOrDefault();
+
+        //    var myCognome = (from s in db.AT_PeritiXZone
+        //                     where s.UserName.ToString() == "percossi"
+        //                     select s.Cognome).FirstOrDefault();
+
+        //    var myIDPErito = (from s in db.AT_PeritiXZone
+        //                      where s.UserName.ToString() == "percossi"
+        //                      select s.ID_Perito).FirstOrDefault();
+
+        //    ViewBag.nome = myNome;
+        //    ViewBag.cognome = myCognome;
+
+        //    Session["Zona"] = myZone;
+        //    Session["IDPErito"] = myIDPErito;
+
+        //    using (AUTOSDUEntities val = new AUTOSDUEntities())
+        //    {
+        //        Session["Status"] = "";
+
+        //        var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA");
+        //        ViewData["Luoghi"] = fromDatabaseEF;
+
+
+        //    }
+
+        //    if (String.IsNullOrEmpty(CercaTarga))
+        //    {
+        //        if (String.IsNullOrEmpty(CercaMatricola))
+        //        {
+        //            return View();
+        //        }
+        //        else
+        //        {
+        //            var model = new Models.HomeModel();
+        //            var telai = from s in db.AT_ListaPratiche_vw
+        //                        where s.Matricola.ToString() == CercaMatricola
+        //                        where s.Trilettera == myZone
+        //                        select s;
+        //            model.AT_ListaPratiche_vw = telai.ToList();
+        //            return View("ElencoTelai", model);
+        //        }
+        //    }
+        //    else if (!String.IsNullOrEmpty(CercaTarga))
+        //    {
+
+        //        var model = new Models.HomeModel();
+        //        var telai = from s in db.AT_ListaPratiche_vw
+        //                    where s.Targa.ToString() == CercaTarga
+        //                    where s.Trilettera == myZone
+        //                    select s;
+        //        model.AT_ListaPratiche_vw = telai.ToList();
+        //        return View("ElencoTelai", model);
+        //    }
+        //    else
+        //    {
+        //        return View();
+        //    }
+
+        //    //return RedirectToAction("DoRefresh", "Home");
+        //}
 
         public ActionResult DoRefresh(string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
         {
@@ -568,7 +601,7 @@ namespace ATManager.Controllers
                           select s.ID;
 
 
-            if ((String.IsNullOrEmpty(txtdataultimarevisione)) && (!String.IsNullOrEmpty(myDocID.FirstOrDefault().ToString()) && (aT_SchedaTecnica.IsCompleted == true)))
+            if ((String.IsNullOrEmpty(txtdataultimarevisione)) && (txtCartaCircolazione == "SI") && (aT_SchedaTecnica.IsCompleted == true))
             {
                 ModelState.AddModelError("IDStatoMezzo", "Data ultima revisione obbligatoria");
             }
@@ -994,8 +1027,10 @@ namespace ATManager.Controllers
                            where s.ID_tipoDocumento == 1
                            select s.ID;
 
-            if ( (String.IsNullOrEmpty(txtdataultimarevisione)) && (!String.IsNullOrEmpty(myDocID.FirstOrDefault().ToString()) && (aT_SchedaTecnica.IsCompleted == true)))
-            {
+            
+            //if ( (String.IsNullOrEmpty(txtdataultimarevisione)) && (!String.IsNullOrEmpty(myDocID.FirstOrDefault().ToString()) && (aT_SchedaTecnica.IsCompleted == true)))
+            if ( (String.IsNullOrEmpty(txtdataultimarevisione)) && (txtCartaCircolazione == "SI") && (aT_SchedaTecnica.IsCompleted == true) )
+                {
                 ModelState.AddModelError("IDStatoMezzo", "Data ultima revisione obbligatoria");
             }
 
@@ -1343,25 +1378,28 @@ namespace ATManager.Controllers
 
             foreach (var file in files)
             {
-                int fileCount = (from filecnt in Directory.EnumerateFiles(Request.MapPath(@"~\FotoPerizia"), myBarcode + "*.*", SearchOption.AllDirectories)
-                                 select file).Count();
-
-                path = System.IO.Path.Combine(Request.MapPath(@"~\FotoPerizia"), myBarcode + "_" +
-                                                                        myTarga + "_" +
-                                                                        fileCount.ToString("000") + "_" +
-                                                                        System.IO.Path.GetExtension(file.FileName));
-                if (file != null)
+                try
                 {
-                    file.SaveAs(path);
+                    int fileCount = (from filecnt in Directory.EnumerateFiles(Request.MapPath(@"~\FotoPerizia"), myBarcode + "*.*", SearchOption.AllDirectories)
+                                     select file).Count();
+
+                    path = System.IO.Path.Combine(Request.MapPath(@"~\FotoPerizia"), myBarcode + "_" +
+                                                                            myTarga + "_" +
+                                                                            fileCount.ToString("000") + "_" +
+                                                                            System.IO.Path.GetExtension(file.FileName));
+                    if (file != null)
+                    {
+                        file.SaveAs(path);
+                    }
+
+                    string myFileName = Path.GetFileName(path);
+                    var sql = @"INSERT INTO SDU_DocumentiPerizia (ID_Perizia, percorsoFile) Values (@ID_Perizia, @percorsoFile)";
+                    int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
+                        new SqlParameter("@ID_Perizia", ID),
+                        new SqlParameter("@percorsoFile", myFileName));
+
                 }
-
-                string myFileName = Path.GetFileName(path);
-                var sql = @"INSERT INTO SDU_DocumentiPerizia (ID_Perizia, percorsoFile) Values (@ID_Perizia, @percorsoFile)";
-                int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
-                    new SqlParameter("@ID_Perizia", ID),
-                    new SqlParameter("@percorsoFile", myFileName));
-
-
+                catch { }
 
             }
 
@@ -1421,26 +1459,33 @@ namespace ATManager.Controllers
 
             //string fullPath = Request.MapPath("~/UploadedFiles/" + picName);
 
+           
+
             foreach (var file in files)
             {
-                int fileCount = (from filecnt in Directory.EnumerateFiles(Request.MapPath(@"~\FotoPerizia"), myBarcode + "*.*", SearchOption.AllDirectories)
-                                 select file).Count();
-
-                path = System.IO.Path.Combine(Request.MapPath(@"~\FotoPerizia"), myBarcode + "_" +
-                                                                        myTarga + "_" +
-                                                                        fileCount.ToString("000") + "_" +
-                                                                        System.IO.Path.GetExtension(file.FileName));
-                if (file != null)
+                try
                 {
-                    file.SaveAs(path);
+                    int fileCount = (from filecnt in Directory.EnumerateFiles(Request.MapPath(@"~\FotoPerizia"), myBarcode + "*.*", SearchOption.AllDirectories)
+                                     select file).Count();
+
+                    path = System.IO.Path.Combine(Request.MapPath(@"~\FotoPerizia"), myBarcode + "_" +
+                                                                            myTarga + "_" +
+                                                                            fileCount.ToString("000") + "_" +
+                                                                            System.IO.Path.GetExtension(file.FileName));
+                    if (file != null)
+                    {
+                        file.SaveAs(path);
+                    }
+
+                    string myFileName = Path.GetFileName(path);
+                    var sql = @"INSERT INTO SDU_DocumentiPerizia (ID_Perizia, percorsoFile) Values (@ID_Perizia, @percorsoFile)";
+                    int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
+                        new SqlParameter("@ID_Perizia", ID),
+                        new SqlParameter("@percorsoFile", myFileName));
                 }
-
-                string myFileName = Path.GetFileName(path);
-                var sql = @"INSERT INTO SDU_DocumentiPerizia (ID_Perizia, percorsoFile) Values (@ID_Perizia, @percorsoFile)";
-                int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
-                    new SqlParameter("@ID_Perizia", ID),
-                    new SqlParameter("@percorsoFile", myFileName));
-
+                catch {
+                    //return View("FotoPeriziaEdit", new { ID });
+                }
 
             }
 
@@ -1492,35 +1537,38 @@ namespace ATManager.Controllers
 
             foreach (var file in files)
             {
-
-                int fileCount = (from filecnt in Directory.EnumerateFiles(Request.MapPath(@"~\FotoPratica"), IDPratica + "*.*", SearchOption.AllDirectories)
-                                 select file).Count();
-                fileCount++;
-
-                path = System.IO.Path.Combine(Request.MapPath(@"~\FotoPratica"), IDPratica + "_" + 
-                                                                        myDate + "_" + 
-                                                                        fileCount.ToString("000") + "_" + 
-                                                                        myIDTipoDoc + 
-                                                                        System.IO.Path.GetExtension(file.FileName));
-                
-
-
-                if (file != null)
+                try
                 {
-                    file.SaveAs(path);
-                }
+                    int fileCount = (from filecnt in Directory.EnumerateFiles(Request.MapPath(@"~\FotoPratica"), IDPratica + "*.*", SearchOption.AllDirectories)
+                                     select file).Count();
+                    fileCount++;
 
-                string myFileName = Path.GetFileName(path);
-                
+                    path = System.IO.Path.Combine(Request.MapPath(@"~\FotoPratica"), IDPratica + "_" +
+                                                                            myDate + "_" +
+                                                                            fileCount.ToString("000") + "_" +
+                                                                            myIDTipoDoc +
+                                                                            System.IO.Path.GetExtension(file.FileName));
 
-                var sql = @"INSERT INTO SDU_documentiPratica (ID_pratica, ID_tipoDocumento,percorsoFile) Values (@ID_pratica, 
+
+
+                    if (file != null)
+                    {
+                        file.SaveAs(path);
+                    }
+
+                    string myFileName = Path.GetFileName(path);
+
+
+                    var sql = @"INSERT INTO SDU_documentiPratica (ID_pratica, ID_tipoDocumento,percorsoFile) Values (@ID_pratica, 
                                                                                                                  @ID_tipoDocumento, 
                                                                                                                  @percorsoFile)";
-                int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
-                    new SqlParameter("@ID_pratica", IDPratica),
-                    new SqlParameter("@ID_tipoDocumento", myIDTipoDoc),
-                    new SqlParameter("@percorsoFile", myFileName));
-
+                    int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
+                        new SqlParameter("@ID_pratica", IDPratica),
+                        new SqlParameter("@ID_tipoDocumento", myIDTipoDoc),
+                        new SqlParameter("@percorsoFile", myFileName));
+                }
+                catch
+                { }
             }
 
 
@@ -1563,33 +1611,39 @@ namespace ATManager.Controllers
 
             foreach (var file in files)
             {
-
-                int fileCount = (from filecnt in Directory.EnumerateFiles(Request.MapPath(@"~\FotoPratica"), IDPratica + "*.*", SearchOption.AllDirectories)
-                                 select file).Count();
-                fileCount++;
-
-                path = System.IO.Path.Combine(Request.MapPath(@"~\FotoPratica"), IDPratica + "_" +
-                                                                        myDate + "_" +
-                                                                        fileCount.ToString("000") + "_" +
-                                                                        myIDTipoDoc +
-                                                                        System.IO.Path.GetExtension(file.FileName));
-
-
-
-                if (file != null)
+                try
                 {
-                    file.SaveAs(path);
-                }
+                    int fileCount = (from filecnt in Directory.EnumerateFiles(Request.MapPath(@"~\FotoPratica"), IDPratica + "*.*", SearchOption.AllDirectories)
+                                     select file).Count();
+                    fileCount++;
 
-                string myFileName = Path.GetFileName(path);
+                    path = System.IO.Path.Combine(Request.MapPath(@"~\FotoPratica"), IDPratica + "_" +
+                                                                            myDate + "_" +
+                                                                            fileCount.ToString("000") + "_" +
+                                                                            myIDTipoDoc +
+                                                                            System.IO.Path.GetExtension(file.FileName));
 
-                var sql = @"INSERT INTO SDU_documentiPratica (ID_pratica, ID_tipoDocumento,percorsoFile) Values (@ID_pratica, 
+
+
+                    if (file != null)
+                    {
+                        file.SaveAs(path);
+                    }
+
+                    string myFileName = Path.GetFileName(path);
+
+                    var sql = @"INSERT INTO SDU_documentiPratica (ID_pratica, ID_tipoDocumento,percorsoFile) Values (@ID_pratica, 
                                                                                                                  @ID_tipoDocumento, 
                                                                                                                  @percorsoFile)";
-                int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
-                    new SqlParameter("@ID_pratica", IDPratica),
-                    new SqlParameter("@ID_tipoDocumento", myIDTipoDoc),
-                    new SqlParameter("@percorsoFile", myFileName));
+                    int noOfRowInserted = db.Database.ExecuteSqlCommand(sql,
+                        new SqlParameter("@ID_pratica", IDPratica),
+                        new SqlParameter("@ID_tipoDocumento", myIDTipoDoc),
+                        new SqlParameter("@percorsoFile", myFileName));
+                }
+                catch
+                {
+
+                }
 
             }
 
