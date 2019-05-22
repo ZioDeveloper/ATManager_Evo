@@ -122,7 +122,7 @@
 
     @*<p><a class="btn btn-default" href="~/Utente/Login">More info and code examples by loggin in ! &raquo;</a></p>*@
 
-     <table>
+     <table >
          <tr>
             <td>
                 @Html.ActionLink("Inserisci foto mezzo", "FotoPerizia", new { id = ViewBag.IDPerizia })
@@ -753,7 +753,7 @@
                 }
                 else
                 {
-                    <input type="submit" value="Salva" />
+                    <input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
                 }
                 <font color="red">Scheda Chiusa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
                 @Html.EditorFor(model => model.IsCompleted)

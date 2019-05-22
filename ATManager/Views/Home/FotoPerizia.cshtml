@@ -24,25 +24,24 @@
 <br /><br />
 
 
-@using (Html.BeginForm("UploadFotoPerizia", "Home", new
-{
-    ID = ViewBag.IDPerizia,
-    ViewBag.marca,
-    ViewBag.targa,
-    ViewBag.dataimmatricolazione,
-    ViewBag.km,
-    ViewBag.luogoperizia,
-    ViewBag.modello,
-    ViewBag.cartacircolazione,
-    ViewBag.matricola,
-    ViewBag.telaio,
-    ViewBag.dataultimarevisione,
-    ViewBag.aziendautilizzatrice
-}, FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("UploadFotoPerizia", "Home", new  {
+        ID = ViewBag.IDPerizia,
+        ViewBag.marca,
+        ViewBag.targa,
+        ViewBag.dataimmatricolazione,
+        ViewBag.km,
+        ViewBag.luogoperizia,
+        ViewBag.modello,
+        ViewBag.cartacircolazione,
+        ViewBag.matricola,
+        ViewBag.telaio,
+        ViewBag.dataultimarevisione,
+        ViewBag.aziendautilizzatrice
+    }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <label for="file">Inserisci foto:</label>
     <br /><br />
-    <input type="file" multiple name="files[0]" id="files_0" />
+    <input type="file" multiple name="files" id="files_0" />
 
     <br />
     <input type="submit" value="Inserici foto mezzo" class="submit" />

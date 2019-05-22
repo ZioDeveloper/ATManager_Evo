@@ -12,6 +12,8 @@
     }
 </script>
 
+
+
 <style>
 
     .fontDimensione {
@@ -77,7 +79,7 @@
 }
 else
 {
-    <h2 > Scheda chiusa </h2>
+    <h2> Scheda chiusa </h2>
 }
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -124,12 +126,35 @@ else
             <tr>
                 <td>
                     @Html.ActionLink("Inserisci foto mezzo", "FotoPeriziaEdit", new { id = ViewBag.IDPerizia })
-                <td>
+                </td>
                 <td> &nbsp;|| &nbsp; </td>
                 <td>
                     @Html.ActionLink("Inserisci foto documento", "FotoPraticaEdit", new { id = ViewBag.IDPerizia })
                 </td>
             </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink("Visualizza foto mezzo", "PerizieImagesEdit", new { id = ViewBag.IDPerizia })
+                </td>
+                <td> &nbsp;|| &nbsp; </td>
+                <td>
+                    @Html.ActionLink("Visualizza foto documento", "PraticheImagesEdit", new { id = ViewBag.IDPerizia })
+                </td>
+            </tr>
+        </table>
+    }
+    else
+    {
+        <table>
+            @*<tr>
+                <td>
+                    @Html.ActionLink("Inserisci foto mezzo", "FotoPeriziaEdit", new { id = ViewBag.IDPerizia })
+                </td>
+                <td> &nbsp;|| &nbsp; </td>
+                <td>
+                    @Html.ActionLink("Inserisci foto documento", "FotoPraticaEdit", new { id = ViewBag.IDPerizia })
+                </td>
+            </tr>*@
             <tr>
                 <td>
                     @Html.ActionLink("Visualizza foto mezzo", "PerizieImagesEdit", new { id = ViewBag.IDPerizia })
@@ -746,7 +771,7 @@ else
                 }
                 else
                 {
-                    <input type="submit" value="Salva" />
+                    <input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
                 }
                 <font color="red">Scheda Chiusa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
                 @Html.EditorFor(model => model.IsCompleted)
@@ -760,14 +785,14 @@ else
             <div class="col-md-offset-2 col-md-10">
                 @if (ViewBag.cartacircolazione == "SI")
                 {
-                    <input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
+                    <input type="submit" disabled value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
                 }
                 else
                 {
-                    <input type="submit" value="Salva" />
+                    <input type="submit" disabled value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
                 }
                 <font color="red">Scheda Chiusa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
-                @Html.EditorFor(model => model.IsCompleted)
+                @Html.EditorFor(model => model.IsCompleted, new { htmlAttributes = new { @disabled = "disabled" } })
                 @Html.ValidationMessageFor(model => model.IsCompleted, "", new { @class = "text-danger" })
             </div>
         </div>

@@ -240,7 +240,7 @@ namespace ATManager.Controllers
                 return View();
             }
 
-            //return RedirectToAction("DoRefresh", "Home");
+            return RedirectToAction("DoRefresh", "Home");
         }
 
         public ActionResult DoRefresh(string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
@@ -600,10 +600,16 @@ namespace ATManager.Controllers
                           where s.ID_tipoDocumento == 1
                           select s.ID;
 
-
+            // Data ultima revisione obbligatoria
             if ((String.IsNullOrEmpty(txtdataultimarevisione)) && (txtCartaCircolazione == "SI") && (aT_SchedaTecnica.IsCompleted == true))
             {
                 ModelState.AddModelError("IDStatoMezzo", "Data ultima revisione obbligatoria");
+            }
+
+            // Verifica inserimento KM
+            if ((String.IsNullOrEmpty(txtKm)) && (aT_SchedaTecnica.IsCompleted == true))
+            {
+                ModelState.AddModelError("Km", "Km : il dato è obbligatorio.");
             }
 
             // Verifica presenza foto in caso di ID Stato mezzo = 2
@@ -812,6 +818,21 @@ namespace ATManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            //// Cancella foto da cartella files
+
+            //var fotoperizia = new Models.SDU_DocumentiPerizia();
+            //var myBarcode = from s in db.SDU_DocumentiPerizia
+            //                where s.ID_Perizia == id
+            //                select s.PercorsoFile.ToString();
+            //try
+            //{
+            //    string myBCP = myBarcode.ToList().First();
+            //    myBCP = myBCP.Substring(0, 10);
+            //    var fileNames = Directory.EnumerateFiles(Server.MapPath("~/FotoPerizia"),myBCP,SearchOption.TopDirectoryOnly);
+
+            //}
+            //catch { }
+
             var sql = @"DELETE FROM  AT_SchedaTecnica WHERE IDPerizia = @IDPErizia";
             int myDeleted = db.Database.ExecuteSqlCommand(sql,  new SqlParameter("@IDPErizia", id));
 
@@ -1062,10 +1083,17 @@ namespace ATManager.Controllers
                            
             //int myIDPrat = myPRatID.ToList().First();
 
+            // Data ultima revisione...
             //if ( (String.IsNullOrEmpty(txtdataultimarevisione)) && (!String.IsNullOrEmpty(myDocID.FirstOrDefault().ToString()) && (aT_SchedaTecnica.IsCompleted == true)))
             if ( (String.IsNullOrEmpty(txtdataultimarevisione)) && (txtCartaCircolazione == "SI") && (aT_SchedaTecnica.IsCompleted == true) )
             {
                 ModelState.AddModelError("IDStatoMezzo", "Data ultima revisione obbligatoria");
+            }
+
+            // Verifica inserimento KM
+            if ((String.IsNullOrEmpty(txtKm)) && (aT_SchedaTecnica.IsCompleted == true))
+            {
+                ModelState.AddModelError("Km", "Km : il dato è obbligatorio.");
             }
 
             if (ModelState.IsValid)
@@ -1433,7 +1461,10 @@ namespace ATManager.Controllers
                         new SqlParameter("@percorsoFile", myFileName));
 
                 }
-                catch { }
+                catch
+                {
+                    //return View("FotoPerizia");
+                }
 
             }
 
