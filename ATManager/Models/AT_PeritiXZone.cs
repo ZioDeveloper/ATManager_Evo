@@ -20,7 +20,7 @@ public partial class AT_PeritiXZone
 
     public int ID { get; set; }
 
-    public Nullable<int> ID_Perito { get; set; }
+    public string ID_Perito { get; set; }
 
     public string ID_zona { get; set; }
 

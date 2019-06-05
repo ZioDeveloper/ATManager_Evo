@@ -1,0 +1,39 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Immissione / modifica telai";
+}
+
+<h3>Immissione / modifica telai</h3>
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        Targa: @Html.TextBox("Targa", null, new { style = "width:80px" })
+        MAtricola: @Html.TextBox("Matricola", null, new { style = "width:80px" })
+        <input type="submit" id="TelaioDaInserire" value="Inserimento targa non in lista" />
+
+    </div>
+}
+<br /><br />
+@{string aMessage = ViewBag.Messaggio;}
+
+@if (ViewBag.Controllo == 0)
+{
+      <div style="background-color: red ">
+          @aMessage
+      </div>
+   
+}
+else if (ViewBag.Controllo == 1)
+{
+    <div style="background-color: red ">
+        Test div
+    </div>
+}
+else if (ViewBag.Controllo == 2)
+{
+    <div style="background-color: green">
+        Test div
+    </div>
+}
