@@ -165,6 +165,12 @@
     <Compile Include="Models\AT_IndiciValutazione.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AT_ListaPraticheConPerizia_vw.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AT_ListaPraticheSenzaPerizia_vw.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AT_ListaPratiche_vw.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>

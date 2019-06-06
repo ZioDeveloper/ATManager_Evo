@@ -25,5 +25,9 @@ namespace ATManager.Models
 
         public IEnumerable<SDU_documentiPratica> SDU_documentiPratica { get; set; }
 
+        public IEnumerable<AT_ListaPraticheSenzaPerizia_vw> AT_ListaPraticheSenzaPerizia_vw { get; set; }
+
+        public IEnumerable<AT_ListaPraticheConPerizia_vw> AT_ListaPraticheConPerizia_vw { get; set; }
+
     }
 }

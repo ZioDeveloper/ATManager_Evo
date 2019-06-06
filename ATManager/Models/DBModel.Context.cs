@@ -58,6 +58,10 @@ public partial class AUTOSDUEntities : DbContext
 
     public virtual DbSet<SDU_DocumentiPerizia> SDU_DocumentiPerizia { get; set; }
 
+    public virtual DbSet<AT_ListaPraticheSenzaPerizia_vw> AT_ListaPraticheSenzaPerizia_vw { get; set; }
+
+    public virtual DbSet<AT_ListaPraticheConPerizia_vw> AT_ListaPraticheConPerizia_vw { get; set; }
+
 }
 
 }

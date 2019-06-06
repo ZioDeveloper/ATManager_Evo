@@ -20,20 +20,32 @@
 
 @if (ViewBag.Controllo == 0)
 {
-      <div style="background-color: red ">
-          @aMessage
-      </div>
-   
+    <div style="background-color: red ">
+        @aMessage
+    </div>
+
 }
 else if (ViewBag.Controllo == 1)
 {
     <div style="background-color: red ">
-        Test div
+        @aMessage
     </div>
 }
 else if (ViewBag.Controllo == 2)
 {
     <div style="background-color: green">
-        Test div
+        @aMessage
+    </div>
+}
+else if (ViewBag.Controllo == 3)
+{
+    <div style="background-color: green">
+        @aMessage
+    </div>
+}
+else if (ViewBag.Controllo == 4)
+{
+    <div style="background-color: green">
+        @aMessage
     </div>
 }
