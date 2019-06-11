@@ -210,6 +210,14 @@ public partial class AT_SchedaTecnica
 
     public System.DateTime insertTime { get; set; }
 
+    public int IDVisualizzazioneMezzo { get; set; }
+
+    public bool isMarciante { get; set; }
+
+    public bool isAvviante { get; set; }
+
+    public bool IsnNoAssistenza { get; set; }
+
 
 
     public virtual AT_StatiMezzo AT_StatiMezzo { get; set; }
@@ -303,6 +311,8 @@ public partial class AT_SchedaTecnica
     public virtual AT_IndiciValutazione AT_IndiciValutazione181 { get; set; }
 
     public virtual AT_PreventiviDanno AT_PreventiviDanno { get; set; }
+
+    public virtual AT_VisualizzazioneMezzo AT_VisualizzazioneMezzo { get; set; }
 
 }
 

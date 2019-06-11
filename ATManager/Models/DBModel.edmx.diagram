@@ -67,6 +67,8 @@
         <EntityTypeShape EntityType="AUTOSDUModel.SDU_DocumentiPerizia" Width="1.5" PointX="11.375" PointY="12.75" />
         <EntityTypeShape EntityType="AUTOSDUModel.AT_ListaPraticheSenzaPerizia_vw" Width="1.5" PointX="13.375" PointY="1" />
         <EntityTypeShape EntityType="AUTOSDUModel.AT_ListaPraticheConPerizia_vw" Width="1.5" PointX="13.375" PointY="13" />
+        <EntityTypeShape EntityType="AUTOSDUModel.AT_VisualizzazioneMezzo" Width="1.5" PointX="15.375" PointY="0.875" />
+        <AssociationConnector Association="AUTOSDUModel.FK_AT_SchedaTecnica_AT_VisualizzazioneMezzo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

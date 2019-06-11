@@ -120,6 +120,20 @@ else
         @Html.TextBox("txtTelaio", (string)ViewBag.luogoperizia)
         @Html.TextBox("txtAziendaUtilizzatrice", (string)ViewBag.modello)
     </div>
+
+    <table border="1" style="vertical-align:top;border-collapse:collapse;font-size:10px;" cellpadding="1" width="100%" align="center">
+
+        <tr>
+            <td colspan="4" style="text-align:center" class="azzurro"><b>STATUS MEZZO</b></td>
+        </tr>
+        <tr>
+            <td class="verde">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "1", new { onclick = "show1();", @checked = "checked" }) 1 - Entrata / UScita</td>
+            <td class="verde">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "2", new { onclick = "show2();" }) 2 - Mezzo in sosta</td>
+            <td class="verde">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "3", new { onclick = "show1();" }) 3 - Mezzo in officina </td>
+            <td class="verde">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "4", new { onclick = "show1();" }) 4 - Mezzo da rottamare </td>
+        </tr>
+    </table>
+
     if (!Model.IsCompleted)
     {
         <table>
@@ -147,14 +161,14 @@ else
     {
         <table>
             @*<tr>
-                <td>
-                    @Html.ActionLink("Inserisci foto mezzo", "FotoPeriziaEdit", new { id = ViewBag.IDPerizia })
-                </td>
-                <td> &nbsp;|| &nbsp; </td>
-                <td>
-                    @Html.ActionLink("Inserisci foto documento", "FotoPraticaEdit", new { id = ViewBag.IDPerizia })
-                </td>
-            </tr>*@
+                    <td>
+                        @Html.ActionLink("Inserisci foto mezzo", "FotoPeriziaEdit", new { id = ViewBag.IDPerizia })
+                    </td>
+                    <td> &nbsp;|| &nbsp; </td>
+                    <td>
+                        @Html.ActionLink("Inserisci foto documento", "FotoPraticaEdit", new { id = ViewBag.IDPerizia })
+                    </td>
+                </tr>*@
             <tr>
                 <td>
                     @Html.ActionLink("Visualizza foto mezzo", "PerizieImagesEdit", new { id = ViewBag.IDPerizia })
@@ -790,7 +804,7 @@ else
                 }
                 else
                 {
-                    <input type="submit"  value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
+                    <input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
                     @*<input type="submit" disabled value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
                 }
                 <font color="red">Scheda Chiusa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
