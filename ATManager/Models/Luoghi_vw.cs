@@ -22,6 +22,8 @@ public partial class Luoghi_vw
 
     public string DescrITA { get; set; }
 
+    public string Trilettera { get; set; }
+
 }
 
 }

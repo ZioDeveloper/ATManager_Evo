@@ -10,6 +10,7 @@ using ATManager.Models;
 using System.Net;
 using System.Data.Entity;
 using System.IO;
+using static ATManager.Models.HomeModel;
 
 namespace ATManager.Controllers
 {
@@ -18,6 +19,10 @@ namespace ATManager.Controllers
 
 
         private AUTOSDUEntities db = new AUTOSDUEntities();
+
+        public object Helper { get; private set; }
+
+
 
         //public ActionResult Index(string usr, string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
         //{
@@ -172,10 +177,16 @@ namespace ATManager.Controllers
 
         //}
 
-        public ActionResult Index(string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
+        public ActionResult Index(string Opt1, string CercaTarga, int? SearchLocation, string CercaMatricola)
         {
+            if(Session["Location"]== null)
+                Session["Location"] = "";
+
+            
             Session["User"] = "percossi";
             ViewBag.perito = Session["User"].ToString();
+
+            String loc = Session["Location"].ToString();
             string myPerito = Session["User"].ToString();
 
             var myZone = (from s in db.AT_PeritiXZone
@@ -246,7 +257,78 @@ namespace ATManager.Controllers
             return RedirectToAction("DoRefresh", "Home");
         }
 
-        public ActionResult DoRefresh(string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
+        public ActionResult ContaTelai(int? SearchLocation)
+        {
+            
+            Session["Location"] = SearchLocation;
+            
+
+            using (AUTOSDUEntities val = new AUTOSDUEntities())
+            {
+                //Session["Scelta1"] = "";
+
+                var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+                ViewData["Luoghi"] = fromDatabaseEF;
+
+            }
+
+
+            
+
+
+            if (!String.IsNullOrEmpty(SearchLocation.ToString()))
+            {
+                var cnt = (from s in db.AT_ListaPratiche_vw
+                           where s.ID_LuogoIntervento == SearchLocation.ToString()
+                           select s.Perizie_ID).Count();
+                ViewBag.Tutte = cnt;
+
+                cnt = (from s in db.AT_ListaPratiche_vw
+                       where s.ID_LuogoIntervento == SearchLocation.ToString()
+                       where s.IsCompleted == true
+                       select s.Perizie_ID).Count();
+                ViewBag.Chiuse = cnt;
+
+                cnt = (from s in db.AT_ListaPratiche_vw
+                       where s.ID_LuogoIntervento == SearchLocation.ToString()
+                       where s.IsCompleted == false
+                       select s.Perizie_ID).Count();
+                ViewBag.Aperte = cnt;
+
+                cnt = (from s in db.AT_ListaPratiche_vw
+                       where s.ID_SchedaTecnica == null
+                       where s.ID_LuogoIntervento == SearchLocation.ToString()
+                       select s.Perizie_ID).Count();
+                ViewBag.Assenti = cnt;
+
+                string myPerito = Session["User"].ToString();
+
+                var myZone = (from s in db.AT_PeritiXZone
+                              where s.UserName.ToString() == myPerito
+                              select s.ID_zona).FirstOrDefault();
+
+                var myNome = (from s in db.AT_PeritiXZone
+                              where s.UserName.ToString() == myPerito
+                              select s.Nome).FirstOrDefault();
+
+                var myCognome = (from s in db.AT_PeritiXZone
+                                 where s.UserName.ToString() == myPerito
+                                 select s.Cognome).FirstOrDefault();
+
+                var myIDPErito = (from s in db.AT_PeritiXZone
+                                  where s.UserName.ToString() == myPerito
+                                  select s.ID_Perito).FirstOrDefault();
+
+                ViewBag.nome = myNome;
+                ViewBag.cognome = myCognome;
+
+
+                return View("Index");
+            }
+            return View("Index");
+        }
+
+        public ActionResult DoRefresh(string Opt1, string CercaTarga,  string CercaMatricola, int? SearchLocation)
         {
 
             //string UserName = "";
@@ -255,7 +337,10 @@ namespace ATManager.Controllers
             //HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
             //FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
             //UserName = ticket.Name; //You have the UserName!
+            string a = SearchLocation.ToString();
 
+            if (SearchLocation == null)
+                SearchLocation = (int)Session["Location"];
 
 
             if (Opt1 != null)
@@ -267,11 +352,13 @@ namespace ATManager.Controllers
             {
                 //Session["Scelta1"] = "";
 
-                var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA");
+                var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
                 ViewData["Luoghi"] = fromDatabaseEF;
 
 
             }
+
+            
 
            
 
@@ -282,6 +369,7 @@ namespace ATManager.Controllers
                 Session["TipoRicerca"] = "MONO";
                 var IsInserted = (from s in db.AT_ListaPratiche_vw
                                   where s.Matricola.ToString() == CercaMatricola
+                                  where s.ID_LuogoIntervento == SearchLocation.ToString()
                                   select s.Perizie_ID).Count();
                 if (IsInserted > 0)
                 {
@@ -290,6 +378,7 @@ namespace ATManager.Controllers
                         var IsClosed = (from s in db.AT_ListaPratiche_vw
                                         where s.Matricola.ToString() == CercaMatricola
                                         where s.Trilettera == myZone
+                                        where s.ID_LuogoIntervento == SearchLocation.ToString()
                                         select s.IsCompleted).FirstOrDefault();
                         if (IsClosed.Value == false)
                             Session["Status"] = "FATTE";
@@ -312,6 +401,7 @@ namespace ATManager.Controllers
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.Matricola.ToString() == CercaMatricola
                             where s.Trilettera == myZone
+                            where s.ID_LuogoIntervento == SearchLocation.ToString()
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
                 return View("ElencoTelai", model);
@@ -324,6 +414,7 @@ namespace ATManager.Controllers
                 Session["TipoRicerca"] = "MONO";
                 var IsInserted = (from s in db.AT_ListaPratiche_vw
                                   where s.Targa.ToString() == CercaTarga
+                                  where s.ID_LuogoIntervento == SearchLocation.ToString()
                                   select s.Perizie_ID).Count();
                 if (IsInserted > 0)
                 {
@@ -332,6 +423,7 @@ namespace ATManager.Controllers
                         var IsClosed = (from s in db.AT_ListaPratiche_vw
                                         where s.Targa.ToString() == CercaTarga
                                         where s.Trilettera == myZone
+                                        where s.ID_LuogoIntervento == SearchLocation.ToString()
                                         select s.IsCompleted).FirstOrDefault();
                         if (IsClosed.Value == false)
                             Session["Status"] = "FATTE";
@@ -354,6 +446,7 @@ namespace ATManager.Controllers
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.Targa.ToString() == CercaTarga
                             where s.Trilettera == myZone
+                            where s.ID_LuogoIntervento == SearchLocation.ToString()
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
                 return View("ElencoTelai", model);
@@ -365,6 +458,7 @@ namespace ATManager.Controllers
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.Trilettera == myZone
+                            where s.ID_LuogoIntervento == SearchLocation.ToString()
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
                 return View("ElencoTelai", model);
@@ -377,6 +471,7 @@ namespace ATManager.Controllers
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.ID_SchedaTecnica == null
                             where s.Trilettera == myZone
+                            where s.ID_LuogoIntervento == SearchLocation.ToString()
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
                 return View("ElencoTelai", model);
@@ -389,6 +484,7 @@ namespace ATManager.Controllers
                             where s.ID_SchedaTecnica != null
                             where s.IsCompleted == false
                             where s.Trilettera == myZone
+                            where s.ID_LuogoIntervento == SearchLocation.ToString()
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
                 return View("ElencoTelai", model);
@@ -399,6 +495,7 @@ namespace ATManager.Controllers
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.ID_SchedaTecnica != null
+                            where s.ID_LuogoIntervento == SearchLocation.ToString()
                             where s.IsCompleted == true
                             where s.Trilettera == myZone
                             select s;

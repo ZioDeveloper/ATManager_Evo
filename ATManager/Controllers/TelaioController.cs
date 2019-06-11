@@ -84,6 +84,18 @@ namespace ATManager.Controllers
                 if (HasDifferentLocation)
                 {
                     aMessage = "Targa esistente con location differente";
+
+                    using (AUTOSDUEntities val = new AUTOSDUEntities())
+                    {
+                        string myZone = Session["Zona"].ToString();
+                        var cnt = (from s in db.Luoghi_vw
+                                   where s.Trilettera.ToString() != myZone
+                                   select s).ToList();
+                        var fromDatabaseEF = new SelectList(cnt, "ID", "DescrITA");
+                        ViewData["Luoghi"] = fromDatabaseEF;
+
+                    }
+
                     return 3;
                 }
                 else

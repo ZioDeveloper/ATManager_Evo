@@ -39,8 +39,15 @@ else if (ViewBag.Controllo == 2)
 }
 else if (ViewBag.Controllo == 3)
 {
-    <div style="color: green;border= 1">
+    <div id="Test">
         Situazione targa : @aMessage
+        <br />
+        <tr>
+            <td >Location in cui registrare la scheda :</td>
+        </tr>
+        <tr>
+            <td >    @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])</td>
+        </tr>
     </div>
 }
 else if (ViewBag.Controllo == 4)

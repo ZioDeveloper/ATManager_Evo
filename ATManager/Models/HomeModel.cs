@@ -29,5 +29,7 @@ namespace ATManager.Models
 
         public IEnumerable<AT_ListaPraticheConPerizia_vw> AT_ListaPraticheConPerizia_vw { get; set; }
 
+       
+
     }
 }
