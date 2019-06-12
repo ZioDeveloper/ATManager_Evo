@@ -212,11 +212,11 @@ public partial class AT_SchedaTecnica
 
     public int IDVisualizzazioneMezzo { get; set; }
 
-    public bool isMarciante { get; set; }
+    public Nullable<bool> isMarciante { get; set; }
 
-    public bool isAvviante { get; set; }
+    public string isAvviante { get; set; }
 
-    public bool IsnNoAssistenza { get; set; }
+    public Nullable<bool> IsManutOrdinaria { get; set; }
 
 
 

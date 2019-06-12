@@ -216,7 +216,7 @@ namespace ATManager.Controllers
                 Session["Status"] = "";
 
                 var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA");
-                ViewData["Luoghi"] = fromDatabaseEF;
+                ViewData["Luoghi"] = fromDatabaseEF.OrderBy(n => n.Text);
 
 
             }
@@ -623,12 +623,16 @@ namespace ATManager.Controllers
                                                    "CE265,CE135,CE160,CE145,CE150,CI820,CI825,CI835,CI837,CI1135, " +
                                                    "NoteCE110,NoteCE112,NoteCE115,NoteCE840,NoteCE841,NoteCE842,NoteCE843,NoteCE816," +
                                                    "NoteCE265,NoteCE135,NoteCE160,NoteCE145,NoteCE150,NoteCI820,NoteCI825,NoteCI835,NoteCI837,NoteCI1135," +
-                                                   "Note_danno, Note_generali")] AT_SchedaTecnica aT_SchedaTecnica,string txtdataultimarevisione,string txtTarga,string txtKm,
+                                                   "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria")] AT_SchedaTecnica aT_SchedaTecnica,string txtdataultimarevisione,string txtTarga,string txtKm,
             string txtMatricola,string txtDataPerizia,string txtMarca, string txtDataImmatricolazione, string txtCartaCircolazione,
             string txtLuogoPerizia, string txtModello, string txtTelaio,string txtAziendaUtilizzatrice, FormCollection frmCreate)
         {
-
-            
+           
+            if(aT_SchedaTecnica.isMarciante!= null)
+            {
+                aT_SchedaTecnica.isAvviante = null;
+                aT_SchedaTecnica.IsManutOrdinaria = null;
+            }
 
             if (aT_SchedaTecnica.CE110 == null && aT_SchedaTecnica.IsCompleted == true)
                 ModelState.AddModelError("CE110", CompileErrorMessage("CE110"));

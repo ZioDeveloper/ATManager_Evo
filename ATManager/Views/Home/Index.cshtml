@@ -21,6 +21,7 @@
         <tr>
             <td>
                 Seleziona località perizia:
+                
                 @if (@Session["Location"].ToString() == "")
                 {
                     @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"], htmlAttributes: new { @class = "form-control", @onchange = "this.form.submit();" })

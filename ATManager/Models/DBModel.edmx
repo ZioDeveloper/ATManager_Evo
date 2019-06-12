@@ -131,9 +131,9 @@
           <Property Name="Note_generali" Type="varchar(max)" />
           <Property Name="insertUser" Type="varchar" MaxLength="20" StoreGeneratedPattern="Computed" />
           <Property Name="insertTime" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
-          <Property Name="isMarciante" Type="bit" Nullable="false" />
-          <Property Name="isAvviante" Type="bit" Nullable="false" />
-          <Property Name="IsnNoAssistenza" Type="bit" Nullable="false" />
+          <Property Name="isMarciante" Type="bit" />
+          <Property Name="isAvviante" Type="varchar" MaxLength="1" />
+          <Property Name="IsManutOrdinaria" Type="bit" />
         </EntityType>
         <EntityType Name="AT_StatiMezzo">
           <Key>
@@ -1322,9 +1322,9 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <Property Name="insertTime" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="IDVisualizzazioneMezzo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AT_VisualizzazioneMezzo" Relationship="AUTOSDUModel.FK_AT_SchedaTecnica_AT_VisualizzazioneMezzo" FromRole="AT_SchedaTecnica" ToRole="AT_VisualizzazioneMezzo" />
-          <Property Name="isMarciante" Type="Boolean" Nullable="false" />
-          <Property Name="isAvviante" Type="Boolean" Nullable="false" />
-          <Property Name="IsnNoAssistenza" Type="Boolean" Nullable="false" />
+          <Property Name="isMarciante" Type="Boolean" />
+          <Property Name="isAvviante" Type="String" MaxLength="1" Unicode="false" FixedLength="false" />
+          <Property Name="IsManutOrdinaria" Type="Boolean" />
         </EntityType>
         <EntityType Name="AT_StatiMezzo">
           <Key>
@@ -2311,7 +2311,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <EntitySetMapping Name="AT_SchedaTecnica">
             <EntityTypeMapping TypeName="AUTOSDUModel.AT_SchedaTecnica">
               <MappingFragment StoreEntitySet="AT_SchedaTecnica">
-                <ScalarProperty Name="IsnNoAssistenza" ColumnName="IsnNoAssistenza" />
+                <ScalarProperty Name="IsManutOrdinaria" ColumnName="IsManutOrdinaria" />
                 <ScalarProperty Name="isAvviante" ColumnName="isAvviante" />
                 <ScalarProperty Name="isMarciante" ColumnName="isMarciante" />
                 <ScalarProperty Name="IDVisualizzazioneMezzo" ColumnName="IDVisualizzazioneMezzo" />
