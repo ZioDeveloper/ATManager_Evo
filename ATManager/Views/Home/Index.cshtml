@@ -2,10 +2,20 @@
 @{
     ViewBag.Title = "Index";
 }
+<script type="text/javascript">
+    function AttivaOpzioni() {
+        document.getElementById('AttivaOpzioni').style.display = 'block';
+    }
+    function DisAttivaOpzioni() {
+        canmodify = true;
+        document.getElementById('AttivaOpzioni').style.display = 'none';
+    }
+</script>
+
 
 <h3>AT Manager</h3>
 <br />
-
+@{bool canmodify = true;}
 <table border="0">
     <tr>
         <td>Benvenuto, &nbsp;</td>
@@ -20,28 +30,31 @@
     <table border="0">
         <tr>
             <td>
-                Seleziona località perizia:
-                
+                Seleziona località :
+                <p style="color:red">TODO : Memorizzare location prescelta</p>
+
                 @if (@Session["Location"].ToString() == "")
                 {
-                    @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"], htmlAttributes: new { @class = "form-control", @onchange = "this.form.submit();" })
+                    canmodify = true;
+                    @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"], htmlAttributes: new { @class = "form-control", @onchange = "this.form.submit();", @onclick = "AttivaOpzioni();" })
                 }
                 else
                 {
-                    @Html.DropDownList("SearchLocation", (SelectList)ViewData["Luoghi"],new { @class = "form-control", @onchange = "this.form.submit();" })
+                    canmodify = false;
+                    @Html.DropDownList("SearchLocation", (SelectList)ViewData["Luoghi"], new { @class = "form-control", @onchange = "this.form.submit();", @onclick = "AttivaOpzioni();" })
                 }
             </td>
         </tr>
     </table>
 }
 
-                                @using (Html.BeginForm("DoRefresh", "Home", FormMethod.Get))
+@using (Html.BeginForm("DoRefresh", "Home", FormMethod.Get))
 {
     <div class="form-horizontal">
-        @{var Scelta01 = "Tutti    :";}
-        @{var Scelta02 = "Schede da fare :";}
-        @{var Scelta03 = "Schede aperte :";}
-        @{var Scelta04 = "Schede chiuse    :";}
+        @{var Scelta01 = "Elenco completo veicoli  :";}
+        @{var Scelta02 = "Veicoli senza scheda :";}
+        @{var Scelta03 = "Veicoli con scheda da completare :";}
+        @{var Scelta04 = "Veicoli con scheda completata:";}
 
 
 
@@ -60,15 +73,7 @@
                     Veicoli senza scheda : &nbsp;
                 </td>
                 <td>
-                    @ViewBag.Chiuse
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Veicoli con scheda completata : &nbsp;
-                </td>
-                <td>
-                    @ViewBag.Chiuse
+                    @ViewBag.Assenti
                 </td>
             </tr>
             <tr>
@@ -79,15 +84,24 @@
                     @ViewBag.Aperte
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Veicoli con scheda completata : &nbsp;
+                </td>
+                <td>
+                    @ViewBag.Chiuse
+                </td>
+            </tr>
+
         </table>
         <br>
-        <table border="0">
-            <tr>
-                <td>@Scelta01 &nbsp;</td>
+        <table id="AttivaOpzioni" border="0">
+            @*<tr>
+                <td>&nbsp;@Scelta01&nbsp;</td>
 
                 <td>@Html.RadioButton("Opt1", "TUTTE", new { @onclick = "this.form.submit();" })</td>
 
-            </tr>
+            </tr>*@
             <tr>
                 <td>&nbsp;@Scelta02&nbsp;</td>
 
@@ -99,7 +113,7 @@
                 <td> @Html.RadioButton("Opt1", "FATTE", new { @onclick = "this.form.submit();" })</td>
             </tr>
             <tr>
-                <td style="color:red">&nbsp;@Scelta04&nbsp;</td>
+                <td style="color:blue">&nbsp;@Scelta04&nbsp;</td>
 
                 <td> @Html.RadioButton("Opt1", "FATTECHIUSE", new { @onclick = "this.form.submit();" })</td>
             </tr>
@@ -143,3 +157,7 @@
     </div>
 }
 
+@if (canmodify)
+{
+    <script>DisAttivaOpzioni();</script>
+}

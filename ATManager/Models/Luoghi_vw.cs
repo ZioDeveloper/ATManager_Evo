@@ -24,6 +24,8 @@ public partial class Luoghi_vw
 
     public string Trilettera { get; set; }
 
+    public Nullable<int> NumPerizie { get; set; }
+
 }
 
 }

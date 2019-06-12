@@ -303,6 +303,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <Property Name="ID" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="DescrITA" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Trilettera" Type="varchar" MaxLength="3" />
+          <Property Name="NumPerizie" Type="int" />
         </EntityType>
         <Association Name="CE110">
           <End Role="AT_IndiciValutazione" Type="Self.AT_IndiciValutazione" Multiplicity="0..1" />
@@ -932,7 +933,8 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
             <DefiningQuery>SELECT 
     [Luoghi_vw].[ID] AS [ID], 
     [Luoghi_vw].[DescrITA] AS [DescrITA], 
-    [Luoghi_vw].[Trilettera] AS [Trilettera]
+    [Luoghi_vw].[Trilettera] AS [Trilettera], 
+    [Luoghi_vw].[NumPerizie] AS [NumPerizie]
     FROM [dbo].[Luoghi_vw] AS [Luoghi_vw]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="CE110" Association="Self.CE110">
@@ -2164,6 +2166,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <Property Name="ID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="DescrITA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Trilettera" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="NumPerizie" Type="Int32" />
         </EntityType>
         <EntityType Name="AT_PreventiviDanno">
           <Key>
@@ -2499,6 +2502,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <EntitySetMapping Name="Luoghi_vw">
             <EntityTypeMapping TypeName="AUTOSDUModel.Luoghi_vw">
               <MappingFragment StoreEntitySet="Luoghi_vw">
+                <ScalarProperty Name="NumPerizie" ColumnName="NumPerizie" />
                 <ScalarProperty Name="Trilettera" ColumnName="Trilettera" />
                 <ScalarProperty Name="DescrITA" ColumnName="DescrITA" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

@@ -27,12 +27,17 @@ namespace ATManager.Controllers
         //public ActionResult Index(string usr, string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
         //{
 
+        //    if (Session["Location"] == null)
+        //        Session["Location"] = "";
+
         //    if (usr != null)
         //        Session["User"] = usr;
         //    if (usr == null)
         //        usr = Session["User"].ToString();
 
         //    string myPerito = usr;
+
+        //    String loc = Session["Location"].ToString();
 
 
         //    ViewBag.perito = Session["User"].ToString();
@@ -80,8 +85,16 @@ namespace ATManager.Controllers
         //            {
         //                Session["Status"] = "";
 
-        //                var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA");
+        //                var model = new Models.HomeModel();
+        //                var location = from s in db.Luoghi_vw
+        //                               where s.Trilettera == myZone || s.Trilettera == "Z99"
+        //                               select s;
+        //                model.Luoghi_vw = location.ToList();
+
+        //                var fromDatabaseEF = new SelectList(model.Luoghi_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
         //                ViewData["Luoghi"] = fromDatabaseEF;
+        //                //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+        //                //ViewData["Luoghi"] = fromDatabaseEF;
 
 
         //            }
@@ -179,10 +192,10 @@ namespace ATManager.Controllers
 
         public ActionResult Index(string Opt1, string CercaTarga, int? SearchLocation, string CercaMatricola)
         {
-            if(Session["Location"]== null)
+            if (Session["Location"] == null)
                 Session["Location"] = "";
 
-            
+
             Session["User"] = "percossi";
             ViewBag.perito = Session["User"].ToString();
 
@@ -215,9 +228,16 @@ namespace ATManager.Controllers
             {
                 Session["Status"] = "";
 
-                var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA");
-                ViewData["Luoghi"] = fromDatabaseEF.OrderBy(n => n.Text);
+                var model = new Models.HomeModel();
+                var location = from s in db.Luoghi_vw
+                               where s.Trilettera == myZone || s.Trilettera == "Z99"
+                               select s;
+                model.Luoghi_vw = location.ToList();
 
+                var fromDatabaseEF = new SelectList(model.Luoghi_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
+                ViewData["Luoghi"] = fromDatabaseEF;
+                //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+                //ViewData["Luoghi"] = fromDatabaseEF;
 
             }
 
@@ -244,7 +264,7 @@ namespace ATManager.Controllers
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.Targa.ToString() == CercaTarga
-                            where s.Trilettera == myZone
+                            where s.Trilettera == myZone || s.Trilettera == "Z99"
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
                 return View("ElencoTelai", model);
@@ -266,14 +286,23 @@ namespace ATManager.Controllers
             using (AUTOSDUEntities val = new AUTOSDUEntities())
             {
                 //Session["Scelta1"] = "";
+                string myZone = Session["Zona"].ToString();
+                var model = new Models.HomeModel();
+                var location = from s in db.Luoghi_vw
+                               where s.Trilettera == myZone || s.Trilettera == "Z99"
+                               select s;
+                model.Luoghi_vw = location.ToList();
 
-                var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+                var fromDatabaseEF = new SelectList(model.Luoghi_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
                 ViewData["Luoghi"] = fromDatabaseEF;
+
+                //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+                //ViewData["Luoghi"] = fromDatabaseEF;
 
             }
 
 
-            
+
 
 
             if (!String.IsNullOrEmpty(SearchLocation.ToString()))
@@ -352,8 +381,22 @@ namespace ATManager.Controllers
             {
                 //Session["Scelta1"] = "";
 
-                var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
-                ViewData["Luoghi"] = fromDatabaseEF;
+                string myZone = Session["Zona"].ToString();
+                var model = new Models.HomeModel();
+                var location = from s in db.Luoghi_vw
+                               where s.Trilettera == myZone || s.Trilettera == "Z99"
+                               select s;
+                model.Luoghi_vw = location.ToList();
+
+                try
+                {
+                    var fromDatabaseEF = new SelectList(model.Luoghi_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
+                    ViewData["Luoghi"] = fromDatabaseEF;
+                }
+                catch
+                { }
+                //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+                //ViewData["Luoghi"] = fromDatabaseEF;
 
 
             }
@@ -539,7 +582,7 @@ namespace ATManager.Controllers
 
         }
 
-        //public ActionResult Edit(int ID)
+        //public ActionResult Create(int ID)
         //{
         //    AT_SchedaTecnica telai = db.AT_SchedaTecnica.Find(ID);
 
@@ -625,74 +668,119 @@ namespace ATManager.Controllers
                                                    "NoteCE265,NoteCE135,NoteCE160,NoteCE145,NoteCE150,NoteCI820,NoteCI825,NoteCI835,NoteCI837,NoteCI1135," +
                                                    "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria")] AT_SchedaTecnica aT_SchedaTecnica,string txtdataultimarevisione,string txtTarga,string txtKm,
             string txtMatricola,string txtDataPerizia,string txtMarca, string txtDataImmatricolazione, string txtCartaCircolazione,
-            string txtLuogoPerizia, string txtModello, string txtTelaio,string txtAziendaUtilizzatrice, FormCollection frmCreate)
+            string txtLuogoPerizia, string txtModello, string txtTelaio,string txtAziendaUtilizzatrice, FormCollection frmCreate )
         {
-           
-            if(aT_SchedaTecnica.isMarciante!= null)
+
+            string a = aT_SchedaTecnica.isMarciante.ToString();
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1)
             {
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
             }
 
-            if (aT_SchedaTecnica.CE110 == null && aT_SchedaTecnica.IsCompleted == true)
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 2)
+            {
+                aT_SchedaTecnica.isMarciante = null;
+                aT_SchedaTecnica.IsManutOrdinaria = null;
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 3)
+            {
+                aT_SchedaTecnica.isMarciante = null;
+                aT_SchedaTecnica.isAvviante = null;
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 4)
+            {
+                aT_SchedaTecnica.isMarciante = null;
+                aT_SchedaTecnica.isAvviante = null;
+                aT_SchedaTecnica.IsManutOrdinaria = null;
+                aT_SchedaTecnica.IDStatoMezzo = 3;
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo != 1 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 2 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 3 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4)
+                ModelState.AddModelError("isAvviante", CompileErrorMessage("Riepilogo attività ispettiva" ));
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1 && aT_SchedaTecnica.IsCompleted == true)
+            {
+                if (aT_SchedaTecnica.isMarciante == null)
+                    ModelState.AddModelError("isAvviante", CompileErrorMessage("Marciante Si / NO"));
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 2 && aT_SchedaTecnica.IsCompleted == true)
+            {
+                if (aT_SchedaTecnica.isAvviante == null)
+                    ModelState.AddModelError("isAvviante", CompileErrorMessage("Si avvia/Non si avvia/Mancata ass."));
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 3 && aT_SchedaTecnica.IsCompleted == true)
+            {
+                if (aT_SchedaTecnica.IsManutOrdinaria == null)
+                    ModelState.AddModelError("IsManutOrdinaria", CompileErrorMessage("In riparazione / Manut.ordinaria"));
+            }
+
+            if (aT_SchedaTecnica.CE110 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
                 ModelState.AddModelError("CE110", CompileErrorMessage("CE110"));
 
-            if (aT_SchedaTecnica.CE112 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE112", CompileErrorMessage("CE112"));
+            //if (aT_SchedaTecnica.CE112 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE112", CompileErrorMessage("CE112"));
 
-            if (aT_SchedaTecnica.CE115 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE115", CompileErrorMessage("CE115"));
+            //if (aT_SchedaTecnica.CE115 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE115", CompileErrorMessage("CE115"));
 
-            if (aT_SchedaTecnica.CE840 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE840", CompileErrorMessage("CE840"));
+            //if (aT_SchedaTecnica.CE840 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE840", CompileErrorMessage("CE840"));
 
-            if (aT_SchedaTecnica.CE841 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE841", CompileErrorMessage("CE841"));
+            //if (aT_SchedaTecnica.CE841 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE841", CompileErrorMessage("CE841"));
 
-            if (aT_SchedaTecnica.CE842 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE842", CompileErrorMessage("CE842"));
+            //if (aT_SchedaTecnica.CE842 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE842", CompileErrorMessage("CE842"));
 
-            if (aT_SchedaTecnica.CE843 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE843", CompileErrorMessage("CE843"));
+            //if (aT_SchedaTecnica.CE843 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE843", CompileErrorMessage("CE843"));
 
-            if (aT_SchedaTecnica.CE816 == null && aT_SchedaTecnica.IsCompleted == true)
+            if (aT_SchedaTecnica.CE816 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
                 ModelState.AddModelError("CE816", CompileErrorMessage("CE816"));
 
-            if (aT_SchedaTecnica.CE265 == null && aT_SchedaTecnica.IsCompleted == true)
+            if (aT_SchedaTecnica.CE265 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
                 ModelState.AddModelError("CE265", CompileErrorMessage("CE265"));
 
-            if (aT_SchedaTecnica.CE135 == null && aT_SchedaTecnica.IsCompleted == true)
+            if (aT_SchedaTecnica.CE135 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
                 ModelState.AddModelError("CE135", CompileErrorMessage("CE135"));
 
-            if (aT_SchedaTecnica.CE160 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE160", CompileErrorMessage("CE160"));
+            //if (aT_SchedaTecnica.CE160 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE160", CompileErrorMessage("CE160"));
 
-            if (aT_SchedaTecnica.CE145 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE145", CompileErrorMessage("CE145"));
+            //if (aT_SchedaTecnica.CE145 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE145", CompileErrorMessage("CE145"));
 
-            if (aT_SchedaTecnica.CE150 == null && aT_SchedaTecnica.IsCompleted == true)
+            if (aT_SchedaTecnica.CE150 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
                 ModelState.AddModelError("CE150", CompileErrorMessage("CE150"));
 
-            if (aT_SchedaTecnica.CI820 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CI820", CompileErrorMessage("CI820"));
+            //if (aT_SchedaTecnica.CI820 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CI820", CompileErrorMessage("CI820"));
 
-            if (aT_SchedaTecnica.CI825 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CI825", CompileErrorMessage("CI825"));
+            //if (aT_SchedaTecnica.CI825 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CI825", CompileErrorMessage("CI825"));
 
-            if (aT_SchedaTecnica.CI835 == null && aT_SchedaTecnica.IsCompleted == true)
+            if (aT_SchedaTecnica.CI835 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
                 ModelState.AddModelError("CI835", CompileErrorMessage("CI835"));
 
-            if (aT_SchedaTecnica.CI837 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CI837", CompileErrorMessage("CI837"));
+            //if (aT_SchedaTecnica.CI837 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CI837", CompileErrorMessage("CI837"));
 
-            if (aT_SchedaTecnica.CI1135 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CI1135", CompileErrorMessage("CI1135"));
+            //if (aT_SchedaTecnica.CI1135 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CI1135", CompileErrorMessage("CI1135"));
 
-            if (aT_SchedaTecnica.IDStatoMezzo == 2  && aT_SchedaTecnica.IDPreventivoDanno == 0 && aT_SchedaTecnica.IsCompleted == true)
+            //if (aT_SchedaTecnica.IDStatoMezzo == 2  && aT_SchedaTecnica.IDPreventivoDanno == 0 && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("IDStatoMezzo", "Valorizzazione mezzo obbligatoria.");
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 3 && aT_SchedaTecnica.IDPreventivoDanno == 0 && aT_SchedaTecnica.IsManutOrdinaria == false && aT_SchedaTecnica.IsCompleted == true)
                 ModelState.AddModelError("IDStatoMezzo", "Valorizzazione mezzo obbligatoria.");
 
-            if ((aT_SchedaTecnica.IDStatoMezzo == 2) && (string.IsNullOrEmpty(aT_SchedaTecnica.Note_danno)) && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("IDStatoMezzo", "Note valorizzazione mezzo obbligatorie.");
+            //if ((aT_SchedaTecnica.IDStatoMezzo == 2) && (string.IsNullOrEmpty(aT_SchedaTecnica.Note_danno)) && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("IDStatoMezzo", "Note valorizzazione mezzo obbligatorie.");
 
             var myPRatID = from s in db.AT_ListaPratiche_vw
                            where s.Perizie_ID == aT_SchedaTecnica.IDPerizia
@@ -858,7 +946,7 @@ namespace ATManager.Controllers
                 ViewBag.IDPErizia = aT_SchedaTecnica.IDPerizia.ToString();
                 return View(aT_SchedaTecnica);*/
 
-                //return RedirectToAction("Edit", "Home", new
+                //return RedirectToAction("Create", "Home", new
                 //{
                 //    myIDerizia,
                 //    txtMarca,
@@ -898,7 +986,7 @@ namespace ATManager.Controllers
             ViewBag.telaio = txtTelaio;
             ViewBag.aziendautilizzatrice = txtAziendaUtilizzatrice;
             ViewBag.IDPErizia = aT_SchedaTecnica.IDPerizia.ToString();
-
+            ViewBag.IDVisualizzazioneMezzo = aT_SchedaTecnica.IDVisualizzazioneMezzo.ToString();
 
             return View(aT_SchedaTecnica);
         }
@@ -1080,6 +1168,13 @@ namespace ATManager.Controllers
             ViewBag.CI1135 = new SelectList(db.AT_IndiciValutazione, "ID", "Descr", model.CI1135);
             ViewBag.IDPreventivoDanno = new SelectList(db.AT_PreventiviDanno, "ID", "Descr", model.IDPreventivoDanno);
             ViewBag.NoteCE110 = model.NoteCE110;
+
+            var myIDVisualizzazione = (from s in db.AT_SchedaTecnica
+                                      where s.IDPerizia.ToString() == id
+                                      select s.IDVisualizzazioneMezzo).FirstOrDefault();
+            //ViewBag.cartacircolazione = mySchedacc.ToString();
+
+            ViewBag.IDVisualizzazioneMezzo = myIDVisualizzazione.ToString();
             return View(model);
         }
 
@@ -1092,7 +1187,7 @@ namespace ATManager.Controllers
                                                    "CE265,CE135,CE160,CE145,CE150,CI820,CI825,CI835,CI837,CI1135, " +
                                                    "NoteCE110,NoteCE112,NoteCE115,NoteCE840,NoteCE841,NoteCE842,NoteCE843,NoteCE816," +
                                                    "NoteCE265,NoteCE135,NoteCE160,NoteCE145,NoteCE150,NoteCI820,NoteCI825,NoteCI835,NoteCI837,NoteCI1135," +
-                                                   "Note_danno, Note_generali")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
+                                                   "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
             string txtMatricola, string txtDataPerizia, string txtMarca, string txtDataImmatricolazione, string txtCartaCircolazione,
             string txtLuogoPerizia, string txtModello, string txtTelaio, string txtAziendaUtilizzatrice)
         {
@@ -1100,30 +1195,75 @@ namespace ATManager.Controllers
 
             int myID = 0;
             myID = (int)TempData["myIDScheda"];
-           
+
+            
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1)
+            {
+                aT_SchedaTecnica.isAvviante = null;
+                aT_SchedaTecnica.IsManutOrdinaria = null;
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 2)
+            {
+                aT_SchedaTecnica.isMarciante = null;
+                aT_SchedaTecnica.IsManutOrdinaria = null;
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 3)
+            {
+                aT_SchedaTecnica.isMarciante = null;
+                aT_SchedaTecnica.isAvviante = null;
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 4)
+            {
+                aT_SchedaTecnica.isMarciante = null;
+                aT_SchedaTecnica.isAvviante = null;
+                aT_SchedaTecnica.IsManutOrdinaria = null;
+                aT_SchedaTecnica.IDStatoMezzo = 3;
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1 && aT_SchedaTecnica.IsCompleted == true)
+            {
+                if (aT_SchedaTecnica.isMarciante == null)
+                    ModelState.AddModelError("isMarciante", CompileErrorMessage("Marciante Si / NO"));
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 2 && aT_SchedaTecnica.IsCompleted == true)
+            {
+                if (aT_SchedaTecnica.isAvviante == null)
+                    ModelState.AddModelError("isAvviante", CompileErrorMessage("Si avvia/Non si avvia/Mancata ass."));
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 3 && aT_SchedaTecnica.IsCompleted == true)
+            {
+                if (aT_SchedaTecnica.IsManutOrdinaria == null)
+                    ModelState.AddModelError("IsManutOrdinaria", CompileErrorMessage("In riparazione / Manut.ordinaria"));
+            }
 
 
 
             if (aT_SchedaTecnica.CE110 == null && aT_SchedaTecnica.IsCompleted == true)
                 ModelState.AddModelError("CE110", CompileErrorMessage("CE110"));
 
-            if (aT_SchedaTecnica.CE112 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE112", CompileErrorMessage("CE112"));
+            //if (aT_SchedaTecnica.CE112 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE112", CompileErrorMessage("CE112"));
 
-            if (aT_SchedaTecnica.CE115 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE115", CompileErrorMessage("CE115"));
+            //if (aT_SchedaTecnica.CE115 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE115", CompileErrorMessage("CE115"));
 
-            if (aT_SchedaTecnica.CE840 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE840", CompileErrorMessage("CE840"));
+            //if (aT_SchedaTecnica.CE840 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE840", CompileErrorMessage("CE840"));
 
-            if (aT_SchedaTecnica.CE841 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE841", CompileErrorMessage("CE841"));
+            //if (aT_SchedaTecnica.CE841 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE841", CompileErrorMessage("CE841"));
 
-            if (aT_SchedaTecnica.CE842 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE842", CompileErrorMessage("CE842"));
+            //if (aT_SchedaTecnica.CE842 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE842", CompileErrorMessage("CE842"));
 
-            if (aT_SchedaTecnica.CE843 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE843", CompileErrorMessage("CE843"));
+            //if (aT_SchedaTecnica.CE843 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE843", CompileErrorMessage("CE843"));
 
             if (aT_SchedaTecnica.CE816 == null && aT_SchedaTecnica.IsCompleted == true)
                 ModelState.AddModelError("CE816", CompileErrorMessage("CE816"));
@@ -1134,36 +1274,36 @@ namespace ATManager.Controllers
             if (aT_SchedaTecnica.CE135 == null && aT_SchedaTecnica.IsCompleted == true)
                 ModelState.AddModelError("CE135", CompileErrorMessage("CE135"));
 
-            if (aT_SchedaTecnica.CE160 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE160", CompileErrorMessage("CE160"));
+            //if (aT_SchedaTecnica.CE160 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE160", CompileErrorMessage("CE160"));
 
-            if (aT_SchedaTecnica.CE145 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CE145", CompileErrorMessage("CE145"));
+            //if (aT_SchedaTecnica.CE145 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CE145", CompileErrorMessage("CE145"));
 
             if (aT_SchedaTecnica.CE150 == null && aT_SchedaTecnica.IsCompleted == true)
                 ModelState.AddModelError("CE150", CompileErrorMessage("CE150"));
 
-            if (aT_SchedaTecnica.CI820 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CI820", CompileErrorMessage("CI820"));
+            //if (aT_SchedaTecnica.CI820 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CI820", CompileErrorMessage("CI820"));
 
-            if (aT_SchedaTecnica.CI825 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CI825", CompileErrorMessage("CI825"));
+            //if (aT_SchedaTecnica.CI825 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CI825", CompileErrorMessage("CI825"));
 
             if (aT_SchedaTecnica.CI835 == null && aT_SchedaTecnica.IsCompleted == true)
                 ModelState.AddModelError("CI835", CompileErrorMessage("CI835"));
 
-            if (aT_SchedaTecnica.CI837 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CI837", CompileErrorMessage("CI837"));
+            //if (aT_SchedaTecnica.CI837 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CI837", CompileErrorMessage("CI837"));
 
-            if (aT_SchedaTecnica.CI1135 == null && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("CI1135", CompileErrorMessage("CI1135"));
+            //if (aT_SchedaTecnica.CI1135 == null && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("CI1135", CompileErrorMessage("CI1135"));
 
-            
-            if (aT_SchedaTecnica.IDStatoMezzo == 2 && aT_SchedaTecnica.IDPreventivoDanno == 0 && aT_SchedaTecnica.IsCompleted == true)
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 3 && aT_SchedaTecnica.IDPreventivoDanno == 0 && aT_SchedaTecnica.IsManutOrdinaria == false && aT_SchedaTecnica.IsCompleted == true)
                 ModelState.AddModelError("IDStatoMezzo", "Valorizzazione mezzo obbligatoria.");
 
-            if ((aT_SchedaTecnica.IDStatoMezzo == 2) && (string.IsNullOrEmpty(aT_SchedaTecnica.Note_danno)) && aT_SchedaTecnica.IsCompleted == true)
-                ModelState.AddModelError("IDStatoMezzo", "Note valorizzazione mezzo obbligatorie.");
+            //if ((aT_SchedaTecnica.IDStatoMezzo == 2) && (string.IsNullOrEmpty(aT_SchedaTecnica.Note_danno)) && aT_SchedaTecnica.IsCompleted == true)
+            //    ModelState.AddModelError("IDStatoMezzo", "Note valorizzazione mezzo obbligatorie.");
 
             var myPRatID = from s in db.AT_ListaPratiche_vw
                            where s.Perizie_ID == aT_SchedaTecnica.IDPerizia
@@ -1332,6 +1472,8 @@ namespace ATManager.Controllers
                 ViewBag.telaio = txtTelaio;
                 ViewBag.aziendautilizzatrice = txtAziendaUtilizzatrice;
                 ViewBag.IDPErizia = aT_SchedaTecnica.IDPerizia.ToString();
+                ViewBag.IDVisualizzazioneMezzo = aT_SchedaTecnica.IDVisualizzazioneMezzo.ToString();
+
                 return View(aT_SchedaTecnica); 
                 // END Test
                 //return RedirectToAction("DoRefresh", "Home");
