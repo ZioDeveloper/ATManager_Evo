@@ -26,9 +26,11 @@ namespace ATManager.Controllers
 
         //public ActionResult Index(string usr, string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
         //{
-
         //    if (Session["Location"] == null)
         //        Session["Location"] = "";
+
+        //    if (SearchLocation != null)
+        //        Session["Location"] = SearchLocation;
 
         //    if (usr != null)
         //        Session["User"] = usr;
@@ -190,13 +192,18 @@ namespace ATManager.Controllers
 
         //}
 
-        public ActionResult Index(string Opt1, string CercaTarga, int? SearchLocation, string CercaMatricola)
+        public ActionResult Index(string Opt1, string CercaTarga, int? SearchLocation, string CercaMatricola,string Reset)
         {
             if (Session["Location"] == null)
                 Session["Location"] = "";
 
+            if (SearchLocation != null)
+                Session["Location"] = SearchLocation;
 
-            Session["User"] = "percossi";
+            if (Session["Location"].ToString() == "RESET")
+                Session["Location"] = "";
+
+           Session["User"] = "percossi";
             ViewBag.perito = Session["User"].ToString();
 
             String loc = Session["Location"].ToString();
@@ -224,15 +231,110 @@ namespace ATManager.Controllers
             Session["Zona"] = myZone;
             Session["IDPErito"] = myIDPErito;
 
+            int myID = 0;
+            if (Session["Location"].ToString() != "")
+            {
+                myID = (int)Session["Location"];
+            }
+
+            if (myID != 0)
+            {
+                using (AUTOSDUEntities val = new AUTOSDUEntities())
+                {
+                    //Session["Scelta1"] = "";
+                    //string myZone = Session["Zona"].ToString();
+                    var model = new Models.HomeModel();
+
+                    if (myID == 0)
+                    {
+                        var location = from s in db.Luoghi_vw
+                                       where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                       select s;
+                        model.Luoghi_vw = location.ToList();
+                    }
+                    else
+                    {
+                        var location = from s in db.Luoghi_vw
+                                       where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                       //where s.ID.ToString() == myID.ToString()
+                                       select s;
+                        model.Luoghi_vw = location.ToList();
+                    }
+
+
+                    var fromDatabaseEF = new SelectList(model.Luoghi_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
+                    ViewData["Luoghi"] = fromDatabaseEF;
+
+                    //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+                    //ViewData["Luoghi"] = fromDatabaseEF;
+
+                }
+
+
+
+                    var Luogo = (from s in db.AT_ListaPratiche_vw
+                                 where s.ID_LuogoIntervento == myID.ToString()
+                                 select s.DescrITA).FirstOrDefault();
+                     ViewBag.Location = Luogo;
+
+
+                    var cnt = (from s in db.AT_ListaPratiche_vw
+                               where s.ID_LuogoIntervento == myID.ToString()
+                               select s.Perizie_ID).Count();
+                    ViewBag.Tutte = cnt;
+
+                    cnt = (from s in db.AT_ListaPratiche_vw
+                           where s.ID_LuogoIntervento == myID.ToString()
+                           where s.IsCompleted == true
+                           select s.Perizie_ID).Count();
+                    ViewBag.Chiuse = cnt;
+
+                    cnt = (from s in db.AT_ListaPratiche_vw
+                           where s.ID_LuogoIntervento == myID.ToString()
+                           where s.IsCompleted == false
+                           select s.Perizie_ID).Count();
+                    ViewBag.Aperte = cnt;
+
+                    cnt = (from s in db.AT_ListaPratiche_vw
+                           where s.ID_SchedaTecnica == null
+                           where s.ID_LuogoIntervento == myID.ToString()
+                           select s.Perizie_ID).Count();
+                    ViewBag.Assenti = cnt;
+
+                    
+
+                    ViewBag.nome = myNome;
+                    ViewBag.cognome = myCognome;
+
+                    ViewBag.Blocco = "SI";
+
+
+
+                return View("Index");
+            }
+
+
             using (AUTOSDUEntities val = new AUTOSDUEntities())
             {
                 Session["Status"] = "";
 
                 var model = new Models.HomeModel();
-                var location = from s in db.Luoghi_vw
-                               where s.Trilettera == myZone || s.Trilettera == "Z99"
-                               select s;
-                model.Luoghi_vw = location.ToList();
+                if (myID == 0)
+                {
+                    var location = from s in db.Luoghi_vw
+                                   where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                   select s;
+                    model.Luoghi_vw = location.ToList();
+                }
+                else
+                {
+                    var location = from s in db.Luoghi_vw
+                                   where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                   //where s.ID.ToString() == myID.ToString()
+                                   select s;
+                    model.Luoghi_vw = location.ToList();
+                }
+
 
                 var fromDatabaseEF = new SelectList(model.Luoghi_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
                 ViewData["Luoghi"] = fromDatabaseEF;
@@ -279,19 +381,37 @@ namespace ATManager.Controllers
 
         public ActionResult ContaTelai(int? SearchLocation)
         {
+            if (SearchLocation != null)
+                Session["Location"] = SearchLocation;
             
-            Session["Location"] = SearchLocation;
-            
+
+            Session["Blocco"] = "SI";
+
+            int myID = (int)Session["Location"];
+
 
             using (AUTOSDUEntities val = new AUTOSDUEntities())
             {
                 //Session["Scelta1"] = "";
                 string myZone = Session["Zona"].ToString();
                 var model = new Models.HomeModel();
-                var location = from s in db.Luoghi_vw
-                               where s.Trilettera == myZone || s.Trilettera == "Z99"
-                               select s;
-                model.Luoghi_vw = location.ToList();
+
+                if (myID == 0)
+                {
+                    var location = from s in db.Luoghi_vw
+                                   where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                   select s;
+                    model.Luoghi_vw = location.ToList();
+                }
+                else
+                {
+                    var location = from s in db.Luoghi_vw
+                                   where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                   //where s.ID.ToString() == myID.ToString()
+                                   select s;
+                    model.Luoghi_vw = location.ToList();
+                }
+               
 
                 var fromDatabaseEF = new SelectList(model.Luoghi_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
                 ViewData["Luoghi"] = fromDatabaseEF;
@@ -303,10 +423,14 @@ namespace ATManager.Controllers
 
 
 
-
-
             if (!String.IsNullOrEmpty(SearchLocation.ToString()))
             {
+
+                var Luogo = (from s in db.AT_ListaPratiche_vw
+                             where s.ID_LuogoIntervento == myID.ToString()
+                             select s.DescrITA).FirstOrDefault();
+                ViewBag.Location = Luogo;
+
                 var cnt = (from s in db.AT_ListaPratiche_vw
                            where s.ID_LuogoIntervento == SearchLocation.ToString()
                            select s.Perizie_ID).Count();
@@ -351,6 +475,8 @@ namespace ATManager.Controllers
                 ViewBag.nome = myNome;
                 ViewBag.cognome = myCognome;
 
+                ViewBag.Blocco = "SI";
+
 
                 return View("Index");
             }
@@ -377,16 +503,29 @@ namespace ATManager.Controllers
             else
                 Opt1 = Session["Status"].ToString();
 
+            int myID = (int)Session["Location"];
+
             using (AUTOSDUEntities val = new AUTOSDUEntities())
             {
                 //Session["Scelta1"] = "";
 
                 string myZone = Session["Zona"].ToString();
                 var model = new Models.HomeModel();
-                var location = from s in db.Luoghi_vw
-                               where s.Trilettera == myZone || s.Trilettera == "Z99"
-                               select s;
-                model.Luoghi_vw = location.ToList();
+                if (myID == 0)
+                {
+                    var location = from s in db.Luoghi_vw
+                                   where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                   select s;
+                    model.Luoghi_vw = location.ToList();
+                }
+                else
+                {
+                    var location = from s in db.Luoghi_vw
+                                   where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                   //where s.ID.ToString() == myID.ToString()
+                                   select s;
+                    model.Luoghi_vw = location.ToList();
+                }
 
                 try
                 {
@@ -671,6 +810,8 @@ namespace ATManager.Controllers
             string txtLuogoPerizia, string txtModello, string txtTelaio,string txtAziendaUtilizzatrice, FormCollection frmCreate )
         {
 
+            
+
             string a = aT_SchedaTecnica.isMarciante.ToString();
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1)
@@ -795,7 +936,7 @@ namespace ATManager.Controllers
             // Data ultima revisione obbligatoria
             if ((String.IsNullOrEmpty(txtdataultimarevisione)) && (txtCartaCircolazione == "SI") && (aT_SchedaTecnica.IsCompleted == true))
             {
-                ModelState.AddModelError("IDStatoMezzo", "Data ultima revisione obbligatoria");
+                //ModelState.AddModelError("IDStatoMezzo", "Data ultima revisione obbligatoria");
             }
 
             // Verifica inserimento KM
@@ -1244,7 +1385,7 @@ namespace ATManager.Controllers
 
 
 
-            if (aT_SchedaTecnica.CE110 == null && aT_SchedaTecnica.IsCompleted == true)
+            if (aT_SchedaTecnica.CE110 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
                 ModelState.AddModelError("CE110", CompileErrorMessage("CE110"));
 
             //if (aT_SchedaTecnica.CE112 == null && aT_SchedaTecnica.IsCompleted == true)
@@ -1265,13 +1406,13 @@ namespace ATManager.Controllers
             //if (aT_SchedaTecnica.CE843 == null && aT_SchedaTecnica.IsCompleted == true)
             //    ModelState.AddModelError("CE843", CompileErrorMessage("CE843"));
 
-            if (aT_SchedaTecnica.CE816 == null && aT_SchedaTecnica.IsCompleted == true)
+            if (aT_SchedaTecnica.CE816 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
                 ModelState.AddModelError("CE816", CompileErrorMessage("CE816"));
 
-            if (aT_SchedaTecnica.CE265 == null && aT_SchedaTecnica.IsCompleted == true)
+            if (aT_SchedaTecnica.CE265 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
                 ModelState.AddModelError("CE265", CompileErrorMessage("CE265"));
 
-            if (aT_SchedaTecnica.CE135 == null && aT_SchedaTecnica.IsCompleted == true)
+            if (aT_SchedaTecnica.CE135 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
                 ModelState.AddModelError("CE135", CompileErrorMessage("CE135"));
 
             //if (aT_SchedaTecnica.CE160 == null && aT_SchedaTecnica.IsCompleted == true)
@@ -1280,7 +1421,7 @@ namespace ATManager.Controllers
             //if (aT_SchedaTecnica.CE145 == null && aT_SchedaTecnica.IsCompleted == true)
             //    ModelState.AddModelError("CE145", CompileErrorMessage("CE145"));
 
-            if (aT_SchedaTecnica.CE150 == null && aT_SchedaTecnica.IsCompleted == true)
+            if (aT_SchedaTecnica.CE150 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
                 ModelState.AddModelError("CE150", CompileErrorMessage("CE150"));
 
             //if (aT_SchedaTecnica.CI820 == null && aT_SchedaTecnica.IsCompleted == true)
@@ -1289,7 +1430,7 @@ namespace ATManager.Controllers
             //if (aT_SchedaTecnica.CI825 == null && aT_SchedaTecnica.IsCompleted == true)
             //    ModelState.AddModelError("CI825", CompileErrorMessage("CI825"));
 
-            if (aT_SchedaTecnica.CI835 == null && aT_SchedaTecnica.IsCompleted == true)
+            if (aT_SchedaTecnica.CI835 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
                 ModelState.AddModelError("CI835", CompileErrorMessage("CI835"));
 
             //if (aT_SchedaTecnica.CI837 == null && aT_SchedaTecnica.IsCompleted == true)
@@ -1332,7 +1473,7 @@ namespace ATManager.Controllers
             //if ( (String.IsNullOrEmpty(txtdataultimarevisione)) && (!String.IsNullOrEmpty(myDocID.FirstOrDefault().ToString()) && (aT_SchedaTecnica.IsCompleted == true)))
             if ( (String.IsNullOrEmpty(txtdataultimarevisione)) && (txtCartaCircolazione == "SI") && (aT_SchedaTecnica.IsCompleted == true) )
             {
-                ModelState.AddModelError("IDStatoMezzo", "Data ultima revisione obbligatoria");
+                //ModelState.AddModelError("IDStatoMezzo", "Data ultima revisione obbligatoria");
             }
 
             // Verifica inserimento KM
@@ -1538,7 +1679,7 @@ namespace ATManager.Controllers
             ViewBag.telaio = txtTelaio;
             ViewBag.aziendautilizzatrice = txtAziendaUtilizzatrice;
             ViewBag.IDPerizia = aT_SchedaTecnica.IDPerizia.ToString();
-
+            ViewBag.IDVisualizzazioneMezzo = aT_SchedaTecnica.IDVisualizzazioneMezzo.ToString();
 
 
             return View(aT_SchedaTecnica);

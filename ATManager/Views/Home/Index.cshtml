@@ -12,6 +12,12 @@
     }
 </script>
 
+<script>
+    function ResetCombo() {
+        @Session["Location"] = "";
+    }
+</script>
+
 
 <h3>AT Manager</h3>
 <br />
@@ -24,6 +30,8 @@
 
 </table>
 <br />
+
+
 @using (Html.BeginForm("ContaTelai", "Home", FormMethod.Get))
 {
 
@@ -31,16 +39,18 @@
         <tr>
             <td>
                 Seleziona località :
-                <p style="color:red">TODO : Memorizzare location prescelta</p>
+                <br /><br />
+                @*<p style="color:red">TODO : Memorizzare location prescelta</p>*@
 
                 @if (@Session["Location"].ToString() == "")
                 {
                     canmodify = true;
-                    @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"], htmlAttributes: new { @class = "form-control", @onchange = "this.form.submit();", @onclick = "AttivaOpzioni();" })
+                    @Html.DropDownList("SearchLocation", (SelectList)ViewData["Luoghi"], new { @class = "form-control", @onchange = "this.form.submit();", @onclick = "AttivaOpzioni();" })
                 }
                 else
                 {
                     canmodify = false;
+                    @*@Html.DropDownList("SearchLocation", (SelectList)ViewData["Luoghi"], new { @class = "form-control", @onchange = "this.form.submit();", @onclick = "AttivaOpzioni();" })*@
                     @Html.DropDownList("SearchLocation", (SelectList)ViewData["Luoghi"], new { @class = "form-control", @onchange = "this.form.submit();", @onclick = "AttivaOpzioni();" })
                 }
             </td>
@@ -48,8 +58,19 @@
     </table>
 }
 
+@*@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    <div>
+        @{Session["Location"] = "";}
+        Sblocca ricerca località : @Html.CheckBox("AutoCalculateMandate", true, new { @checked = false, @onchange = "this.form.submit();" })
+    </div>
+}*@
+
+
 @using (Html.BeginForm("DoRefresh", "Home", FormMethod.Get))
 {
+    
+
     <div class="form-horizontal">
         @{var Scelta01 = "Elenco completo veicoli  :";}
         @{var Scelta02 = "Veicoli senza scheda :";}
@@ -59,49 +80,90 @@
 
 
         <br />
-        <table border="0">
-            <tr>
-                <td>
-                    Veicoli da visionare : &nbsp;
-                </td>
-                <td>
-                    @ViewBag.Tutte
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Veicoli senza scheda : &nbsp;
-                </td>
-                <td>
-                    @ViewBag.Assenti
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Veicoli con scheda da completare : &nbsp;
-                </td>
-                <td>
-                    @ViewBag.Aperte
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Veicoli con scheda completata : &nbsp;
-                </td>
-                <td>
-                    @ViewBag.Chiuse
-                </td>
-            </tr>
+        @if (ViewBag.Location != null)
+        {
+            <table border="1">
+                <tr>
+                    <td style="font-weight:bold">
+                        &nbsp;Location : &nbsp;
+                    </td>
+                    <td style="font-weight:bold">
+                        &nbsp;@ViewBag.Location
+                    </td>
+                    <td style="font-weight:bold;text-align:center">
+                        &nbsp;Vai a lista !
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;Veicoli da visionare : &nbsp;
+                    </td>
+                    <td style="text-align:center">
+                        &nbsp;@ViewBag.Tutte
+                    </td>
+                    <td>
+                        
+                        
 
-        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;Veicoli senza scheda : &nbsp;
+                    </td>
+                    <td style="text-align:center">
+                        &nbsp;@ViewBag.Assenti
+                    </td>
+                    <td style="font-weight:bold;text-align:center">
+                        @Html.RadioButton("Opt1", "DA FARE", new { @onclick = "this.form.submit();" })
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;Veicoli con scheda da completare : &nbsp;
+                    </td>
+                    <td style="text-align:center">
+                        &nbsp;@ViewBag.Aperte
+                    </td>
+                    <td style="font-weight:bold;text-align:center">
+                        @Html.RadioButton("Opt1", "FATTE", new { @onclick = "this.form.submit();" })
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;Veicoli con scheda completata : &nbsp;
+                    </td>
+                    <td style="text-align:center">
+                        &nbsp;@ViewBag.Chiuse
+                    </td>
+                    <td style="font-weight:bold;text-align:center">
+                        @Html.RadioButton("Opt1", "FATTECHIUSE", new { @onclick = "this.form.submit();" })
+
+
+                    </td>
+                </tr>
+
+            </table>
+        }
+        else
+        {
+            <div style="color:red">
+                Non ci sono telai in questa località...
+            </div>
+        }
         <br>
+
         <table id="AttivaOpzioni" border="0">
             @*<tr>
-                <td>&nbsp;@Scelta01&nbsp;</td>
+                    <td>&nbsp;@Scelta01&nbsp;</td>
 
-                <td>@Html.RadioButton("Opt1", "TUTTE", new { @onclick = "this.form.submit();" })</td>
+                    <td>@Html.RadioButton("Opt1", "TUTTE", new { @onclick = "this.form.submit();" })</td>
 
-            </tr>*@
+                </tr>*@
             <tr>
                 <td>&nbsp;@Scelta02&nbsp;</td>
 
@@ -159,5 +221,5 @@
 
 @if (canmodify)
 {
-    <script>DisAttivaOpzioni();</script>
+    @*<script>DisAttivaOpzioni();</script>*@
 }
