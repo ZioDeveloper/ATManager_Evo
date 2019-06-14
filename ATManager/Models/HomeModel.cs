@@ -16,6 +16,7 @@ namespace ATManager.Models
 
         public IEnumerable<Luoghi> Luoghi { get; set; }
         public IEnumerable<Luoghi_vw> Luoghi_vw { get; set; }
+        public IEnumerable<LuoghiTest_vw> LuoghiTest_vw { get; set; }
 
         public IEnumerable<SDU_documentiTipi> SDU_documentiTipi { get; set; }
 

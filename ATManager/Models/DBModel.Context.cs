@@ -64,6 +64,8 @@ public partial class AUTOSDUEntities : DbContext
 
     public virtual DbSet<AT_VisualizzazioneMezzo> AT_VisualizzazioneMezzo { get; set; }
 
+    public virtual DbSet<LuoghiTest_vw> LuoghiTest_vw { get; set; }
+
 }
 
 }

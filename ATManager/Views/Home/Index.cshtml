@@ -39,7 +39,7 @@
         <tr>
             <td>
                 Seleziona località :
-                <br /><br />
+                <br />
                 @*<p style="color:red">TODO : Memorizzare location prescelta</p>*@
 
                 @if (@Session["Location"].ToString() == "")
@@ -91,7 +91,7 @@
                         &nbsp;@ViewBag.Location
                     </td>
                     <td style="font-weight:bold;text-align:center">
-                        &nbsp;Vai a lista !
+                        &nbsp;Vai a lista 
                     </td>
                 </tr>
                 <tr>
@@ -164,7 +164,7 @@
                     <td>@Html.RadioButton("Opt1", "TUTTE", new { @onclick = "this.form.submit();" })</td>
 
                 </tr>*@
-            <tr>
+            @*<tr>
                 <td>&nbsp;@Scelta02&nbsp;</td>
 
                 <td> @Html.RadioButton("Opt1", "DA FARE", new { @onclick = "this.form.submit();" })</td>
@@ -178,7 +178,7 @@
                 <td style="color:blue">&nbsp;@Scelta04&nbsp;</td>
 
                 <td> @Html.RadioButton("Opt1", "FATTECHIUSE", new { @onclick = "this.form.submit();" })</td>
-            </tr>
+            </tr>*@
 
         </table>
         <p></p><p></p>

@@ -18,7 +18,7 @@ using System;
 public partial class AT_ListaPratiche_vw
 {
 
-    public Nullable<int> TipoPerizia_ID { get; set; }
+    public int TipoPerizia_ID { get; set; }
 
     public string TipoPerizia_Descr { get; set; }
 
@@ -35,12 +35,6 @@ public partial class AT_ListaPratiche_vw
     public string ID_LuogoIntervento { get; set; }
 
     public string DescrITA { get; set; }
-
-    public string dealerPiazzale_peritoNonTabellato { get; set; }
-
-    public string indirizzo_peritoNonTabellato { get; set; }
-
-    public string citta_peritoNonTabellato { get; set; }
 
     public string Perizie_Barcode { get; set; }
 

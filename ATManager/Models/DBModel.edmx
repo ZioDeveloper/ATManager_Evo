@@ -226,22 +226,30 @@ warning 6002: The table/view 'AUTOSDU.dbo.AT_ListaPratiche_vw' does not have a p
           <Key>
             
             
-            <PropertyRef Name="CartaCircolazione" />
+            
+            
+            
+            
             <PropertyRef Name="Perizie_ID" />
+            
+            
+            
+            
+            
+            
+            
+            <PropertyRef Name="CartaCircolazione" />
           </Key>
-          <Property Name="TipoPerizia_ID" Type="int" />
-          <Property Name="TipoPerizia_Descr" Type="varchar" MaxLength="50" />
+          <Property Name="TipoPerizia_ID" Type="int" Nullable="false" />
+          <Property Name="TipoPerizia_Descr" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PRAT_ID" Type="int" Nullable="false" />
           <Property Name="Targa" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="Chassis1" Type="varchar" MaxLength="9" />
           <Property Name="Chassis2" Type="varchar" MaxLength="15" />
           <Property Name="ID_Produttore" Type="varchar" MaxLength="4" />
           <Property Name="ID_LuogoIntervento" Type="varchar" MaxLength="4" />
-          <Property Name="DescrITA" Type="varchar" MaxLength="50" />
-          <Property Name="dealerPiazzale_peritoNonTabellato" Type="varchar" MaxLength="150" />
-          <Property Name="indirizzo_peritoNonTabellato" Type="varchar" MaxLength="100" />
-          <Property Name="citta_peritoNonTabellato" Type="varchar" MaxLength="50" />
-          <Property Name="Perizie_Barcode" Type="varchar" MaxLength="10" />
+          <Property Name="DescrITA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Perizie_Barcode" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Perizie_IDPerito" Type="varchar" MaxLength="4" />
           <Property Name="Perizie_ID" Type="int" Nullable="false" />
           <Property Name="Perizie_IsChiusa" Type="bit" />
@@ -252,13 +260,13 @@ warning 6002: The table/view 'AUTOSDU.dbo.AT_ListaPratiche_vw' does not have a p
           <Property Name="IsPdf" Type="bit" />
           <Property Name="IsFoto" Type="bit" />
           <Property Name="ID_UltimoStato" Type="varchar" MaxLength="3" />
-          <Property Name="UltimoStato" Type="varchar" MaxLength="3" />
-          <Property Name="DescStato" Type="varchar" MaxLength="200" />
-          <Property Name="AO_Cognome" Type="varchar" MaxLength="100" />
-          <Property Name="AO_Nome" Type="varchar" MaxLength="50" />
-          <Property Name="Mod_Descr" Type="varchar" MaxLength="50" />
-          <Property Name="Prod_ID" Type="varchar" MaxLength="4" />
-          <Property Name="Prod_Descr" Type="varchar" MaxLength="50" />
+          <Property Name="UltimoStato" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="DescStato" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="AO_Cognome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AO_Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mod_Descr" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prod_ID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="Prod_Descr" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ID_SchedaTecnica" Type="int" />
           <Property Name="DataImmatricolazione" Type="datetime" />
           <Property Name="Km" Type="int" />
@@ -304,6 +312,18 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <Property Name="DescrITA" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Trilettera" Type="varchar" MaxLength="3" />
           <Property Name="NumPerizie" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="LuoghiTest_vw">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="DescrITA" />
+          </Key>
+          <Property Name="ID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="DescrITA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Trilettera" Type="varchar" MaxLength="3" />
+          <Property Name="IDPErito" Type="varchar" MaxLength="4" />
         </EntityType>
         <Association Name="CE110">
           <End Role="AT_IndiciValutazione" Type="Self.AT_IndiciValutazione" Multiplicity="0..1" />
@@ -881,9 +901,6 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
     [AT_ListaPratiche_vw].[ID_Produttore] AS [ID_Produttore], 
     [AT_ListaPratiche_vw].[ID_LuogoIntervento] AS [ID_LuogoIntervento], 
     [AT_ListaPratiche_vw].[DescrITA] AS [DescrITA], 
-    [AT_ListaPratiche_vw].[dealerPiazzale_peritoNonTabellato] AS [dealerPiazzale_peritoNonTabellato], 
-    [AT_ListaPratiche_vw].[indirizzo_peritoNonTabellato] AS [indirizzo_peritoNonTabellato], 
-    [AT_ListaPratiche_vw].[citta_peritoNonTabellato] AS [citta_peritoNonTabellato], 
     [AT_ListaPratiche_vw].[Perizie_Barcode] AS [Perizie_Barcode], 
     [AT_ListaPratiche_vw].[Perizie_IDPerito] AS [Perizie_IDPerito], 
     [AT_ListaPratiche_vw].[Perizie_ID] AS [Perizie_ID], 
@@ -936,6 +953,14 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
     [Luoghi_vw].[Trilettera] AS [Trilettera], 
     [Luoghi_vw].[NumPerizie] AS [NumPerizie]
     FROM [dbo].[Luoghi_vw] AS [Luoghi_vw]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="LuoghiTest_vw" EntityType="Self.LuoghiTest_vw" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LuoghiTest_vw].[ID] AS [ID], 
+    [LuoghiTest_vw].[DescrITA] AS [DescrITA], 
+    [LuoghiTest_vw].[Trilettera] AS [Trilettera], 
+    [LuoghiTest_vw].[IDPErito] AS [IDPErito]
+    FROM [dbo].[LuoghiTest_vw] AS [LuoghiTest_vw]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="CE110" Association="Self.CE110">
             <End Role="AT_IndiciValutazione" EntitySet="AT_IndiciValutazione" />
@@ -1577,25 +1602,23 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
             <End Role="AT_VisualizzazioneMezzo" EntitySet="AT_VisualizzazioneMezzo" />
             <End Role="AT_SchedaTecnica" EntitySet="AT_SchedaTecnica" />
           </AssociationSet>
+          <EntitySet Name="LuoghiTest_vw" EntityType="AUTOSDUModel.LuoghiTest_vw" />
         </EntityContainer>
         <EntityType Name="AT_ListaPratiche_vw">
           <Key>
             <PropertyRef Name="Perizie_ID" />
             <PropertyRef Name="CartaCircolazione" />
           </Key>
-          <Property Name="TipoPerizia_ID" Type="Int32" />
-          <Property Name="TipoPerizia_Descr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoPerizia_ID" Type="Int32" Nullable="false" />
+          <Property Name="TipoPerizia_Descr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PRAT_ID" Type="Int32" Nullable="false" />
           <Property Name="Targa" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="Chassis1" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="Chassis2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="ID_Produttore" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="ID_LuogoIntervento" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="DescrITA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="dealerPiazzale_peritoNonTabellato" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="indirizzo_peritoNonTabellato" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="citta_peritoNonTabellato" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Perizie_Barcode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DescrITA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Perizie_Barcode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Perizie_IDPerito" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="Perizie_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="Perizie_IsChiusa" Type="Boolean" />
@@ -1606,13 +1629,13 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
           <Property Name="IsPdf" Type="Boolean" />
           <Property Name="IsFoto" Type="Boolean" />
           <Property Name="ID_UltimoStato" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="UltimoStato" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="DescStato" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="AO_Cognome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="AO_Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Mod_Descr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Prod_ID" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="Prod_Descr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UltimoStato" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DescStato" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AO_Cognome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AO_Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mod_Descr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prod_ID" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prod_Descr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ID_SchedaTecnica" Type="Int32" />
           <Property Name="DataImmatricolazione" Type="DateTime" Precision="3" />
           <Property Name="Km" Type="Int32" />
@@ -2297,6 +2320,16 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LuoghiTest_vw">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="DescrITA" />
+          </Key>
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="DescrITA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Trilettera" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="IDPErito" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2465,9 +2498,6 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
                 <ScalarProperty Name="Perizie_ID" ColumnName="Perizie_ID" />
                 <ScalarProperty Name="Perizie_IDPerito" ColumnName="Perizie_IDPerito" />
                 <ScalarProperty Name="Perizie_Barcode" ColumnName="Perizie_Barcode" />
-                <ScalarProperty Name="citta_peritoNonTabellato" ColumnName="citta_peritoNonTabellato" />
-                <ScalarProperty Name="indirizzo_peritoNonTabellato" ColumnName="indirizzo_peritoNonTabellato" />
-                <ScalarProperty Name="dealerPiazzale_peritoNonTabellato" ColumnName="dealerPiazzale_peritoNonTabellato" />
                 <ScalarProperty Name="DescrITA" ColumnName="DescrITA" />
                 <ScalarProperty Name="ID_LuogoIntervento" ColumnName="ID_LuogoIntervento" />
                 <ScalarProperty Name="ID_Produttore" ColumnName="ID_Produttore" />
@@ -2601,6 +2631,16 @@ warning 6002: The table/view 'AUTOSDU.dbo.Luoghi_vw' does not have a primary key
             <EntityTypeMapping TypeName="AUTOSDUModel.AT_VisualizzazioneMezzo">
               <MappingFragment StoreEntitySet="AT_VisualizzazioneMezzo">
                 <ScalarProperty Name="Descr" ColumnName="Descr" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LuoghiTest_vw">
+            <EntityTypeMapping TypeName="AUTOSDUModel.LuoghiTest_vw">
+              <MappingFragment StoreEntitySet="LuoghiTest_vw">
+                <ScalarProperty Name="IDPErito" ColumnName="IDPErito" />
+                <ScalarProperty Name="Trilettera" ColumnName="Trilettera" />
+                <ScalarProperty Name="DescrITA" ColumnName="DescrITA" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

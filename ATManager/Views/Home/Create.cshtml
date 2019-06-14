@@ -56,13 +56,17 @@
     }
     function NascondiValorizzazione() {
         document.getElementById('StatoMezzo').style.display = 'none';
+
+          
     }
-    //function clearAllRadios() {
-    //    var radList = document.getElementsByName("mostraSosta");
-    //    for (var i = 0; i < radList.length; i++) {
-    //        if (radList[i].checked) document.getElementById(radList[i].id).checked = false;
-    //    }
-    //}
+
+    function Test() {
+
+
+        //function clearAllRadios( function MostraDiv() {
+        document.getElementsByClassName('Test').style.display = 'block';
+
+    }
 
 </script>
 
@@ -689,10 +693,20 @@
                                 </table>
                             </td>
                             <td>
+
+                                @*<div   onclick="Test()">
+                                    ...
+                                    <div class="Test" style="display:none">
+                                        Note: @Html.TextAreaFor(model => model.NoteCI835, new { style = "width: 170px; height:100px;", onclick = "alert('Razor Engine')" })
+                                    </div>
+                                </div>*@
+                                    
+
                                 <details style="display:inline;">
                                     <summary content: "+"></summary>
-                                    Note: @Html.TextAreaFor(model => model.NoteCI835, new { style = "width: 170px; height:100px;" })
+                                    Note: @Html.TextAreaFor(model => model.NoteCI835, new { style = "width: 170px; height:100px;", onclick = "alert('Razor Engine')" });)
                                 </details>
+                                
                             </td>
                         </tr>
                         @*<tr>

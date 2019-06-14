@@ -32,6 +32,11 @@ namespace ATManager.Controllers
         //    if (SearchLocation != null)
         //        Session["Location"] = SearchLocation;
 
+        //    if (Session["Location"].ToString() == "RESET")
+        //        Session["Location"] = "";
+
+
+
         //    if (usr != null)
         //        Session["User"] = usr;
         //    if (usr == null)
@@ -63,8 +68,15 @@ namespace ATManager.Controllers
         //    ViewBag.nome = myNome;
         //    ViewBag.cognome = myCognome;
 
+
         //    Session["Zona"] = myZone;
         //    Session["IDPErito"] = myIDPErito;
+
+        //    int myID = 0;
+        //    if (Session["Location"].ToString() != "")
+        //    {
+        //        myID = (int)Session["Location"];
+        //    }
 
         //    bool isAuth = false;
 
@@ -83,17 +95,96 @@ namespace ATManager.Controllers
         //            ViewBag.Messaggio = "BENE il cookie corrisponde!";
         //            //ViewBag.Messaggio = personaggio;
         //            isAuth = true;
+
+        //            if (myID != 0)
+        //            {
+        //                using (AUTOSDUEntities val = new AUTOSDUEntities())
+        //                {
+        //                    //Session["Scelta1"] = "";
+        //                    //string myZone = Session["Zona"].ToString();
+        //                    var model = new Models.HomeModel();
+
+        //                    if (myID == 0)
+        //                    {
+        //                        var location = from s in db.LuoghiTest_vw
+        //                                           //where s.Trilettera == myZone || s.Trilettera == "Z99"
+        //                                       where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
+        //                                       select s;
+        //                        model.LuoghiTest_vw = location.ToList();
+        //                    }
+        //                    else
+        //                    {
+        //                        var location = from s in db.LuoghiTest_vw
+        //                                           //where s.Trilettera == myZone || s.Trilettera == "Z99"
+        //                                       where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
+        //                                       select s;
+        //                        model.LuoghiTest_vw = location.ToList();
+        //                    }
+
+
+        //                    var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
+        //                    ViewData["Luoghi"] = fromDatabaseEF;
+
+        //                    //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+        //                    //ViewData["Luoghi"] = fromDatabaseEF;
+
+        //                }
+
+
+
+        //                var Luogo = (from s in db.AT_ListaPratiche_vw
+        //                             where s.ID_LuogoIntervento == myID.ToString()
+        //                             select s.DescrITA).FirstOrDefault();
+        //                ViewBag.Location = Luogo;
+
+
+        //                var cnt = (from s in db.AT_ListaPratiche_vw
+        //                           where s.ID_LuogoIntervento == myID.ToString()
+        //                           select s.Perizie_ID).Count();
+        //                ViewBag.Tutte = cnt;
+
+        //                cnt = (from s in db.AT_ListaPratiche_vw
+        //                       where s.ID_LuogoIntervento == myID.ToString()
+        //                       where s.IsCompleted == true
+        //                       select s.Perizie_ID).Count();
+        //                ViewBag.Chiuse = cnt;
+
+        //                cnt = (from s in db.AT_ListaPratiche_vw
+        //                       where s.ID_LuogoIntervento == myID.ToString()
+        //                       where s.IsCompleted == false
+        //                       select s.Perizie_ID).Count();
+        //                ViewBag.Aperte = cnt;
+
+        //                cnt = (from s in db.AT_ListaPratiche_vw
+        //                       where s.ID_SchedaTecnica == null
+        //                       where s.ID_LuogoIntervento == myID.ToString()
+        //                       select s.Perizie_ID).Count();
+        //                ViewBag.Assenti = cnt;
+
+
+
+        //                ViewBag.nome = myNome;
+        //                ViewBag.cognome = myCognome;
+
+        //                ViewBag.Blocco = "SI";
+
+
+
+        //                return View("Index");
+        //            }
+
         //            using (AUTOSDUEntities val = new AUTOSDUEntities())
         //            {
         //                Session["Status"] = "";
 
         //                var model = new Models.HomeModel();
-        //                var location = from s in db.Luoghi_vw
-        //                               where s.Trilettera == myZone || s.Trilettera == "Z99"
+        //                var location = from s in db.LuoghiTest_vw
+        //                                   // where s.Trilettera == myZone || s.Trilettera == "Z99"
+        //                               where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
         //                               select s;
-        //                model.Luoghi_vw = location.ToList();
+        //                model.LuoghiTest_vw = location.ToList();
 
-        //                var fromDatabaseEF = new SelectList(model.Luoghi_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
+        //                var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
         //                ViewData["Luoghi"] = fromDatabaseEF;
         //                //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
         //                //ViewData["Luoghi"] = fromDatabaseEF;
@@ -192,7 +283,7 @@ namespace ATManager.Controllers
 
         //}
 
-        public ActionResult Index(string Opt1, string CercaTarga, int? SearchLocation, string CercaMatricola,string Reset)
+        public ActionResult Index(string Opt1, string CercaTarga, int? SearchLocation, string CercaMatricola, string Reset)
         {
             if (Session["Location"] == null)
                 Session["Location"] = "";
@@ -203,7 +294,7 @@ namespace ATManager.Controllers
             if (Session["Location"].ToString() == "RESET")
                 Session["Location"] = "";
 
-           Session["User"] = "percossi";
+            Session["User"] = "bini";
             ViewBag.perito = Session["User"].ToString();
 
             String loc = Session["Location"].ToString();
@@ -247,66 +338,67 @@ namespace ATManager.Controllers
 
                     if (myID == 0)
                     {
-                        var location = from s in db.Luoghi_vw
-                                       where s.Trilettera == myZone || s.Trilettera == "Z99"
+                        var location = from s in db.LuoghiTest_vw
+                                           //where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                       where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
                                        select s;
-                        model.Luoghi_vw = location.ToList();
+                        model.LuoghiTest_vw = location.ToList();
                     }
                     else
                     {
-                        var location = from s in db.Luoghi_vw
-                                       where s.Trilettera == myZone || s.Trilettera == "Z99"
-                                       //where s.ID.ToString() == myID.ToString()
+                        var location = from s in db.LuoghiTest_vw
+                                           //where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                       where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
                                        select s;
-                        model.Luoghi_vw = location.ToList();
+                        model.LuoghiTest_vw = location.ToList();
                     }
 
 
-                    var fromDatabaseEF = new SelectList(model.Luoghi_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
+                    var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
                     ViewData["Luoghi"] = fromDatabaseEF;
 
-                    //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+                    //var fromDatabaseEF = new SelectList(val.LuoghiTest_vw.ToList(), "ID", "DescrITA", SearchLocation);
                     //ViewData["Luoghi"] = fromDatabaseEF;
 
                 }
 
 
 
-                    var Luogo = (from s in db.AT_ListaPratiche_vw
-                                 where s.ID_LuogoIntervento == myID.ToString()
-                                 select s.DescrITA).FirstOrDefault();
-                     ViewBag.Location = Luogo;
+                var Luogo = (from s in db.AT_ListaPratiche_vw
+                             where s.ID_LuogoIntervento == myID.ToString()
+                             select s.DescrITA).FirstOrDefault();
+                ViewBag.Location = Luogo;
 
 
-                    var cnt = (from s in db.AT_ListaPratiche_vw
-                               where s.ID_LuogoIntervento == myID.ToString()
-                               select s.Perizie_ID).Count();
-                    ViewBag.Tutte = cnt;
-
-                    cnt = (from s in db.AT_ListaPratiche_vw
-                           where s.ID_LuogoIntervento == myID.ToString()
-                           where s.IsCompleted == true
-                           select s.Perizie_ID).Count();
-                    ViewBag.Chiuse = cnt;
-
-                    cnt = (from s in db.AT_ListaPratiche_vw
-                           where s.ID_LuogoIntervento == myID.ToString()
-                           where s.IsCompleted == false
-                           select s.Perizie_ID).Count();
-                    ViewBag.Aperte = cnt;
-
-                    cnt = (from s in db.AT_ListaPratiche_vw
-                           where s.ID_SchedaTecnica == null
+                var cnt = (from s in db.AT_ListaPratiche_vw
                            where s.ID_LuogoIntervento == myID.ToString()
                            select s.Perizie_ID).Count();
-                    ViewBag.Assenti = cnt;
+                ViewBag.Tutte = cnt;
 
-                    
+                cnt = (from s in db.AT_ListaPratiche_vw
+                       where s.ID_LuogoIntervento == myID.ToString()
+                       where s.IsCompleted == true
+                       select s.Perizie_ID).Count();
+                ViewBag.Chiuse = cnt;
 
-                    ViewBag.nome = myNome;
-                    ViewBag.cognome = myCognome;
+                cnt = (from s in db.AT_ListaPratiche_vw
+                       where s.ID_LuogoIntervento == myID.ToString()
+                       where s.IsCompleted == false
+                       select s.Perizie_ID).Count();
+                ViewBag.Aperte = cnt;
 
-                    ViewBag.Blocco = "SI";
+                cnt = (from s in db.AT_ListaPratiche_vw
+                       where s.ID_SchedaTecnica == null
+                       where s.ID_LuogoIntervento == myID.ToString()
+                       select s.Perizie_ID).Count();
+                ViewBag.Assenti = cnt;
+
+
+
+                ViewBag.nome = myNome;
+                ViewBag.cognome = myCognome;
+
+                ViewBag.Blocco = "SI";
 
 
 
@@ -321,24 +413,26 @@ namespace ATManager.Controllers
                 var model = new Models.HomeModel();
                 if (myID == 0)
                 {
-                    var location = from s in db.Luoghi_vw
-                                   where s.Trilettera == myZone || s.Trilettera == "Z99"
+                    var location = from s in db.LuoghiTest_vw
+                                       //where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                   where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
                                    select s;
-                    model.Luoghi_vw = location.ToList();
+                    model.LuoghiTest_vw = location.ToList();
                 }
                 else
                 {
-                    var location = from s in db.Luoghi_vw
-                                   where s.Trilettera == myZone || s.Trilettera == "Z99"
+                    var location = from s in db.LuoghiTest_vw
+                                       // where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                   where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
                                    //where s.ID.ToString() == myID.ToString()
                                    select s;
-                    model.Luoghi_vw = location.ToList();
+                    model.LuoghiTest_vw = location.ToList();
                 }
 
 
-                var fromDatabaseEF = new SelectList(model.Luoghi_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
+                var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
                 ViewData["Luoghi"] = fromDatabaseEF;
-                //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+                //var fromDatabaseEF = new SelectList(val.LuoghiTest_vw.ToList(), "ID", "DescrITA", SearchLocation);
                 //ViewData["Luoghi"] = fromDatabaseEF;
 
             }
@@ -389,6 +483,7 @@ namespace ATManager.Controllers
 
             int myID = (int)Session["Location"];
 
+            string myIDPErito1 = Session["IDPErito"].ToString();
 
             using (AUTOSDUEntities val = new AUTOSDUEntities())
             {
@@ -398,25 +493,26 @@ namespace ATManager.Controllers
 
                 if (myID == 0)
                 {
-                    var location = from s in db.Luoghi_vw
-                                   where s.Trilettera == myZone || s.Trilettera == "Z99"
+                    var location = from s in db.LuoghiTest_vw
+                                   //where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                   where s.IDPErito == myIDPErito1 || s.Trilettera == "Z99"
                                    select s;
-                    model.Luoghi_vw = location.ToList();
+                    model.LuoghiTest_vw = location.ToList();
                 }
                 else
                 {
-                    var location = from s in db.Luoghi_vw
-                                   where s.Trilettera == myZone || s.Trilettera == "Z99"
-                                   //where s.ID.ToString() == myID.ToString()
+                    var location = from s in db.LuoghiTest_vw
+                                   //where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                   where s.IDPErito == myIDPErito1 || s.Trilettera == "Z99"
                                    select s;
-                    model.Luoghi_vw = location.ToList();
+                    model.LuoghiTest_vw = location.ToList();
                 }
                
 
-                var fromDatabaseEF = new SelectList(model.Luoghi_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
+                var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
                 ViewData["Luoghi"] = fromDatabaseEF;
 
-                //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+                //var fromDatabaseEF = new SelectList(val.LuoghiTest_vw.ToList(), "ID", "DescrITA", SearchLocation);
                 //ViewData["Luoghi"] = fromDatabaseEF;
 
             }
@@ -505,44 +601,49 @@ namespace ATManager.Controllers
 
             int myID = (int)Session["Location"];
 
+            string myIDPErito = Session["IDPErito"].ToString();
+
             using (AUTOSDUEntities val = new AUTOSDUEntities())
             {
                 //Session["Scelta1"] = "";
+               
 
                 string myZone = Session["Zona"].ToString();
                 var model = new Models.HomeModel();
                 if (myID == 0)
                 {
-                    var location = from s in db.Luoghi_vw
-                                   where s.Trilettera == myZone || s.Trilettera == "Z99"
+                    var location = from s in db.LuoghiTest_vw
+                                  // where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                   where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
                                    select s;
-                    model.Luoghi_vw = location.ToList();
+                    model.LuoghiTest_vw = location.ToList();
                 }
                 else
                 {
-                    var location = from s in db.Luoghi_vw
-                                   where s.Trilettera == myZone || s.Trilettera == "Z99"
+                    var location = from s in db.LuoghiTest_vw
+                                  // where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                   where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
                                    //where s.ID.ToString() == myID.ToString()
                                    select s;
-                    model.Luoghi_vw = location.ToList();
+                    model.LuoghiTest_vw = location.ToList();
                 }
 
                 try
                 {
-                    var fromDatabaseEF = new SelectList(model.Luoghi_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
+                    var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
                     ViewData["Luoghi"] = fromDatabaseEF;
                 }
                 catch
                 { }
-                //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+                //var fromDatabaseEF = new SelectList(val.LuoghiTest_vw.ToList(), "ID", "DescrITA", SearchLocation);
                 //ViewData["Luoghi"] = fromDatabaseEF;
 
 
             }
 
-            
 
-           
+
+
 
             if (!String.IsNullOrEmpty(CercaMatricola))
             {

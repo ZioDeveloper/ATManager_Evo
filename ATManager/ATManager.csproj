@@ -211,6 +211,9 @@
     <Compile Include="Models\Luoghi.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LuoghiTest_vw.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Luoghi_vw.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
