@@ -10,8 +10,8 @@
 {
     <div class="form-horizontal">
         Targa: @Html.TextBox("Targa", null, new { style = "width:80px" })
-        Matricola: @Html.TextBox("Matricola", null, new { style = "width:80px" })
-        <input type="submit" id="TelaioDaInserire" value="Inserimento targa non in lista" />
+        @*Matricola: @Html.TextBox("Matricola", null, new { style = "width:80px" })*@
+        <input type="submit" id="TelaioDaInserire" value="Cerca targa su Database" />
 
     </div>
 }
@@ -39,16 +39,18 @@ else if (ViewBag.Controllo == 2)
 }
 else if (ViewBag.Controllo == 3)
 {
-    <div id="Test">
+    <div id="Test" style="background-color:lightgreen">
         Situazione targa : @aMessage
         <br />
         <tr>
-            <td >Location in cui registrare la scheda :</td>
+            <td>Location in cui registrare la scheda :</td>
         </tr>
         <tr>
-            <td >    @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])</td>
+            <td>   </td>
         </tr>
     </div>
+    <br />
+    @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
 }
 else if (ViewBag.Controllo == 4)
 {
@@ -56,3 +58,7 @@ else if (ViewBag.Controllo == 4)
         @aMessage
     </div>
 }
+
+
+
+

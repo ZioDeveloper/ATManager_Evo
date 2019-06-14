@@ -88,8 +88,10 @@ namespace ATManager.Controllers
                     using (AUTOSDUEntities val = new AUTOSDUEntities())
                     {
                         string myZone = Session["Zona"].ToString();
-                        var cnt = (from s in db.Luoghi_vw
-                                   where s.Trilettera.ToString() != myZone
+                        string myPerito = Session["IDPErito"].ToString();
+
+                        var cnt = (from s in db.LuoghiTest_vw
+                                   where s.IDPErito.ToString() == myPerito
                                    select s).ToList();
                         var fromDatabaseEF = new SelectList(cnt, "ID", "DescrITA");
                         ViewData["Luoghi"] = fromDatabaseEF;
@@ -114,9 +116,10 @@ namespace ATManager.Controllers
         public bool EsisteConLocationDifferente(string aTarga)
         {
             string myZone = Session["Zona"].ToString();
+            string myPerito = Session["User"].ToString();
             var cnt = (from s in db.AT_ListaPratiche_vw
                        where s.Targa.ToString() == aTarga
-                       where s.Trilettera != myZone
+                       where s.Perizie_IDPerito != myPerito
                        select s.Perizie_ID).Count();
             if (cnt > 0)
                 return true;
@@ -147,5 +150,12 @@ namespace ATManager.Controllers
         }
 
 
+        public ActionResult Salva(string myID)
+        {
+            ViewBag.myID = myID;
+            return View();
+        }
     }
+
+   
 }

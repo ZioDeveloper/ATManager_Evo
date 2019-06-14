@@ -203,7 +203,7 @@ namespace ATManager.Controllers
         //                    var model = new Models.HomeModel();
         //                    var telai = from s in db.AT_ListaPratiche_vw
         //                                where s.Matricola.ToString() == CercaMatricola
-        //                                where s.Trilettera == myZone
+        //                                where s.Perizie_IDPerito == myIDPErito
         //                                select s;
         //                    model.AT_ListaPratiche_vw = telai.ToList();
         //                    return View("ElencoTelai", model);
@@ -215,7 +215,7 @@ namespace ATManager.Controllers
         //                var model = new Models.HomeModel();
         //                var telai = from s in db.AT_ListaPratiche_vw
         //                            where s.Targa.ToString() == CercaTarga
-        //                            where s.Trilettera == myZone
+        //                            where s.Perizie_IDPerito == myIDPErito
         //                            select s;
         //                model.AT_ListaPratiche_vw = telai.ToList();
         //                return View("ElencoTelai", model);
@@ -448,7 +448,7 @@ namespace ATManager.Controllers
                     var model = new Models.HomeModel();
                     var telai = from s in db.AT_ListaPratiche_vw
                                 where s.Matricola.ToString() == CercaMatricola
-                                where s.Trilettera == myZone
+                                where s.Perizie_IDPerito == myIDPErito
                                 select s;
                     model.AT_ListaPratiche_vw = telai.ToList();
                     return View("ElencoTelai", model);
@@ -460,7 +460,7 @@ namespace ATManager.Controllers
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.Targa.ToString() == CercaTarga
-                            where s.Trilettera == myZone || s.Trilettera == "Z99"
+                            where s.Perizie_IDPerito == myIDPErito
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
                 return View("ElencoTelai", model);
@@ -652,7 +652,7 @@ namespace ATManager.Controllers
                 Session["TipoRicerca"] = "MONO";
                 var IsInserted = (from s in db.AT_ListaPratiche_vw
                                   where s.Matricola.ToString() == CercaMatricola
-                                  where s.ID_LuogoIntervento == SearchLocation.ToString()
+                                  where s.Perizie_IDPerito == myIDPErito
                                   select s.Perizie_ID).Count();
                 if (IsInserted > 0)
                 {
@@ -660,7 +660,7 @@ namespace ATManager.Controllers
                     {
                         var IsClosed = (from s in db.AT_ListaPratiche_vw
                                         where s.Matricola.ToString() == CercaMatricola
-                                        where s.Trilettera == myZone
+                                        where s.Perizie_IDPerito == myIDPErito
                                         where s.ID_LuogoIntervento == SearchLocation.ToString()
                                         select s.IsCompleted).FirstOrDefault();
                         if (IsClosed.Value == false)
@@ -683,7 +683,7 @@ namespace ATManager.Controllers
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.Matricola.ToString() == CercaMatricola
-                            where s.Trilettera == myZone
+                            where s.Perizie_IDPerito == myIDPErito
                             where s.ID_LuogoIntervento == SearchLocation.ToString()
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
@@ -705,7 +705,7 @@ namespace ATManager.Controllers
                     {
                         var IsClosed = (from s in db.AT_ListaPratiche_vw
                                         where s.Targa.ToString() == CercaTarga
-                                        where s.Trilettera == myZone
+                                        where s.Perizie_IDPerito == myIDPErito
                                         where s.ID_LuogoIntervento == SearchLocation.ToString()
                                         select s.IsCompleted).FirstOrDefault();
                         if (IsClosed.Value == false)
@@ -728,7 +728,7 @@ namespace ATManager.Controllers
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.Targa.ToString() == CercaTarga
-                            where s.Trilettera == myZone
+                            where s.Perizie_IDPerito == myIDPErito
                             where s.ID_LuogoIntervento == SearchLocation.ToString()
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
@@ -740,7 +740,7 @@ namespace ATManager.Controllers
                 string myZone = Session["Zona"].ToString();
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
-                            where s.Trilettera == myZone
+                            where s.Perizie_IDPerito == myIDPErito
                             where s.ID_LuogoIntervento == SearchLocation.ToString()
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
@@ -753,7 +753,7 @@ namespace ATManager.Controllers
                 var model = new Models.HomeModel();
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.ID_SchedaTecnica == null
-                            where s.Trilettera == myZone
+                            where s.Perizie_IDPerito == myIDPErito
                             where s.ID_LuogoIntervento == SearchLocation.ToString()
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
@@ -766,7 +766,7 @@ namespace ATManager.Controllers
                 var telai = from s in db.AT_ListaPratiche_vw
                             where s.ID_SchedaTecnica != null
                             where s.IsCompleted == false
-                            where s.Trilettera == myZone
+                            where s.Perizie_IDPerito == myIDPErito
                             where s.ID_LuogoIntervento == SearchLocation.ToString()
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
@@ -780,7 +780,7 @@ namespace ATManager.Controllers
                             where s.ID_SchedaTecnica != null
                             where s.ID_LuogoIntervento == SearchLocation.ToString()
                             where s.IsCompleted == true
-                            where s.Trilettera == myZone
+                            where s.Perizie_IDPerito == myIDPErito
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
                 return View("ElencoTelai", model);
