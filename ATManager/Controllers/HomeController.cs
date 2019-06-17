@@ -24,266 +24,7 @@ namespace ATManager.Controllers
 
 
 
-        //public ActionResult Index(string usr, string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
-        //{
-        //    if (Session["Location"] == null)
-        //        Session["Location"] = "";
-
-        //    if (SearchLocation != null)
-        //        Session["Location"] = SearchLocation;
-
-        //    if (Session["Location"].ToString() == "RESET")
-        //        Session["Location"] = "";
-
-
-
-        //    if (usr != null)
-        //        Session["User"] = usr;
-        //    if (usr == null)
-        //        usr = Session["User"].ToString();
-
-        //    string myPerito = usr;
-
-        //    String loc = Session["Location"].ToString();
-
-
-        //    ViewBag.perito = Session["User"].ToString();
-
-        //    var myZone = (from s in db.AT_PeritiXZone
-        //                  where s.UserName.ToString() == myPerito
-        //                  select s.ID_zona).FirstOrDefault();
-
-        //    var myNome = (from s in db.AT_PeritiXZone
-        //                  where s.UserName.ToString() == myPerito
-        //                  select s.Nome).FirstOrDefault();
-
-        //    var myCognome = (from s in db.AT_PeritiXZone
-        //                     where s.UserName.ToString() == myPerito
-        //                     select s.Cognome).FirstOrDefault();
-
-        //    var myIDPErito = (from s in db.AT_PeritiXZone
-        //                      where s.UserName.ToString() == myPerito
-        //                      select s.ID_Perito).FirstOrDefault();
-
-        //    ViewBag.nome = myNome;
-        //    ViewBag.cognome = myCognome;
-
-
-        //    Session["Zona"] = myZone;
-        //    Session["IDPErito"] = myIDPErito;
-
-        //    int myID = 0;
-        //    if (Session["Location"].ToString() != "")
-        //    {
-        //        myID = (int)Session["Location"];
-        //    }
-
-        //    bool isAuth = false;
-
-        //    if (usr != String.Empty)
-        //    {
-        //        string UserName = "";
-
-        //        string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
-        //        HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
-        //        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
-        //        UserName = ticket.Name; //You have the UserName!
-
-
-        //        if (usr == UserName)
-        //        {
-        //            ViewBag.Messaggio = "BENE il cookie corrisponde!";
-        //            //ViewBag.Messaggio = personaggio;
-        //            isAuth = true;
-
-        //            if (myID != 0)
-        //            {
-        //                using (AUTOSDUEntities val = new AUTOSDUEntities())
-        //                {
-        //                    //Session["Scelta1"] = "";
-        //                    //string myZone = Session["Zona"].ToString();
-        //                    var model = new Models.HomeModel();
-
-        //                    if (myID == 0)
-        //                    {
-        //                        var location = from s in db.LuoghiTest_vw
-        //                                           //where s.Trilettera == myZone || s.Trilettera == "Z99"
-        //                                       where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
-        //                                       select s;
-        //                        model.LuoghiTest_vw = location.ToList();
-        //                    }
-        //                    else
-        //                    {
-        //                        var location = from s in db.LuoghiTest_vw
-        //                                           //where s.Trilettera == myZone || s.Trilettera == "Z99"
-        //                                       where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
-        //                                       select s;
-        //                        model.LuoghiTest_vw = location.ToList();
-        //                    }
-
-
-        //                    var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
-        //                    ViewData["Luoghi"] = fromDatabaseEF;
-
-        //                    //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
-        //                    //ViewData["Luoghi"] = fromDatabaseEF;
-
-        //                }
-
-
-
-        //                var Luogo = (from s in db.AT_ListaPratiche_vw
-        //                             where s.ID_LuogoIntervento == myID.ToString()
-        //                             select s.DescrITA).FirstOrDefault();
-        //                ViewBag.Location = Luogo;
-
-
-        //                var cnt = (from s in db.AT_ListaPratiche_vw
-        //                           where s.ID_LuogoIntervento == myID.ToString()
-        //                           select s.Perizie_ID).Count();
-        //                ViewBag.Tutte = cnt;
-
-        //                cnt = (from s in db.AT_ListaPratiche_vw
-        //                       where s.ID_LuogoIntervento == myID.ToString()
-        //                       where s.IsCompleted == true
-        //                       select s.Perizie_ID).Count();
-        //                ViewBag.Chiuse = cnt;
-
-        //                cnt = (from s in db.AT_ListaPratiche_vw
-        //                       where s.ID_LuogoIntervento == myID.ToString()
-        //                       where s.IsCompleted == false
-        //                       select s.Perizie_ID).Count();
-        //                ViewBag.Aperte = cnt;
-
-        //                cnt = (from s in db.AT_ListaPratiche_vw
-        //                       where s.ID_SchedaTecnica == null
-        //                       where s.ID_LuogoIntervento == myID.ToString()
-        //                       select s.Perizie_ID).Count();
-        //                ViewBag.Assenti = cnt;
-
-
-
-        //                ViewBag.nome = myNome;
-        //                ViewBag.cognome = myCognome;
-
-        //                ViewBag.Blocco = "SI";
-
-
-
-        //                return View("Index");
-        //            }
-
-        //            using (AUTOSDUEntities val = new AUTOSDUEntities())
-        //            {
-        //                Session["Status"] = "";
-
-        //                var model = new Models.HomeModel();
-        //                var location = from s in db.LuoghiTest_vw
-        //                                   // where s.Trilettera == myZone || s.Trilettera == "Z99"
-        //                               where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
-        //                               select s;
-        //                model.LuoghiTest_vw = location.ToList();
-
-        //                var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
-        //                ViewData["Luoghi"] = fromDatabaseEF;
-        //                //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
-        //                //ViewData["Luoghi"] = fromDatabaseEF;
-
-
-        //            }
-
-        //            if (String.IsNullOrEmpty(CercaTarga))
-        //            {
-        //                if (String.IsNullOrEmpty(CercaMatricola))
-        //                {
-        //                    return View();
-        //                }
-        //                else
-        //                {
-        //                    var model = new Models.HomeModel();
-        //                    var telai = from s in db.AT_ListaPratiche_vw
-        //                                where s.Matricola.ToString() == CercaMatricola
-        //                                where s.Perizie_IDPerito == myIDPErito
-        //                                select s;
-        //                    model.AT_ListaPratiche_vw = telai.ToList();
-        //                    return View("ElencoTelai", model);
-        //                }
-        //            }
-        //            else if (!String.IsNullOrEmpty(CercaTarga))
-        //            {
-
-        //                var model = new Models.HomeModel();
-        //                var telai = from s in db.AT_ListaPratiche_vw
-        //                            where s.Targa.ToString() == CercaTarga
-        //                            where s.Perizie_IDPerito == myIDPErito
-        //                            select s;
-        //                model.AT_ListaPratiche_vw = telai.ToList();
-        //                return View("ElencoTelai", model);
-        //            }
-        //            else
-        //            {
-        //                return View();
-        //            }
-
-        //            ////if (String.IsNullOrEmpty(CercaMatricola))
-        //            ////{
-        //            ////    return View();
-        //            ////}
-        //            ////else
-        //            ////{
-        //            ////    var model = new Models.HomeModel();
-        //            ////    var telai = from s in db.AT_ListaPratiche_vw
-        //            ////                where s.Matricola.ToString() == CercaMatricola
-        //            ////                where s.Trilettera == myZone
-        //            ////                select s;
-        //            ////    model.AT_ListaPratiche_vw = telai.ToList();
-        //            ////    return View("ElencoTelai", model);
-        //            ////}
-
-
-        //            ////if (String.IsNullOrEmpty(CercaTarga))
-        //            ////{
-        //            ////    return View();
-        //            ////}
-        //            ////else if (!String.IsNullOrEmpty(CercaTarga))
-        //            ////{
-        //            ////    string myZone2 = Session["Zona"].ToString();
-        //            ////    var model = new Models.HomeModel();
-        //            ////    var telai = from s in db.AT_ListaPratiche_vw
-        //            ////                where s.Targa.ToString() == CercaTarga
-        //            ////                where s.Trilettera == myZone
-        //            ////                select s;
-        //            ////    model.AT_ListaPratiche_vw = telai.ToList();
-        //            ////    return View("ElencoTelai", model);
-        //            ////}
-        //            ////else
-        //            ////{
-        //            ////    return View();
-        //            ////}
-        //        }
-        //        else
-        //        {
-        //            ViewBag.Messaggio = "il cookie contenente lo 'username' non corrisponde allo User della queryString!";
-        //            isAuth = false;
-        //            return View("IncorrectLogin");
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        string UserName = "";
-
-        //        string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
-        //        HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
-        //        FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
-        //        UserName = ticket.Name; //You have the UserName!
-        //    }
-        //    return View();
-
-
-        //}
-
-        public ActionResult Index(string Opt1, string CercaTarga, int? SearchLocation, string CercaMatricola, string Reset)
+        public ActionResult Index(string usr, string Opt1, string CercaTarga, string SearchLocation, string CercaMatricola)
         {
             if (Session["Location"] == null)
                 Session["Location"] = "";
@@ -294,11 +35,19 @@ namespace ATManager.Controllers
             if (Session["Location"].ToString() == "RESET")
                 Session["Location"] = "";
 
-            Session["User"] = "bini";
-            ViewBag.perito = Session["User"].ToString();
+
+
+            if (usr != null)
+                Session["User"] = usr;
+            if (usr == null)
+                usr = Session["User"].ToString();
+
+            string myPerito = usr;
 
             String loc = Session["Location"].ToString();
-            string myPerito = Session["User"].ToString();
+
+
+            ViewBag.perito = Session["User"].ToString();
 
             var myZone = (from s in db.AT_PeritiXZone
                           where s.UserName.ToString() == myPerito
@@ -319,6 +68,7 @@ namespace ATManager.Controllers
             ViewBag.nome = myNome;
             ViewBag.cognome = myCognome;
 
+
             Session["Zona"] = myZone;
             Session["IDPErito"] = myIDPErito;
 
@@ -328,150 +78,400 @@ namespace ATManager.Controllers
                 myID = (int)Session["Location"];
             }
 
-            if (myID != 0)
-            {
-                using (AUTOSDUEntities val = new AUTOSDUEntities())
-                {
-                    //Session["Scelta1"] = "";
-                    //string myZone = Session["Zona"].ToString();
-                    var model = new Models.HomeModel();
+            bool isAuth = false;
 
-                    if (myID == 0)
+            if (usr != String.Empty)
+            {
+                string UserName = "";
+
+                string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
+                HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
+                UserName = ticket.Name; //You have the UserName!
+
+
+                if (usr == UserName)
+                {
+                    ViewBag.Messaggio = "BENE il cookie corrisponde!";
+                    //ViewBag.Messaggio = personaggio;
+                    isAuth = true;
+
+                    if (myID != 0)
                     {
+                        using (AUTOSDUEntities val = new AUTOSDUEntities())
+                        {
+                            //Session["Scelta1"] = "";
+                            //string myZone = Session["Zona"].ToString();
+                            var model = new Models.HomeModel();
+
+                            if (myID == 0)
+                            {
+                                var location = from s in db.LuoghiTest_vw
+                                                   //where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                               where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
+                                               select s;
+                                model.LuoghiTest_vw = location.ToList();
+                            }
+                            else
+                            {
+                                var location = from s in db.LuoghiTest_vw
+                                                   //where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                               where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
+                                               select s;
+                                model.LuoghiTest_vw = location.ToList();
+                            }
+
+
+                            var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
+                            ViewData["Luoghi"] = fromDatabaseEF;
+
+                            //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+                            //ViewData["Luoghi"] = fromDatabaseEF;
+
+                        }
+
+
+
+                        var Luogo = (from s in db.AT_ListaPratiche_vw
+                                     where s.ID_LuogoIntervento == myID.ToString()
+                                     select s.DescrITA).FirstOrDefault();
+                        ViewBag.Location = Luogo;
+
+
+                        var cnt = (from s in db.AT_ListaPratiche_vw
+                                   where s.ID_LuogoIntervento == myID.ToString()
+                                   select s.Perizie_ID).Count();
+                        ViewBag.Tutte = cnt;
+
+                        cnt = (from s in db.AT_ListaPratiche_vw
+                               where s.ID_LuogoIntervento == myID.ToString()
+                               where s.IsCompleted == true
+                               select s.Perizie_ID).Count();
+                        ViewBag.Chiuse = cnt;
+
+                        cnt = (from s in db.AT_ListaPratiche_vw
+                               where s.ID_LuogoIntervento == myID.ToString()
+                               where s.IsCompleted == false
+                               select s.Perizie_ID).Count();
+                        ViewBag.Aperte = cnt;
+
+                        cnt = (from s in db.AT_ListaPratiche_vw
+                               where s.ID_SchedaTecnica == null
+                               where s.ID_LuogoIntervento == myID.ToString()
+                               select s.Perizie_ID).Count();
+                        ViewBag.Assenti = cnt;
+
+
+
+                        ViewBag.nome = myNome;
+                        ViewBag.cognome = myCognome;
+
+                        ViewBag.Blocco = "SI";
+
+
+
+                        return View("Index");
+                    }
+
+                    using (AUTOSDUEntities val = new AUTOSDUEntities())
+                    {
+                        Session["Status"] = "";
+
+                        var model = new Models.HomeModel();
                         var location = from s in db.LuoghiTest_vw
-                                           //where s.Trilettera == myZone || s.Trilettera == "Z99"
+                                           // where s.Trilettera == myZone || s.Trilettera == "Z99"
                                        where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
                                        select s;
                         model.LuoghiTest_vw = location.ToList();
+
+                        var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
+                        ViewData["Luoghi"] = fromDatabaseEF;
+                        //var fromDatabaseEF = new SelectList(val.Luoghi_vw.ToList(), "ID", "DescrITA", SearchLocation);
+                        //ViewData["Luoghi"] = fromDatabaseEF;
+
+
+                    }
+
+                    if (String.IsNullOrEmpty(CercaTarga))
+                    {
+                        if (String.IsNullOrEmpty(CercaMatricola))
+                        {
+                            return View();
+                        }
+                        else
+                        {
+                            var model = new Models.HomeModel();
+                            var telai = from s in db.AT_ListaPratiche_vw
+                                        where s.Matricola.ToString() == CercaMatricola
+                                        where s.Perizie_IDPerito == myIDPErito
+                                        select s;
+                            model.AT_ListaPratiche_vw = telai.ToList();
+                            return View("ElencoTelai", model);
+                        }
+                    }
+                    else if (!String.IsNullOrEmpty(CercaTarga))
+                    {
+
+                        var model = new Models.HomeModel();
+                        var telai = from s in db.AT_ListaPratiche_vw
+                                    where s.Targa.ToString() == CercaTarga
+                                    where s.Perizie_IDPerito == myIDPErito
+                                    select s;
+                        model.AT_ListaPratiche_vw = telai.ToList();
+                        return View("ElencoTelai", model);
                     }
                     else
                     {
-                        var location = from s in db.LuoghiTest_vw
-                                           //where s.Trilettera == myZone || s.Trilettera == "Z99"
-                                       where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
-                                       select s;
-                        model.LuoghiTest_vw = location.ToList();
+                        return View();
                     }
 
-
-                    var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
-                    ViewData["Luoghi"] = fromDatabaseEF;
-
-                    //var fromDatabaseEF = new SelectList(val.LuoghiTest_vw.ToList(), "ID", "DescrITA", SearchLocation);
-                    //ViewData["Luoghi"] = fromDatabaseEF;
-
-                }
-
-
-
-                var Luogo = (from s in db.AT_ListaPratiche_vw
-                             where s.ID_LuogoIntervento == myID.ToString()
-                             select s.DescrITA).FirstOrDefault();
-                ViewBag.Location = Luogo;
-
-
-                var cnt = (from s in db.AT_ListaPratiche_vw
-                           where s.ID_LuogoIntervento == myID.ToString()
-                           select s.Perizie_ID).Count();
-                ViewBag.Tutte = cnt;
-
-                cnt = (from s in db.AT_ListaPratiche_vw
-                       where s.ID_LuogoIntervento == myID.ToString()
-                       where s.IsCompleted == true
-                       select s.Perizie_ID).Count();
-                ViewBag.Chiuse = cnt;
-
-                cnt = (from s in db.AT_ListaPratiche_vw
-                       where s.ID_LuogoIntervento == myID.ToString()
-                       where s.IsCompleted == false
-                       select s.Perizie_ID).Count();
-                ViewBag.Aperte = cnt;
-
-                cnt = (from s in db.AT_ListaPratiche_vw
-                       where s.ID_SchedaTecnica == null
-                       where s.ID_LuogoIntervento == myID.ToString()
-                       select s.Perizie_ID).Count();
-                ViewBag.Assenti = cnt;
+                    ////if (String.IsNullOrEmpty(CercaMatricola))
+                    ////{
+                    ////    return View();
+                    ////}
+                    ////else
+                    ////{
+                    ////    var model = new Models.HomeModel();
+                    ////    var telai = from s in db.AT_ListaPratiche_vw
+                    ////                where s.Matricola.ToString() == CercaMatricola
+                    ////                where s.Trilettera == myZone
+                    ////                select s;
+                    ////    model.AT_ListaPratiche_vw = telai.ToList();
+                    ////    return View("ElencoTelai", model);
+                    ////}
 
 
-
-                ViewBag.nome = myNome;
-                ViewBag.cognome = myCognome;
-
-                ViewBag.Blocco = "SI";
-
-
-
-                return View("Index");
-            }
-
-
-            using (AUTOSDUEntities val = new AUTOSDUEntities())
-            {
-                Session["Status"] = "";
-
-                var model = new Models.HomeModel();
-                if (myID == 0)
-                {
-                    var location = from s in db.LuoghiTest_vw
-                                       //where s.Trilettera == myZone || s.Trilettera == "Z99"
-                                   where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
-                                   select s;
-                    model.LuoghiTest_vw = location.ToList();
+                    ////if (String.IsNullOrEmpty(CercaTarga))
+                    ////{
+                    ////    return View();
+                    ////}
+                    ////else if (!String.IsNullOrEmpty(CercaTarga))
+                    ////{
+                    ////    string myZone2 = Session["Zona"].ToString();
+                    ////    var model = new Models.HomeModel();
+                    ////    var telai = from s in db.AT_ListaPratiche_vw
+                    ////                where s.Targa.ToString() == CercaTarga
+                    ////                where s.Trilettera == myZone
+                    ////                select s;
+                    ////    model.AT_ListaPratiche_vw = telai.ToList();
+                    ////    return View("ElencoTelai", model);
+                    ////}
+                    ////else
+                    ////{
+                    ////    return View();
+                    ////}
                 }
                 else
                 {
-                    var location = from s in db.LuoghiTest_vw
-                                       // where s.Trilettera == myZone || s.Trilettera == "Z99"
-                                   where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
-                                   //where s.ID.ToString() == myID.ToString()
-                                   select s;
-                    model.LuoghiTest_vw = location.ToList();
+                    ViewBag.Messaggio = "il cookie contenente lo 'username' non corrisponde allo User della queryString!";
+                    isAuth = false;
+                    return View("IncorrectLogin");
                 }
 
-
-                var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
-                ViewData["Luoghi"] = fromDatabaseEF;
-                //var fromDatabaseEF = new SelectList(val.LuoghiTest_vw.ToList(), "ID", "DescrITA", SearchLocation);
-                //ViewData["Luoghi"] = fromDatabaseEF;
-
-            }
-
-            if (String.IsNullOrEmpty(CercaTarga))
-            {
-                if (String.IsNullOrEmpty(CercaMatricola))
-                {
-                    return View();
-                }
-                else
-                {
-                    var model = new Models.HomeModel();
-                    var telai = from s in db.AT_ListaPratiche_vw
-                                where s.Matricola.ToString() == CercaMatricola
-                                where s.Perizie_IDPerito == myIDPErito
-                                select s;
-                    model.AT_ListaPratiche_vw = telai.ToList();
-                    return View("ElencoTelai", model);
-                }
-            }
-            else if (!String.IsNullOrEmpty(CercaTarga))
-            {
-
-                var model = new Models.HomeModel();
-                var telai = from s in db.AT_ListaPratiche_vw
-                            where s.Targa.ToString() == CercaTarga
-                            where s.Perizie_IDPerito == myIDPErito
-                            select s;
-                model.AT_ListaPratiche_vw = telai.ToList();
-                return View("ElencoTelai", model);
             }
             else
             {
-                return View();
-            }
+                string UserName = "";
 
-            return RedirectToAction("DoRefresh", "Home");
+                string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
+                HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(cookie.Value); //Decrypt it
+                UserName = ticket.Name; //You have the UserName!
+            }
+            return View();
+
+
         }
+
+        //public ActionResult Index(string Opt1, string CercaTarga, int? SearchLocation, string CercaMatricola, string Reset)
+        //{
+        //    if (Session["Location"] == null)
+        //        Session["Location"] = "";
+
+        //    if (SearchLocation != null)
+        //        Session["Location"] = SearchLocation;
+
+        //    if (Session["Location"].ToString() == "RESET")
+        //        Session["Location"] = "";
+
+        //    Session["User"] = "burzio";
+        //    ViewBag.perito = Session["User"].ToString();
+
+        //    String loc = Session["Location"].ToString();
+        //    string myPerito = Session["User"].ToString();
+
+        //    var myZone = (from s in db.AT_PeritiXZone
+        //                  where s.UserName.ToString() == myPerito
+        //                  select s.ID_zona).FirstOrDefault();
+
+        //    var myNome = (from s in db.AT_PeritiXZone
+        //                  where s.UserName.ToString() == myPerito
+        //                  select s.Nome).FirstOrDefault();
+
+        //    var myCognome = (from s in db.AT_PeritiXZone
+        //                     where s.UserName.ToString() == myPerito
+        //                     select s.Cognome).FirstOrDefault();
+
+        //    var myIDPErito = (from s in db.AT_PeritiXZone
+        //                      where s.UserName.ToString() == myPerito
+        //                      select s.ID_Perito).FirstOrDefault();
+
+        //    ViewBag.nome = myNome;
+        //    ViewBag.cognome = myCognome;
+
+        //    Session["Zona"] = myZone;
+        //    Session["IDPErito"] = myIDPErito;
+
+        //    int myID = 0;
+        //    if (Session["Location"].ToString() != "")
+        //    {
+        //        myID = (int)Session["Location"];
+        //    }
+
+        //    if (myID != 0)
+        //    {
+        //        using (AUTOSDUEntities val = new AUTOSDUEntities())
+        //        {
+        //            //Session["Scelta1"] = "";
+        //            //string myZone = Session["Zona"].ToString();
+        //            var model = new Models.HomeModel();
+
+        //            if (myID == 0)
+        //            {
+        //                var location = from s in db.LuoghiTest_vw
+        //                                   //where s.Trilettera == myZone || s.Trilettera == "Z99"
+        //                               where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
+        //                               select s;
+        //                model.LuoghiTest_vw = location.ToList();
+        //            }
+        //            else
+        //            {
+        //                var location = from s in db.LuoghiTest_vw
+        //                                   //where s.Trilettera == myZone || s.Trilettera == "Z99"
+        //                               where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
+        //                               select s;
+        //                model.LuoghiTest_vw = location.ToList();
+        //            }
+
+
+        //            var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
+        //            ViewData["Luoghi"] = fromDatabaseEF;
+
+        //            //var fromDatabaseEF = new SelectList(val.LuoghiTest_vw.ToList(), "ID", "DescrITA", SearchLocation);
+        //            //ViewData["Luoghi"] = fromDatabaseEF;
+
+        //        }
+
+
+
+        //        var Luogo = (from s in db.AT_ListaPratiche_vw
+        //                     where s.ID_LuogoIntervento == myID.ToString()
+        //                     select s.DescrITA).FirstOrDefault();
+        //        ViewBag.Location = Luogo;
+
+
+        //        var cnt = (from s in db.AT_ListaPratiche_vw
+        //                   where s.ID_LuogoIntervento == myID.ToString()
+        //                   select s.Perizie_ID).Count();
+        //        ViewBag.Tutte = cnt;
+
+        //        cnt = (from s in db.AT_ListaPratiche_vw
+        //               where s.ID_LuogoIntervento == myID.ToString()
+        //               where s.IsCompleted == true
+        //               select s.Perizie_ID).Count();
+        //        ViewBag.Chiuse = cnt;
+
+        //        cnt = (from s in db.AT_ListaPratiche_vw
+        //               where s.ID_LuogoIntervento == myID.ToString()
+        //               where s.IsCompleted == false
+        //               select s.Perizie_ID).Count();
+        //        ViewBag.Aperte = cnt;
+
+        //        cnt = (from s in db.AT_ListaPratiche_vw
+        //               where s.ID_SchedaTecnica == null
+        //               where s.ID_LuogoIntervento == myID.ToString()
+        //               select s.Perizie_ID).Count();
+        //        ViewBag.Assenti = cnt;
+
+
+
+        //        ViewBag.nome = myNome;
+        //        ViewBag.cognome = myCognome;
+
+        //        ViewBag.Blocco = "SI";
+
+
+
+        //        return View("Index");
+        //    }
+
+
+        //    using (AUTOSDUEntities val = new AUTOSDUEntities())
+        //    {
+        //        Session["Status"] = "";
+
+        //        var model = new Models.HomeModel();
+        //        if (myID == 0)
+        //        {
+        //            var location = from s in db.LuoghiTest_vw
+        //                               //where s.Trilettera == myZone || s.Trilettera == "Z99"
+        //                           where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
+        //                           select s;
+        //            model.LuoghiTest_vw = location.ToList();
+        //        }
+        //        else
+        //        {
+        //            var location = from s in db.LuoghiTest_vw
+        //                               // where s.Trilettera == myZone || s.Trilettera == "Z99"
+        //                           where s.IDPErito == myIDPErito || s.Trilettera == "Z99"
+        //                           //where s.ID.ToString() == myID.ToString()
+        //                           select s;
+        //            model.LuoghiTest_vw = location.ToList();
+        //        }
+
+
+        //        var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
+        //        ViewData["Luoghi"] = fromDatabaseEF;
+        //        //var fromDatabaseEF = new SelectList(val.LuoghiTest_vw.ToList(), "ID", "DescrITA", SearchLocation);
+        //        //ViewData["Luoghi"] = fromDatabaseEF;
+
+        //    }
+
+        //    if (String.IsNullOrEmpty(CercaTarga))
+        //    {
+        //        if (String.IsNullOrEmpty(CercaMatricola))
+        //        {
+        //            return View();
+        //        }
+        //        else
+        //        {
+        //            var model = new Models.HomeModel();
+        //            var telai = from s in db.AT_ListaPratiche_vw
+        //                        where s.Matricola.ToString() == CercaMatricola
+        //                        where s.Perizie_IDPerito == myIDPErito
+        //                        select s;
+        //            model.AT_ListaPratiche_vw = telai.ToList();
+        //            return View("ElencoTelai", model);
+        //        }
+        //    }
+        //    else if (!String.IsNullOrEmpty(CercaTarga))
+        //    {
+
+        //        var model = new Models.HomeModel();
+        //        var telai = from s in db.AT_ListaPratiche_vw
+        //                    where s.Targa.ToString() == CercaTarga
+        //                    where s.Perizie_IDPerito == myIDPErito
+        //                    select s;
+        //        model.AT_ListaPratiche_vw = telai.ToList();
+        //        return View("ElencoTelai", model);
+        //    }
+        //    else
+        //    {
+        //        return View();
+        //    }
+
+        //    return RedirectToAction("DoRefresh", "Home");
+        //}
 
         public ActionResult ContaTelai(int? SearchLocation)
         {
@@ -583,6 +583,8 @@ namespace ATManager.Controllers
         {
 
             //string UserName = "";
+
+           
 
             //string cookieName = FormsAuthentication.FormsCookieName; //Find cookie name
             //HttpCookie cookie = HttpContext.Request.Cookies[cookieName]; //Get the cookie by it's name
@@ -732,6 +734,8 @@ namespace ATManager.Controllers
                             where s.ID_LuogoIntervento == SearchLocation.ToString()
                             select s;
                 model.AT_ListaPratiche_vw = telai.ToList();
+
+                ViewBag.myTarga = CercaTarga;
                 return View("ElencoTelai", model);
             }
 
@@ -941,8 +945,38 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.IDStatoMezzo = 3;
             }
 
-            if (aT_SchedaTecnica.IDVisualizzazioneMezzo != 1 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 2 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 3 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4)
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 5)
+            {
+                aT_SchedaTecnica.isMarciante = null;
+                aT_SchedaTecnica.isAvviante = null;
+                aT_SchedaTecnica.IsManutOrdinaria = null;
+                aT_SchedaTecnica.IDStatoMezzo = 3;
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 6)
+            {
+                aT_SchedaTecnica.isMarciante = null;
+                aT_SchedaTecnica.isAvviante = null;
+                aT_SchedaTecnica.IsManutOrdinaria = null;
+               
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo != 1 && 
+                aT_SchedaTecnica.IDVisualizzazioneMezzo != 2 && 
+                aT_SchedaTecnica.IDVisualizzazioneMezzo != 3 && 
+                aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && 
+                aT_SchedaTecnica.IDVisualizzazioneMezzo != 5 && 
+                aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("isAvviante", CompileErrorMessage("Riepilogo attività ispettiva" ));
+
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 6 && aT_SchedaTecnica.IsCompleted == true)
+            {
+                if (String.IsNullOrEmpty(aT_SchedaTecnica.Note_generali))
+                {
+                    ModelState.AddModelError("Note", CompileErrorMessage("Note obbligatorie per questo intervento."));
+                }
+            }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1 && aT_SchedaTecnica.IsCompleted == true)
             {
@@ -962,7 +996,10 @@ namespace ATManager.Controllers
                     ModelState.AddModelError("IsManutOrdinaria", CompileErrorMessage("In riparazione / Manut.ordinaria"));
             }
 
-            if (aT_SchedaTecnica.CE110 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
+            if (aT_SchedaTecnica.CE110 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("CE110", CompileErrorMessage("CE110"));
 
             //if (aT_SchedaTecnica.CE112 == null && aT_SchedaTecnica.IsCompleted == true)
@@ -983,13 +1020,22 @@ namespace ATManager.Controllers
             //if (aT_SchedaTecnica.CE843 == null && aT_SchedaTecnica.IsCompleted == true)
             //    ModelState.AddModelError("CE843", CompileErrorMessage("CE843"));
 
-            if (aT_SchedaTecnica.CE816 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
+            if (aT_SchedaTecnica.CE816 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("CE816", CompileErrorMessage("CE816"));
 
-            if (aT_SchedaTecnica.CE265 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
+            if (aT_SchedaTecnica.CE265 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("CE265", CompileErrorMessage("CE265"));
 
-            if (aT_SchedaTecnica.CE135 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
+            if (aT_SchedaTecnica.CE135 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("CE135", CompileErrorMessage("CE135"));
 
             //if (aT_SchedaTecnica.CE160 == null && aT_SchedaTecnica.IsCompleted == true)
@@ -998,7 +1044,10 @@ namespace ATManager.Controllers
             //if (aT_SchedaTecnica.CE145 == null && aT_SchedaTecnica.IsCompleted == true)
             //    ModelState.AddModelError("CE145", CompileErrorMessage("CE145"));
 
-            if (aT_SchedaTecnica.CE150 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
+            if (aT_SchedaTecnica.CE150 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("CE150", CompileErrorMessage("CE150"));
 
             //if (aT_SchedaTecnica.CI820 == null && aT_SchedaTecnica.IsCompleted == true)
@@ -1007,7 +1056,10 @@ namespace ATManager.Controllers
             //if (aT_SchedaTecnica.CI825 == null && aT_SchedaTecnica.IsCompleted == true)
             //    ModelState.AddModelError("CI825", CompileErrorMessage("CI825"));
 
-            if (aT_SchedaTecnica.CI835 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
+            if (aT_SchedaTecnica.CI835 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("CI835", CompileErrorMessage("CI835"));
 
             //if (aT_SchedaTecnica.CI837 == null && aT_SchedaTecnica.IsCompleted == true)
@@ -1046,9 +1098,17 @@ namespace ATManager.Controllers
                 ModelState.AddModelError("Km", "Km : il dato è obbligatorio.");
             }
 
-            // Verifica presenza foto in caso di ID Stato mezzo = 2
+            int number;
 
-            var myNumFotoPerizia = (from s in db.SDU_DocumentiPerizia
+            bool success = Int32.TryParse(txtKm, out number);
+            if (!success)
+            {
+                ModelState.AddModelError("txtKm", "Il valore del campo KM deve essere un numero...");
+            }
+
+                // Verifica presenza foto in caso di ID Stato mezzo = 2
+
+                var myNumFotoPerizia = (from s in db.SDU_DocumentiPerizia
                                     where s.ID_Perizia == aT_SchedaTecnica.IDPerizia
                                     select s.ID).Count();
 
@@ -1097,10 +1157,16 @@ namespace ATManager.Controllers
                     int myIDeriziaStatus = mySchedaStatus.FirstOrDefault();
 
                     //string myDataUltimaRevisione = txtdataultimarevisione.Substring(6, 4) + txtdataultimarevisione.Substring(0, 2) + txtdataultimarevisione.Substring(3, 2);
+                    string myIDStatus = "";
+                    if (aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
+                        myIDStatus = "00H";
+                    else
+                        myIDStatus = "00E";
+                     
 
                     var p1 = new SqlParameter("@login", Session["User"]);
                     var p2 = new SqlParameter("@ID_perizia", myIDeriziaStatus);
-                    var p3 = new SqlParameter("@ID_Stato", "00H");
+                    var p3 = new SqlParameter("@ID_Stato", myIDStatus);
                     var p4 = new SqlParameter("@DataStato", DateTime.Now);
                     var p5 = new SqlParameter("@Note", "");
                     
@@ -1417,6 +1483,14 @@ namespace ATManager.Controllers
             //ViewBag.cartacircolazione = mySchedacc.ToString();
 
             ViewBag.IDVisualizzazioneMezzo = myIDVisualizzazione.ToString();
+
+
+            var myManut = (from s in db.AT_SchedaTecnica
+                                       where s.IDPerizia.ToString() == id
+                                       select s.IsManutOrdinaria).FirstOrDefault();
+
+            ViewBag.myManutenzione = myManut;
+
             return View(model);
         }
 
@@ -1466,6 +1540,33 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.IDStatoMezzo = 3;
             }
 
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 5)
+            {
+                aT_SchedaTecnica.isMarciante = null;
+                aT_SchedaTecnica.isAvviante = null;
+                aT_SchedaTecnica.IsManutOrdinaria = null;
+                aT_SchedaTecnica.IDStatoMezzo = 3;
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 6)
+            {
+                aT_SchedaTecnica.isMarciante = null;
+                aT_SchedaTecnica.isAvviante = null;
+                aT_SchedaTecnica.IsManutOrdinaria = null;
+
+            }
+
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo != 1 &&
+                aT_SchedaTecnica.IDVisualizzazioneMezzo != 2 &&
+                aT_SchedaTecnica.IDVisualizzazioneMezzo != 3 &&
+                aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 &&
+                aT_SchedaTecnica.IDVisualizzazioneMezzo != 5 &&
+                aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
+                ModelState.AddModelError("isAvviante", CompileErrorMessage("Riepilogo attività ispettiva"));
+
+
+
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1 && aT_SchedaTecnica.IsCompleted == true)
             {
                 if (aT_SchedaTecnica.isMarciante == null)
@@ -1484,9 +1585,28 @@ namespace ATManager.Controllers
                     ModelState.AddModelError("IsManutOrdinaria", CompileErrorMessage("In riparazione / Manut.ordinaria"));
             }
 
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 3 && aT_SchedaTecnica.IsManutOrdinaria == true && aT_SchedaTecnica.IsCompleted == true)
+            {
+                if(String.IsNullOrEmpty(aT_SchedaTecnica.Note_generali))
+                {
+                    ModelState.AddModelError("Note", CompileErrorMessage("Note obbligatorio per mezzo in manutenzione ordinaria"));
+                }
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 6 &&   aT_SchedaTecnica.IsCompleted == true)
+            {
+                if (String.IsNullOrEmpty(aT_SchedaTecnica.Note_generali))
+                {
+                    ModelState.AddModelError("Note", CompileErrorMessage("Note obbligatorie per questo intervento."));
+                }
+            }
 
 
-            if (aT_SchedaTecnica.CE110 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
+
+            if (aT_SchedaTecnica.CE110 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("CE110", CompileErrorMessage("CE110"));
 
             //if (aT_SchedaTecnica.CE112 == null && aT_SchedaTecnica.IsCompleted == true)
@@ -1507,13 +1627,22 @@ namespace ATManager.Controllers
             //if (aT_SchedaTecnica.CE843 == null && aT_SchedaTecnica.IsCompleted == true)
             //    ModelState.AddModelError("CE843", CompileErrorMessage("CE843"));
 
-            if (aT_SchedaTecnica.CE816 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
+            if (aT_SchedaTecnica.CE816 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("CE816", CompileErrorMessage("CE816"));
 
-            if (aT_SchedaTecnica.CE265 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
+            if (aT_SchedaTecnica.CE265 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("CE265", CompileErrorMessage("CE265"));
 
-            if (aT_SchedaTecnica.CE135 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
+            if (aT_SchedaTecnica.CE135 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("CE135", CompileErrorMessage("CE135"));
 
             //if (aT_SchedaTecnica.CE160 == null && aT_SchedaTecnica.IsCompleted == true)
@@ -1522,7 +1651,10 @@ namespace ATManager.Controllers
             //if (aT_SchedaTecnica.CE145 == null && aT_SchedaTecnica.IsCompleted == true)
             //    ModelState.AddModelError("CE145", CompileErrorMessage("CE145"));
 
-            if (aT_SchedaTecnica.CE150 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
+            if (aT_SchedaTecnica.CE150 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("CE150", CompileErrorMessage("CE150"));
 
             //if (aT_SchedaTecnica.CI820 == null && aT_SchedaTecnica.IsCompleted == true)
@@ -1531,7 +1663,10 @@ namespace ATManager.Controllers
             //if (aT_SchedaTecnica.CI825 == null && aT_SchedaTecnica.IsCompleted == true)
             //    ModelState.AddModelError("CI825", CompileErrorMessage("CI825"));
 
-            if (aT_SchedaTecnica.CI835 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1)
+            if (aT_SchedaTecnica.CI835 == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                       && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("CI835", CompileErrorMessage("CI835"));
 
             //if (aT_SchedaTecnica.CI837 == null && aT_SchedaTecnica.IsCompleted == true)
@@ -1643,12 +1778,20 @@ namespace ATManager.Controllers
                     int myIDeriziaStatus = mySchedaStatus.FirstOrDefault();
 
                     //string myDataUltimaRevisione = txtdataultimarevisione.Substring(6, 4) + txtdataultimarevisione.Substring(0, 2) + txtdataultimarevisione.Substring(3, 2);
+                    string myIDStatus = "";
+                    if (aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
+                        myIDStatus = "00H";
+                    else
+                        myIDStatus = "00E";
+
 
                     var p1 = new SqlParameter("@login", Session["User"]);
                     var p2 = new SqlParameter("@ID_perizia", myIDeriziaStatus);
-                    var p3 = new SqlParameter("@ID_Stato", "00H");
+                    var p3 = new SqlParameter("@ID_Stato", myIDStatus);
                     var p4 = new SqlParameter("@DataStato", DateTime.Now);
                     var p5 = new SqlParameter("@Note", "");
+
+
 
                     int noOfRowInserted = db.Database.ExecuteSqlCommand("EXEC sp_InsertStatus {0}, {1}, {2}, {3} , {4}", p1.Value, p2.Value, p3.Value, p4.Value, p5.Value);
 

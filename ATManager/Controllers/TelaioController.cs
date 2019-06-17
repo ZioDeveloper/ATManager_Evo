@@ -18,7 +18,7 @@ namespace ATManager.Controllers
         private AUTOSDUEntities db = new AUTOSDUEntities();
 
         // GET: Telaio
-        public ActionResult Index(string Targa, string Matricola)
+        public ActionResult Index(string Targa, string Matricola,int?SearchLocation ,string myTarga, string MessaggioQuery)
         {
             /* Controllo se la targa  :
                 
@@ -29,6 +29,7 @@ namespace ATManager.Controllers
                 9. NON ANDATO A BUON FINE
             */
 
+            Session["TargaDaModificare"] = Targa;
             int Controllo = 0;
 
             string myMessage = "";
@@ -44,11 +45,50 @@ namespace ATManager.Controllers
            
             ViewBag.Controllo = Controllo;
             ViewBag.Messaggio = myMessage;
+            ViewBag.MessaggioQuery = MessaggioQuery;
+            ViewBag.aTarga = myTarga;
             return View();
 
 
             //return View();
         }
+
+        [HttpPost]
+        public ActionResult Salva(FormCollection form)
+        {
+            string myPerito = Session["IDPErito"].ToString();
+
+            string myTarga = Session["TargaDaModificare"].ToString();
+            int IDP = (from s in db.AT_ListaPratiche_vw
+                       where s.Targa.ToString() == myTarga
+                       //where s.Perizie_IDPerito != myPerito
+                       select s.Perizie_ID).FirstOrDefault();
+
+
+            string myID = form["SearchLocation"].ToString();
+
+
+            var sql = @" UPDATE SDU_PERIZIE SET ID_LuogoIntervento = @ID_LuogoIntervento, " +
+                       "                         ID_Perito = @ID_Perito " +
+                       "  WHERE ID = @ID_perizia AND 0=0 ";
+
+            try
+            {
+                int noOfRowInsertedKm = db.Database.ExecuteSqlCommand(sql,
+                            new SqlParameter("@ID_perizia", IDP),
+                            new SqlParameter("@ID_Perito", myPerito),
+                            new SqlParameter("@ID_LuogoIntervento", myID));
+                ViewBag.Message = "Telaio modificato correttamente";
+            }
+            catch
+            {
+                ViewBag.Message = "Errore in modifica assegnazione località telaio";
+            }
+
+            return RedirectToAction("Index", "Telaio", new { MessaggioQuery = ViewBag.Message });
+
+        }
+
 
         public int CheckTarga(string aTarga, string aMatricola, out string aMessage)
         {
@@ -149,12 +189,14 @@ namespace ATManager.Controllers
                 return false;
         }
 
-
-        public ActionResult Salva(string myID)
+        public ActionResult ShowAllMobileDetails(FormCollection form)
         {
-            ViewBag.myID = myID;
+            string strDDLValue = form["ddlVendor"].ToString();
+
             return View();
         }
+
+
     }
 
    

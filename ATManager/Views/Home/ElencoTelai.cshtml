@@ -36,11 +36,21 @@
 
         @if (Model.AT_ListaPratiche_vw.Count() == 0)
         {
-           
-        <p>Telaio non trovato in questo luogo !
-            
-        </p>
-            <p><a class="btn btn-default" href="~/Telaio/Index">Premi per aprofondire ricerca &raquo;</a></p>
+            string myStato = Session["Status"].ToString();
+
+            if (myStato == "DA FARE")
+            {
+
+                <p>
+                    Telaio non trovato in questo luogo !
+
+                </p>
+                @*<p><a class="btn btn-default" href="~/Telaio/Index">Premi per approfondire ricerca &raquo;</a></p>
+
+                @Html.ActionLink("Inserisci telaio", "Index", "Telaio", new { myTarga = ViewBag.myTarga }, null);*@
+
+                <p><a class="btn btn-default" href="@Url.Action("Index", "Telaio", new { myTarga = ViewBag.myTarga })">Premi per approfondire ricerca</a></p>
+            }
         }
         else
         {

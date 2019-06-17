@@ -9,7 +9,8 @@
 @using (Html.BeginForm())
 {
     <div class="form-horizontal">
-        Targa: @Html.TextBox("Targa", null, new { style = "width:80px" })
+        @{string aTarga = ViewBag.aTarga;}
+        Targa: @Html.TextBox("Targa", aTarga, new { style = "width:80px" })
         @*Matricola: @Html.TextBox("Matricola", null, new { style = "width:80px" })*@
         <input type="submit" id="TelaioDaInserire" value="Cerca targa su Database" />
 
@@ -39,18 +40,23 @@ else if (ViewBag.Controllo == 2)
 }
 else if (ViewBag.Controllo == 3)
 {
-    <div id="Test" style="background-color:lightgreen">
-        Situazione targa : @aMessage
+    using (Html.BeginForm("Salva", "Telaio", FormMethod.Post))
+    {
+
+        <div id="Test" style="background-color:lightgreen">
+            Situazione targa : @aMessage
+            <br />
+            <tr>
+                <td>Location in cui registrare la scheda :</td>
+            </tr>
+            <tr>
+                <td>   </td>
+            </tr>
+        </div>
         <br />
-        <tr>
-            <td>Location in cui registrare la scheda :</td>
-        </tr>
-        <tr>
-            <td>   </td>
-        </tr>
-    </div>
-    <br />
-    @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
+        @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
+        <input type="submit" id="TelaioDaInserire" value="Salva modifica" />
+    }
 }
 else if (ViewBag.Controllo == 4)
 {
@@ -58,6 +64,17 @@ else if (ViewBag.Controllo == 4)
         @aMessage
     </div>
 }
+
+@{ string myResult = ViewBag.MessaggioQuery;}
+@if (!String.IsNullOrEmpty(myResult))
+{
+    <div style="color: red">
+        @myResult
+    </div>
+    <p><a class="btn btn-default" href="@Url.Action("Index", "Home", null)">Torna a ricerca telai</a></p>
+}
+
+
 
 
 

@@ -201,7 +201,7 @@
 
                 <table border="1" style="vertical-align:top;border-collapse:collapse;" cellpadding="1" align="center">
                     <tr>
-                        <td class="grigetto" colspan="4" style="text-align:center">LOGO IC</td>
+                        @*<td class="grigetto" colspan="4" style="text-align:center">LOGO IC</td>*@
                     </tr>
                     <tr>
                         <td class="grigetto">Data Perizia</td>
@@ -246,13 +246,15 @@
                 <table border="1" style="vertical-align:top;border-collapse:collapse;font-size:10px;" cellpadding="1" width="100%" align="center">
 
                     <tr>
-                        <td colspan="4" style="text-align:center" class="azzurro"><b>Riepilogo attività ispettiva</b></td>
+                        <td colspan="6" style="text-align:center" class="azzurro"><b>Riepilogo attività ispettiva</b></td>
                     </tr>
                     <tr>
-                        <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "1", new { onclick = "MostraEntrataUscita();" }) Entrata / UScita</td>
+                        <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "1", new { onclick = "MostraEntrataUscita();" }) Entrata/UScita</td>
                         <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "2", new { onclick = "MostraSosta();" }) Sosta</td>
                         <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "3", new { onclick = "MostraOfficina();" }) Officina </td>
                         <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "4", new { onclick = "MostraRottamare();" }) Rottamare </td>
+                        <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "5", new { onclick = "MostraRottamare();" }) Già rott. </td>
+                        <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "6", new { onclick = "MostraRottamare();" }) Assente </td>
                     </tr>
                 </table>
                 @*<p style="color:red">TODO : Impedire salvataggio se non si seleziona una opzione !</p>*@

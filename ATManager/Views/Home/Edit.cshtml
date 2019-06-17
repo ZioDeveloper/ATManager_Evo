@@ -199,7 +199,7 @@ else
 
                 <table border="1" style="vertical-align:top;border-collapse:collapse;" cellpadding="1" width="100%" align="center">
                     <tr>
-                        <td class="grigetto" colspan="4" style="text-align:center">LOGO IC</td>
+                        @*<td class="grigetto" colspan="4" style="text-align:center">LOGO IC</td>*@
                     </tr>
                     <tr>
                         <td class="grigetto">Data Perizia</td>
@@ -245,19 +245,21 @@ else
                 <table border="1" style="vertical-align:top;border-collapse:collapse;font-size:10px;" cellpadding="1" width="100%" align="center">
 
                     <tr>
-                        <td colspan="4" style="text-align:center" class="azzurro"><b>STATUS MEZZO</b></td>
+                        <td colspan="6" style="text-align:center" class="azzurro"><b>ESITO FASE 1</b></td>
                     </tr>
                     <tr>
-                        <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "1", new { onclick = "MostraEntrataUscita();" }) Entrata / UScita</td>
+                        <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "1", new { onclick = "MostraEntrataUscita();" }) Entrata/UScita</td>
                         <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "2", new { onclick = "MostraSosta();" }) Sosta</td>
                         <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "3", new { onclick = "MostraOfficina();" }) Officina </td>
                         <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "4", new { onclick = "MostraRottamare();" }) Rottamare </td>
+                        <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "5", new { onclick = "MostraRottamare();" }) Già rott. </td>
+                        <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "6", new { onclick = "MostraRottamare();" }) Assente </td>
                     </tr>
                 </table>
                 <br />
                 <div id="mostraEU" style="display:none">
 
-                    
+
                     <table>
                         <tr>
                             <td>@Html.RadioButtonFor(model => model.isMarciante, true) Marciante</td>
@@ -761,7 +763,7 @@ else
         <table border="1" style="vertical-align:top;border-collapse:collapse;width:100%" cellpadding="1" align="center">
 
             <tr style="display:none">
-                <td colspan="3" style="text-align:center" class="grigio"><b>STATUS MEZZO</b></td>
+                <td colspan="3" style="text-align:center" class="grigio"><b>ESITO FASE 1</b></td>
             </tr>
             <tr style="display:none">
                 <td class="verde">@Html.RadioButtonFor(model => model.IDStatoMezzo, "1", new { onclick = "show1();", @checked = "checked" }) 1 - VEICOLO OK</td>
@@ -844,9 +846,9 @@ else
                 else
                 {
                     <input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
-                    <input type="submit" id="Test"  value="Salva & Chiudi" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
+                    <input type="submit" id="Test" value="Salva & Chiudi" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
                 }
-                    <font color="red">Salva e chiudi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
+                <font color="red">Salva e chiudi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
                 @Html.EditorFor(model => model.IsCompleted, new { @nameof = "chkCompleted" })
                 @Html.ValidationMessageFor(model => model.IsCompleted, "", new { @class = "text-danger" })
             </div>
@@ -891,11 +893,18 @@ else
     if (ViewBag.IDVisualizzazioneMezzo == "3")
     {
         <script>MostraOfficina();</script>
+        if (ViewBag.myManutenzione == false)
+        {
+            <script>MostraValorizzazione()</script>
+        }
+
     }
     if (ViewBag.IDVisualizzazioneMezzo == "4")
     {
         <script>MostraRottamare();</script>
     }
+
+
 }
 
 @if (!Model.IsCompleted)
