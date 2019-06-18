@@ -66,43 +66,110 @@ namespace ATManager.Controllers
             string myTarga = Session["TargaDaModificare"].ToString();
             string myMatricola = Session["MatricolaDaModificare"].ToString();
             string myUSer = Session["User"].ToString();
+            string myPerito = Session["IDPErito"].ToString();
 
             if (String.IsNullOrEmpty(myTarga))
             {
                 return View("Index");
             }
 
+            string myIDLocation = form["SearchLocation"].ToString();
+
+            // Insert SDU_Pratiche
             var sql = @" INSERT INTO SDU_PRATICHE (ID_Gestione, DataApertura, OraApertura, MinApertura, VersioneCliente, Targa, Insert_Usr, Insert_Time, Update_Usr ) " +
                         "  VALUES(@ID_Gestione, GETDATE(),0,0, @VersioneCliente, @Targa, @Insert_Usr, GETDATE(), @Update_Usr)";
 
-            //SqlParameter[] @params1= { new SqlParameter("@returnVal", SqlDbType.Int) { Direction = ParameterDirection.Output } };
+            
             int noOfRowInsertedKm = db.Database.ExecuteSqlCommand(sql,
                            new SqlParameter("@ID_Gestione", "0036"),
                            new SqlParameter("@VersioneCliente", myMatricola),
                            new SqlParameter("@Targa", myTarga),
                            new SqlParameter("@Insert_Usr", myUSer),
-                           new SqlParameter("@Update_Usr", myTarga),
-                           new SqlParameter("@returnVal", SqlDbType.Int) { Direction = ParameterDirection.Output });
-           // string myID = @returnVal[0].Value.ToString();
+                           new SqlParameter("@Update_Usr", myTarga));
+
+            // recupero maX ID Pratica
+             var myIDPratica = (from s in db.SDU_Pratiche
+                          where s.ID_Gestione.ToString() == "0036"
+                          orderby s.ID descending
+                          select s.ID).FirstOrDefault();
+
+            int myID = myIDPratica;
+
+           
 
 
             SqlParameter[] @params = { new SqlParameter("@returnVal", SqlDbType.Int) {Direction = ParameterDirection.Output} };
 
-            var query1 = db.Database.ExecuteSqlCommand("exec @returnVal = dbo.spw_GetNewNumberWise 'ATS_19'", @params);
+            var query1 = db.Database.ExecuteSqlCommand("exec @returnVal = dbo.spw_GetNewNumberWise 'AV3_19'", @params);
 
             string result = @params[0].Value.ToString();
 
-            //sql = " INSERT INTO SDU_PERIZIE (ID_Pratica, Barcode, ID_TipoPerizia, ID_LuogoIntervento, ID_Perito, DataIncarico, DataPerizia, Insert_Usr, Insert_Time) " +
-            //      "  VALUES(@ID_Pratica, @Barcode, @ID_TipoPerizia, @ID_LuogoIntervento, @ID_Perito, GETDATE(), GETDATE() , @Insert_Usr, GETDATE())";
-            //noOfRowInsertedKm = db.Database.ExecuteSqlCommand(sql,
-            //               new SqlParameter("@ID_Gestione", "0036"),
-            //               new SqlParameter("@VersioneCliente", myMatricola),
-            //               new SqlParameter("@Targa", myTarga),
-            //               new SqlParameter("@Insert_Usr", myUSer),
-            //               new SqlParameter("@Update_Usr", myTarga));
+            string myBarcode = "U0019" + result.ToString().PadLeft(4,'0') + "0";
+            
+            // INSERT Perizia
+            sql = " INSERT INTO SDU_PERIZIE (ID_Pratica, Barcode, ID_TipoPerizia, ID_LuogoIntervento, ID_Perito, DataIncarico, DataPerizia, Insert_Usr, Insert_Time) " +
+                  "  VALUES(@ID_Pratica, @Barcode, @ID_TipoPerizia, @ID_LuogoIntervento, @ID_Perito, GETDATE(), GETDATE() , @Insert_Usr, GETDATE())";
+
+            noOfRowInsertedKm = db.Database.ExecuteSqlCommand(sql,
+                           new SqlParameter("@ID_Pratica", myID),
+                           new SqlParameter("@Barcode", myBarcode),
+                           new SqlParameter("@ID_TipoPerizia", "46"),
+                           new SqlParameter("@ID_LuogoIntervento", myIDLocation),
+                           new SqlParameter("@ID_Perito", myPerito),
+                           new SqlParameter("@Insert_Usr", myUSer));
+
+            // recupero maX ID Perizia
+            var myIDerizia = (from s in db.SDU_Perizie
+                              orderby s.ID descending
+                              select s.ID).FirstOrDefault();
+
+            int myIDPe = myIDerizia;
+
+            // INSERT LINK
+            sql = @" INSERT SDU_LINK_PRATICA_PERITI_INCARICO (IDPerito, ID_Pratica, ID_TipoPerizia, ID_LuogoIntervento, ID_Perizia, Insert_Usr, Insert_Time) " +
+                   "  VALUES (@IDPerito, @ID_Pratica, @ID_TipoPerizia, @ID_LuogoIntervento, @ID_Perizia, @Insert_Usr, GETDATE() )";
+            noOfRowInsertedKm = db.Database.ExecuteSqlCommand(sql,
+                           new SqlParameter("@IDPerito", myPerito),
+                           new SqlParameter("@ID_Pratica", myID),
+                           new SqlParameter("@ID_TipoPerizia", "46"),
+                           new SqlParameter("@ID_LuogoIntervento", myIDLocation),
+                           new SqlParameter("@ID_Perizia", myIDPe),
+                           new SqlParameter("@Insert_Usr", myUSer));
+
+            // Insert STATUS
+            var p1 = new SqlParameter("@login", Session["User"]);
+            var p2 = new SqlParameter("@ID_perizia", myIDPe);
+            var p3 = new SqlParameter("@ID_Stato", "15A");
+            var p4 = new SqlParameter("@DataStato", DateTime.Now);
+            var p5 = new SqlParameter("@Note", "");
+
+            int noOfRowInserted = db.Database.ExecuteSqlCommand("EXEC sp_InsertStatus {0}, {1}, {2}, {3} , {4}", p1.Value, p2.Value, p3.Value, p4.Value, p5.Value);
 
 
-            return RedirectToAction("Index");
+            Session["ExecJS"] = "true";
+            var model = new Models.HomeModel();
+
+            var t = (from s in db.AT_ListaPratiche_vw
+                         where s.Targa.ToString() == myTarga
+                         select s).FirstOrDefault();
+            return RedirectToAction("Create", "Home", new
+                    {
+                        id = t.Perizie_ID,
+                        dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
+                        marca = t.Prod_Descr,
+                        targa = t.Targa,
+                        dataimmatricolazione = t.DataImmatricolazione,
+                        km = t.Km,
+                        luogoperizia = t.DescrITA,
+                        modello = t.Mod_Descr,
+                        cartacircolazione = t.CartaCircolazione,
+                        matricola = t.Matricola,
+                        telaio = t.Chassis1 + t.Chassis2,
+                        dataultimarevisione = t.DataUltimaRevisione,
+                        aziendautilizzatrice = t.DescrizioneAzienda
+                    });
+
+
         }
 
         [HttpPost]
@@ -170,10 +237,10 @@ namespace ATManager.Controllers
 
 
 
-
+            Session["ExecJS"] = "true";
             var model = new Models.HomeModel();
 
-            Session["ExecJS"] = "true";
+            
 
             if (!String.IsNullOrEmpty(myTarga))
             {
@@ -347,7 +414,20 @@ namespace ATManager.Controllers
                 {
                     aMessage = "Targa esistente con scheda già associata";
 
-                    
+                    using (AUTOSDUEntities val = new AUTOSDUEntities())
+                    {
+                        string myZone = Session["Zona"].ToString();
+                        string myPerito = Session["IDPErito"].ToString();
+
+                        var cnt = (from s in db.LuoghiTest_vw
+                                   where s.IDPErito.ToString() == myPerito
+                                   where s.ID == aIDLuogo.ToString()
+                                   select s).ToList();
+                        var fromDatabaseEF = new SelectList(cnt, "ID", "DescrITA");
+                        ViewData["Luoghi"] = fromDatabaseEF;
+
+                    }
+
 
                     return 5;
                 }
@@ -392,7 +472,7 @@ namespace ATManager.Controllers
                         ViewData["Luoghi"] = fromDatabaseEF;
 
                     }
-                    return 1;
+                    return 6;
                 }
                 else
                 {

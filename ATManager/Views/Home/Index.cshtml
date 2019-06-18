@@ -4,11 +4,13 @@
 }
 <script type="text/javascript">
     function AttivaOpzioni() {
-        document.getElementById('AttivaOpzioni').style.display = 'block';
+        document.getElementById('CercaTarga').disabled = false;
+        document.getElementById('CercaMatricola').disabled = false;
     }
     function DisAttivaOpzioni() {
         canmodify = true;
-        document.getElementById('AttivaOpzioni').style.display = 'none';
+        document.getElementById('CercaTarga').disabled = true;
+        document.getElementById('CercaMatricola').disabled = true;
     }
 </script>
 
@@ -186,7 +188,7 @@
         <table border="0">
             <tr>
                 <td>
-                    Targa : &nbsp;&nbsp;&nbsp;&nbsp; @Html.TextBox("CercaTarga", null, new { style = "width:80px" })
+                    Targa : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @Html.TextBox("CercaTarga", null, new { style = "width:80px" })
                     @Html.ValidationMessage("CercaTarga")
                     <input type="submit" value="Cerca x targa" />
                 </td>
@@ -222,5 +224,5 @@
 
 @if (canmodify)
 {
-    @*<script>DisAttivaOpzioni();</script>*@
+    <script>DisAttivaOpzioni();</script>
 }

@@ -66,6 +66,10 @@ public partial class AUTOSDUEntities : DbContext
 
     public virtual DbSet<LuoghiTest_vw> LuoghiTest_vw { get; set; }
 
+    public virtual DbSet<SDU_Pratiche> SDU_Pratiche { get; set; }
+
+    public virtual DbSet<SDU_Perizie> SDU_Perizie { get; set; }
+
 }
 
 }

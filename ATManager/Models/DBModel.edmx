@@ -204,6 +204,226 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descrizioneDocumento" Type="varchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="SDU_Perizie">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Barcode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID_Pratica" Type="int" Nullable="false" />
+          <Property Name="ID_Perito" Type="varchar" MaxLength="4" />
+          <Property Name="ID_TipoPerizia" Type="int" />
+          <Property Name="ID_LuogoIntervento" Type="varchar" MaxLength="4" />
+          <Property Name="ID_Meteo" Type="int" />
+          <Property Name="DataIncarico" Type="datetime" />
+          <Property Name="DataPerizia" Type="datetime" />
+          <Property Name="Imp_IC" Type="float" />
+          <Property Name="Imp_Produttore" Type="float" />
+          <Property Name="Delta_IC_Prod" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="ImportoA" Type="float" />
+          <Property Name="ImpTotStima" Type="float" />
+          <Property Name="Note" Type="varchar" MaxLength="2000" />
+          <Property Name="Note2" Type="varchar" MaxLength="1000" />
+          <Property Name="IsChiusa" Type="bit" />
+          <Property Name="RifFatturaAtt" Type="varchar" MaxLength="50" />
+          <Property Name="IsFatt_Att" Type="bit" />
+          <Property Name="IsFatt_Pass" Type="bit" />
+          <Property Name="DataFattAtt" Type="datetime" />
+          <Property Name="DataFattPass" Type="datetime" />
+          <Property Name="ImportoFattAtt" Type="float" />
+          <Property Name="ImportoFattPass" Type="float" />
+          <Property Name="Insert_Usr" Type="varchar" MaxLength="50" />
+          <Property Name="Insert_Time" Type="datetime" />
+          <Property Name="Update_Usr" Type="varchar" MaxLength="50" />
+          <Property Name="Update_Time" Type="datetime" />
+          <Property Name="Update_Usr_Fiat" Type="varchar" MaxLength="50" />
+          <Property Name="Update_Time_Fiat" Type="datetime" />
+          <Property Name="Km" Type="int" />
+          <Property Name="KM_Incarico" Type="int" />
+          <Property Name="IsBatteriaScarica" Type="bit" />
+          <Property Name="PosizionePiazzale" Type="varchar" MaxLength="50" />
+          <Property Name="ID_Visibilita" Type="int" />
+          <Property Name="IsChecked" Type="bit" />
+          <Property Name="RifFatturaPass" Type="varchar" MaxLength="50" />
+          <Property Name="DataScadenza" Type="datetime" />
+          <Property Name="ID_Cedente" Type="varchar" MaxLength="4" />
+          <Property Name="IsImpProd" Type="bit" />
+          <Property Name="ID_FotoTarga" Type="int" />
+          <Property Name="ID_FotoVIN" Type="int" />
+          <Property Name="IsInviate" Type="bit" />
+          <Property Name="ID_FotoKm" Type="int" />
+          <Property Name="ID_FotoAngAntSX" Type="int" />
+          <Property Name="ID_FotoAngPostSX" Type="int" />
+          <Property Name="ID_FotoAngPostDX" Type="int" />
+          <Property Name="ID_FotoAngAntDX" Type="int" />
+          <Property Name="INI_NumeroPratiche_File" Type="int" />
+          <Property Name="INI_DataGenerazione_File" Type="datetime" />
+          <Property Name="INI_TipologiaIncarico_File" Type="varchar" MaxLength="50" />
+          <Property Name="INI_Contratto_File" Type="int" />
+          <Property Name="INI_Dealer_File" Type="varchar" MaxLength="200" />
+          <Property Name="INI_RiferimentoDealer_File" Type="varchar" MaxLength="100" />
+          <Property Name="INI_Deposito_File" Type="varchar" MaxLength="200" />
+          <Property Name="INI_RiferimentoDeposito_File" Type="varchar" MaxLength="100" />
+          <Property Name="INI_Trasportatore_File" Type="varchar" MaxLength="200" />
+          <Property Name="INI_RiferimentoTrasportatore_File" Type="varchar" MaxLength="100" />
+          <Property Name="INI_Veicolo_File" Type="varchar" MaxLength="100" />
+          <Property Name="INI_Colore_File" Type="varchar" MaxLength="15" />
+          <Property Name="INI_Km_File" Type="int" />
+          <Property Name="INI_Targa_File" Type="varchar" MaxLength="12" />
+          <Property Name="INI_Telaio_File" Type="varchar" MaxLength="30" />
+          <Property Name="INI_DataImmatricolazione_File" Type="datetime" />
+          <Property Name="INI_DataRiconsegna_File" Type="datetime" />
+          <Property Name="INI_DataStock_File" Type="datetime" />
+          <Property Name="INI_DataIncarico_File" Type="datetime" />
+          <Property Name="INI_InsTime_File" Type="datetime" />
+          <Property Name="PrimaGenXSL" Type="datetime" />
+          <Property Name="SPA_DataSpacc" Type="datetime" />
+          <Property Name="SPA_PeriziaCompleta" Type="float" />
+          <Property Name="SPA_Denunciato1" Type="varchar" MaxLength="15" />
+          <Property Name="SPA_NumSinistro1" Type="varchar" MaxLength="25" />
+          <Property Name="SPA_DataSinistro1" Type="datetime" />
+          <Property Name="SPA_Denunciato2" Type="varchar" MaxLength="15" />
+          <Property Name="SPA_NumSinistro2" Type="varchar" MaxLength="25" />
+          <Property Name="SPA_DataSinistro2" Type="datetime" />
+          <Property Name="SPA_Denunciato3" Type="varchar" MaxLength="15" />
+          <Property Name="SPA_NumSinistro3" Type="varchar" MaxLength="25" />
+          <Property Name="SPA_DataSinistro3" Type="datetime" />
+          <Property Name="SPA_Denunciato4" Type="varchar" MaxLength="15" />
+          <Property Name="SPA_NumSinistro4" Type="varchar" MaxLength="25" />
+          <Property Name="SPA_DataSinistro4" Type="datetime" />
+          <Property Name="SPA_TotDanDen" Type="float" />
+          <Property Name="SPA_AttrDealer" Type="float" />
+          <Property Name="SPA_AttrTrasp" Type="float" />
+          <Property Name="SPA_AttrPiazz" Type="float" />
+          <Property Name="SPA_DanLog" Type="float" />
+          <Property Name="SPA_DanGom50" Type="float" />
+          <Property Name="SPA_NonDen" Type="varchar" MaxLength="30" />
+          <Property Name="SPA_DanMec" Type="varchar" MaxLength="30" />
+          <Property Name="SPA_DanInt" Type="varchar" MaxLength="30" />
+          <Property Name="SPA_Note" Type="varchar" MaxLength="200" />
+          <Property Name="SPA_Utente" Type="varchar" MaxLength="10" />
+          <Property Name="ImpRichiesto" Type="varchar" MaxLength="30" />
+          <Property Name="ImpConcordato" Type="varchar" MaxLength="30" />
+          <Property Name="ImpDanni" Type="float" />
+          <Property Name="PerizieEsterne" Type="varchar" MaxLength="10" />
+          <Property Name="IsFoto" Type="bit" />
+          <Property Name="IsPdf" Type="bit" />
+          <Property Name="IsPdf_PerTot" Type="bit" />
+          <Property Name="IsIncaricoUff" Type="bit" />
+          <Property Name="DataFaseA" Type="datetime" />
+          <Property Name="DataFaseB" Type="datetime" />
+          <Property Name="IsStorico" Type="bit" />
+          <Property Name="IsAutorizzata" Type="bit" />
+          <Property Name="NoteAutoriz" Type="varchar" MaxLength="500" />
+          <Property Name="IsTxT" Type="bit" />
+          <Property Name="DataInvioAdzImplant" Type="datetime" />
+          <Property Name="QuotaOraria" Type="float" />
+          <Property Name="ValoreCommerciale" Type="float" />
+          <Property Name="ValoreRelitto" Type="float" />
+          <Property Name="IsInProvincia" Type="bit" />
+          <Property Name="IsFlagFranchigia" Type="bit" />
+          <Property Name="MailIncaricoR" Type="varchar" MaxLength="500" />
+          <Property Name="IsInSpacc" Type="bit" />
+          <Property Name="IsRichIncUff" Type="bit" />
+          <Property Name="DataRicezionePerizia" Type="datetime" />
+          <Property Name="DataInvioIncarico" Type="datetime" />
+          <Property Name="UserInvioIncarico" Type="varchar" MaxLength="15" />
+          <Property Name="BonusPass" Type="float" />
+          <Property Name="MalusPass" Type="float" />
+          <Property Name="DeltaPass" Type="int" />
+          <Property Name="IsRispacchettata" Type="bit" />
+          <Property Name="ImportoBasePass" Type="float" />
+          <Property Name="IsFatt_AttSpacc" Type="bit" />
+          <Property Name="IsFatt_PassSpacc" Type="bit" />
+          <Property Name="DataFattAttSpacc" Type="datetime" />
+          <Property Name="DataFattPassSpacc" Type="datetime" />
+          <Property Name="RifFatturaAttSpacc" Type="varchar" MaxLength="15" />
+          <Property Name="RifFatturaPassSpacc" Type="varchar" MaxLength="15" />
+          <Property Name="IsFatt_AttRisp" Type="bit" />
+          <Property Name="IsFatt_PassRisp" Type="bit" />
+          <Property Name="DataFattAttRisp" Type="datetime" />
+          <Property Name="DataFattPassRisp" Type="datetime" />
+          <Property Name="RifFatturaAttRisp" Type="varchar" MaxLength="15" />
+          <Property Name="RifFatturaPassRisp" Type="varchar" MaxLength="15" />
+          <Property Name="ImportoFattPassSpacc" Type="float" />
+          <Property Name="ImportoFattPassRisp" Type="float" />
+          <Property Name="ImportoFattAttSpacc" Type="float" />
+          <Property Name="ControlloFunzionale_ok" Type="bit" />
+          <Property Name="ControlloFunzionale_anom" Type="bit" />
+          <Property Name="ID_UltimoStato" Type="varchar" MaxLength="3" />
+          <Property Name="SmartRepair" Type="bit" />
+          <Property Name="ImportoRivalutazione" Type="float" />
+          <Property Name="DisaccordoPeritoFlag" Type="bit" />
+          <Property Name="KmMedio" Type="int" />
+          <Property Name="DataPubblicazionePerizia" Type="datetime" />
+          <Property Name="FromIncaricoR" Type="varchar" MaxLength="25" />
+          <Property Name="ccIncaricoR" Type="varchar" MaxLength="500" />
+          <Property Name="OggIncaricoR" Type="nchar" MaxLength="50" />
+          <Property Name="Is_NonFatturare" Type="bit" />
+          <Property Name="Is_InterventoMultiplo" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SDU_Pratiche">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Gestione" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="Barcode" Type="varchar" MaxLength="10" />
+          <Property Name="PreventivoNum" Type="varchar" MaxLength="20" />
+          <Property Name="DataApertura" Type="datetime" />
+          <Property Name="OraApertura" Type="int" />
+          <Property Name="MinApertura" Type="int" />
+          <Property Name="DataPrimoAccesso" Type="datetime" />
+          <Property Name="DataChiusura" Type="datetime" />
+          <Property Name="ID_ClienteDCliente" Type="varchar" MaxLength="50" />
+          <Property Name="ID_LuogoInt" Type="int" />
+          <Property Name="ID_Produttore" Type="varchar" MaxLength="4" />
+          <Property Name="ID_Modello" Type="varchar" MaxLength="4" />
+          <Property Name="ID_Versione" Type="int" />
+          <Property Name="Targa" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="TargaCheck" Type="varchar" MaxLength="12" />
+          <Property Name="ID_TipoSinistro" Type="int" />
+          <Property Name="ID_Perito" Type="int" />
+          <Property Name="ID_AziendaUtilizzatrice" Type="int" />
+          <Property Name="Note" Type="varchar" MaxLength="1000" />
+          <Property Name="Insert_Usr" Type="varchar" MaxLength="20" />
+          <Property Name="Insert_Time" Type="datetime" />
+          <Property Name="Update_Usr" Type="varchar" MaxLength="20" />
+          <Property Name="Update_Time" Type="datetime" />
+          <Property Name="ID_Societa" Type="varchar" MaxLength="2" />
+          <Property Name="CountGruppoPratiche" Type="int" />
+          <Property Name="Km" Type="int" />
+          <Property Name="Chassis1" Type="varchar" MaxLength="9" />
+          <Property Name="ID_Colore" Type="int" />
+          <Property Name="Parcheggio" Type="varchar" MaxLength="200" />
+          <Property Name="IsChiusa" Type="bit" />
+          <Property Name="Rif_fattura" Type="varchar" MaxLength="50" />
+          <Property Name="IsFatt_Att" Type="bit" />
+          <Property Name="IsFatt_Pass" Type="bit" />
+          <Property Name="DataFattAtt" Type="datetime" />
+          <Property Name="DataFattPass" Type="datetime" />
+          <Property Name="ImportoFattAtt" Type="float" />
+          <Property Name="ImportoFattPass" Type="float" />
+          <Property Name="Chassis2" Type="varchar" MaxLength="15" />
+          <Property Name="VersioneCliente" Type="varchar" MaxLength="500" />
+          <Property Name="ID_SocProp" Type="varchar" MaxLength="20" />
+          <Property Name="ID_TipoVeicolo" Type="varchar" MaxLength="1" />
+          <Property Name="ID_TipoAlimentazione" Type="int" />
+          <Property Name="DataImmatricolazione" Type="datetime" />
+          <Property Name="ID_Posti" Type="int" />
+          <Property Name="ID_Porte" Type="int" />
+          <Property Name="ID_TipoCambio" Type="int" />
+          <Property Name="ID_NumeroMarce" Type="int" />
+          <Property Name="PotenzaMotoreCV" Type="varchar" MaxLength="10" />
+          <Property Name="PotenzaMotoreKW" Type="varchar" MaxLength="10" />
+          <Property Name="ColoreInterni" Type="varchar" MaxLength="50" />
+          <Property Name="ID_TipoInterni" Type="int" />
+          <Property Name="ID_TipoVernice" Type="int" />
+          <Property Name="is23finenolo" Type="bit" />
+          <Property Name="Cilindrata" Type="int" />
+          <Property Name="Lunghezza" Type="float" />
+          <Property Name="SiglaEuro" Type="varchar" MaxLength="30" />
+        </EntityType>
         <EntityType Name="SDU_StoricoStatusPerizia">
           <Key>
             <PropertyRef Name="ID" />
@@ -745,6 +965,18 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AT_SchedaTecnica_SDU_Perizie">
+          <End Role="SDU_Perizie" Type="Self.SDU_Perizie" Multiplicity="1" />
+          <End Role="AT_SchedaTecnica" Type="Self.AT_SchedaTecnica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDU_Perizie">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AT_SchedaTecnica">
+              <PropertyRef Name="IDPerizia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SDU_documentiPratica_SDU_documentiTipi">
           <End Role="SDU_documentiTipi" Type="Self.SDU_documentiTipi" Multiplicity="0..1" />
           <End Role="SDU_documentiPratica" Type="Self.SDU_documentiPratica" Multiplicity="*" />
@@ -754,6 +986,18 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
             </Principal>
             <Dependent Role="SDU_documentiPratica">
               <PropertyRef Name="ID_tipoDocumento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SDU_Pratiche_SDU_Pratiche">
+          <End Role="SDU_Pratiche" Type="Self.SDU_Pratiche" Multiplicity="1" />
+          <End Role="SDU_Pratiche1" Type="Self.SDU_Pratiche" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SDU_Pratiche">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SDU_Pratiche1">
+              <PropertyRef Name="ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -889,6 +1133,8 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
           <EntitySet Name="SDU_DocumentiPerizia" EntityType="Self.SDU_DocumentiPerizia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDU_documentiPratica" EntityType="Self.SDU_documentiPratica" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDU_documentiTipi" EntityType="Self.SDU_documentiTipi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SDU_Perizie" EntityType="Self.SDU_Perizie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SDU_Pratiche" EntityType="Self.SDU_Pratiche" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SDU_StoricoStatusPerizia" EntityType="Self.SDU_StoricoStatusPerizia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AT_ListaPratiche_vw" EntityType="Self.AT_ListaPratiche_vw" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -1102,9 +1348,17 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
             <End Role="AT_VisualizzazioneMezzo" EntitySet="AT_VisualizzazioneMezzo" />
             <End Role="AT_SchedaTecnica" EntitySet="AT_SchedaTecnica" />
           </AssociationSet>
+          <AssociationSet Name="FK_AT_SchedaTecnica_SDU_Perizie" Association="Self.FK_AT_SchedaTecnica_SDU_Perizie">
+            <End Role="SDU_Perizie" EntitySet="SDU_Perizie" />
+            <End Role="AT_SchedaTecnica" EntitySet="AT_SchedaTecnica" />
+          </AssociationSet>
           <AssociationSet Name="FK_SDU_documentiPratica_SDU_documentiTipi" Association="Self.FK_SDU_documentiPratica_SDU_documentiTipi">
             <End Role="SDU_documentiTipi" EntitySet="SDU_documentiTipi" />
             <End Role="SDU_documentiPratica" EntitySet="SDU_documentiPratica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SDU_Pratiche_SDU_Pratiche" Association="Self.FK_SDU_Pratiche_SDU_Pratiche">
+            <End Role="SDU_Pratiche" EntitySet="SDU_Pratiche" />
+            <End Role="SDU_Pratiche1" EntitySet="SDU_Pratiche" />
           </AssociationSet>
           <AssociationSet Name="PS165" Association="Self.PS165">
             <End Role="AT_IndiciValutazione" EntitySet="AT_IndiciValutazione" />
@@ -1352,6 +1606,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
           <Property Name="isMarciante" Type="Boolean" />
           <Property Name="isAvviante" Type="String" MaxLength="1" Unicode="false" FixedLength="false" />
           <Property Name="IsManutOrdinaria" Type="Boolean" />
+          <NavigationProperty Name="SDU_Perizie" Relationship="AUTOSDUModel.FK_AT_SchedaTecnica_SDU_Perizie" FromRole="AT_SchedaTecnica" ToRole="SDU_Perizie" />
         </EntityType>
         <EntityType Name="AT_StatiMezzo">
           <Key>
@@ -1603,6 +1858,16 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
             <End Role="AT_SchedaTecnica" EntitySet="AT_SchedaTecnica" />
           </AssociationSet>
           <EntitySet Name="LuoghiTest_vw" EntityType="AUTOSDUModel.LuoghiTest_vw" />
+          <EntitySet Name="SDU_Pratiche" EntityType="AUTOSDUModel.SDU_Pratiche" />
+          <AssociationSet Name="FK_SDU_Pratiche_SDU_Pratiche" Association="AUTOSDUModel.FK_SDU_Pratiche_SDU_Pratiche">
+            <End Role="SDU_Pratiche" EntitySet="SDU_Pratiche" />
+            <End Role="SDU_Pratiche1" EntitySet="SDU_Pratiche" />
+          </AssociationSet>
+          <EntitySet Name="SDU_Perizie" EntityType="AUTOSDUModel.SDU_Perizie" />
+          <AssociationSet Name="FK_AT_SchedaTecnica_SDU_Perizie" Association="AUTOSDUModel.FK_AT_SchedaTecnica_SDU_Perizie">
+            <End Role="SDU_Perizie" EntitySet="SDU_Perizie" />
+            <End Role="AT_SchedaTecnica" EntitySet="AT_SchedaTecnica" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AT_ListaPratiche_vw">
           <Key>
@@ -2330,6 +2595,253 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
           <Property Name="Trilettera" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="IDPErito" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="SDU_Pratiche">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Gestione" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="Barcode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PreventivoNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DataApertura" Type="DateTime" Precision="3" />
+          <Property Name="OraApertura" Type="Int32" />
+          <Property Name="MinApertura" Type="Int32" />
+          <Property Name="DataPrimoAccesso" Type="DateTime" Precision="3" />
+          <Property Name="DataChiusura" Type="DateTime" Precision="3" />
+          <Property Name="ID_ClienteDCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_LuogoInt" Type="Int32" />
+          <Property Name="ID_Produttore" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Modello" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Versione" Type="Int32" />
+          <Property Name="Targa" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="TargaCheck" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="ID_TipoSinistro" Type="Int32" />
+          <Property Name="ID_Perito" Type="Int32" />
+          <Property Name="ID_AziendaUtilizzatrice" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Insert_Usr" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Insert_Time" Type="DateTime" Precision="3" />
+          <Property Name="Update_Usr" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Update_Time" Type="DateTime" Precision="3" />
+          <Property Name="ID_Societa" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="CountGruppoPratiche" Type="Int32" />
+          <Property Name="Km" Type="Int32" />
+          <Property Name="Chassis1" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Colore" Type="Int32" />
+          <Property Name="Parcheggio" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IsChiusa" Type="Boolean" />
+          <Property Name="Rif_fattura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsFatt_Att" Type="Boolean" />
+          <Property Name="IsFatt_Pass" Type="Boolean" />
+          <Property Name="DataFattAtt" Type="DateTime" Precision="3" />
+          <Property Name="DataFattPass" Type="DateTime" Precision="3" />
+          <Property Name="ImportoFattAtt" Type="Double" />
+          <Property Name="ImportoFattPass" Type="Double" />
+          <Property Name="Chassis2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="VersioneCliente" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ID_SocProp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ID_TipoVeicolo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="ID_TipoAlimentazione" Type="Int32" />
+          <Property Name="DataImmatricolazione" Type="DateTime" Precision="3" />
+          <Property Name="ID_Posti" Type="Int32" />
+          <Property Name="ID_Porte" Type="Int32" />
+          <Property Name="ID_TipoCambio" Type="Int32" />
+          <Property Name="ID_NumeroMarce" Type="Int32" />
+          <Property Name="PotenzaMotoreCV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PotenzaMotoreKW" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ColoreInterni" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_TipoInterni" Type="Int32" />
+          <Property Name="ID_TipoVernice" Type="Int32" />
+          <Property Name="is23finenolo" Type="Boolean" />
+          <Property Name="Cilindrata" Type="Int32" />
+          <Property Name="Lunghezza" Type="Double" />
+          <Property Name="SiglaEuro" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SDU_Pratiche1" Relationship="AUTOSDUModel.FK_SDU_Pratiche_SDU_Pratiche" FromRole="SDU_Pratiche" ToRole="SDU_Pratiche1" />
+          <NavigationProperty Name="SDU_Pratiche2" Relationship="AUTOSDUModel.FK_SDU_Pratiche_SDU_Pratiche" FromRole="SDU_Pratiche1" ToRole="SDU_Pratiche" />
+        </EntityType>
+        <Association Name="FK_SDU_Pratiche_SDU_Pratiche">
+          <End Type="AUTOSDUModel.SDU_Pratiche" Role="SDU_Pratiche" Multiplicity="1" />
+          <End Type="AUTOSDUModel.SDU_Pratiche" Role="SDU_Pratiche1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SDU_Pratiche">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SDU_Pratiche1">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SDU_Perizie">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Barcode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Pratica" Type="Int32" Nullable="false" />
+          <Property Name="ID_Perito" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="ID_TipoPerizia" Type="Int32" />
+          <Property Name="ID_LuogoIntervento" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Meteo" Type="Int32" />
+          <Property Name="DataIncarico" Type="DateTime" Precision="3" />
+          <Property Name="DataPerizia" Type="DateTime" Precision="3" />
+          <Property Name="Imp_IC" Type="Double" />
+          <Property Name="Imp_Produttore" Type="Double" />
+          <Property Name="Delta_IC_Prod" Type="Double" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="ImportoA" Type="Double" />
+          <Property Name="ImpTotStima" Type="Double" />
+          <Property Name="Note" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Note2" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="IsChiusa" Type="Boolean" />
+          <Property Name="RifFatturaAtt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsFatt_Att" Type="Boolean" />
+          <Property Name="IsFatt_Pass" Type="Boolean" />
+          <Property Name="DataFattAtt" Type="DateTime" Precision="3" />
+          <Property Name="DataFattPass" Type="DateTime" Precision="3" />
+          <Property Name="ImportoFattAtt" Type="Double" />
+          <Property Name="ImportoFattPass" Type="Double" />
+          <Property Name="Insert_Usr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Insert_Time" Type="DateTime" Precision="3" />
+          <Property Name="Update_Usr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Update_Time" Type="DateTime" Precision="3" />
+          <Property Name="Update_Usr_Fiat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Update_Time_Fiat" Type="DateTime" Precision="3" />
+          <Property Name="Km" Type="Int32" />
+          <Property Name="KM_Incarico" Type="Int32" />
+          <Property Name="IsBatteriaScarica" Type="Boolean" />
+          <Property Name="PosizionePiazzale" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_Visibilita" Type="Int32" />
+          <Property Name="IsChecked" Type="Boolean" />
+          <Property Name="RifFatturaPass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DataScadenza" Type="DateTime" Precision="3" />
+          <Property Name="ID_Cedente" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="IsImpProd" Type="Boolean" />
+          <Property Name="ID_FotoTarga" Type="Int32" />
+          <Property Name="ID_FotoVIN" Type="Int32" />
+          <Property Name="IsInviate" Type="Boolean" />
+          <Property Name="ID_FotoKm" Type="Int32" />
+          <Property Name="ID_FotoAngAntSX" Type="Int32" />
+          <Property Name="ID_FotoAngPostSX" Type="Int32" />
+          <Property Name="ID_FotoAngPostDX" Type="Int32" />
+          <Property Name="ID_FotoAngAntDX" Type="Int32" />
+          <Property Name="INI_NumeroPratiche_File" Type="Int32" />
+          <Property Name="INI_DataGenerazione_File" Type="DateTime" Precision="3" />
+          <Property Name="INI_TipologiaIncarico_File" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="INI_Contratto_File" Type="Int32" />
+          <Property Name="INI_Dealer_File" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="INI_RiferimentoDealer_File" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="INI_Deposito_File" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="INI_RiferimentoDeposito_File" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="INI_Trasportatore_File" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="INI_RiferimentoTrasportatore_File" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="INI_Veicolo_File" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="INI_Colore_File" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="INI_Km_File" Type="Int32" />
+          <Property Name="INI_Targa_File" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="INI_Telaio_File" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="INI_DataImmatricolazione_File" Type="DateTime" Precision="3" />
+          <Property Name="INI_DataRiconsegna_File" Type="DateTime" Precision="3" />
+          <Property Name="INI_DataStock_File" Type="DateTime" Precision="3" />
+          <Property Name="INI_DataIncarico_File" Type="DateTime" Precision="3" />
+          <Property Name="INI_InsTime_File" Type="DateTime" Precision="3" />
+          <Property Name="PrimaGenXSL" Type="DateTime" Precision="3" />
+          <Property Name="SPA_DataSpacc" Type="DateTime" Precision="3" />
+          <Property Name="SPA_PeriziaCompleta" Type="Double" />
+          <Property Name="SPA_Denunciato1" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SPA_NumSinistro1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="SPA_DataSinistro1" Type="DateTime" Precision="3" />
+          <Property Name="SPA_Denunciato2" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SPA_NumSinistro2" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="SPA_DataSinistro2" Type="DateTime" Precision="3" />
+          <Property Name="SPA_Denunciato3" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SPA_NumSinistro3" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="SPA_DataSinistro3" Type="DateTime" Precision="3" />
+          <Property Name="SPA_Denunciato4" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SPA_NumSinistro4" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="SPA_DataSinistro4" Type="DateTime" Precision="3" />
+          <Property Name="SPA_TotDanDen" Type="Double" />
+          <Property Name="SPA_AttrDealer" Type="Double" />
+          <Property Name="SPA_AttrTrasp" Type="Double" />
+          <Property Name="SPA_AttrPiazz" Type="Double" />
+          <Property Name="SPA_DanLog" Type="Double" />
+          <Property Name="SPA_DanGom50" Type="Double" />
+          <Property Name="SPA_NonDen" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SPA_DanMec" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SPA_DanInt" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SPA_Note" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SPA_Utente" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ImpRichiesto" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ImpConcordato" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ImpDanni" Type="Double" />
+          <Property Name="PerizieEsterne" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IsFoto" Type="Boolean" />
+          <Property Name="IsPdf" Type="Boolean" />
+          <Property Name="IsPdf_PerTot" Type="Boolean" />
+          <Property Name="IsIncaricoUff" Type="Boolean" />
+          <Property Name="DataFaseA" Type="DateTime" Precision="3" />
+          <Property Name="DataFaseB" Type="DateTime" Precision="3" />
+          <Property Name="IsStorico" Type="Boolean" />
+          <Property Name="IsAutorizzata" Type="Boolean" />
+          <Property Name="NoteAutoriz" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsTxT" Type="Boolean" />
+          <Property Name="DataInvioAdzImplant" Type="DateTime" Precision="3" />
+          <Property Name="QuotaOraria" Type="Double" />
+          <Property Name="ValoreCommerciale" Type="Double" />
+          <Property Name="ValoreRelitto" Type="Double" />
+          <Property Name="IsInProvincia" Type="Boolean" />
+          <Property Name="IsFlagFranchigia" Type="Boolean" />
+          <Property Name="MailIncaricoR" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsInSpacc" Type="Boolean" />
+          <Property Name="IsRichIncUff" Type="Boolean" />
+          <Property Name="DataRicezionePerizia" Type="DateTime" Precision="3" />
+          <Property Name="DataInvioIncarico" Type="DateTime" Precision="3" />
+          <Property Name="UserInvioIncarico" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="BonusPass" Type="Double" />
+          <Property Name="MalusPass" Type="Double" />
+          <Property Name="DeltaPass" Type="Int32" />
+          <Property Name="IsRispacchettata" Type="Boolean" />
+          <Property Name="ImportoBasePass" Type="Double" />
+          <Property Name="IsFatt_AttSpacc" Type="Boolean" />
+          <Property Name="IsFatt_PassSpacc" Type="Boolean" />
+          <Property Name="DataFattAttSpacc" Type="DateTime" Precision="3" />
+          <Property Name="DataFattPassSpacc" Type="DateTime" Precision="3" />
+          <Property Name="RifFatturaAttSpacc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="RifFatturaPassSpacc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IsFatt_AttRisp" Type="Boolean" />
+          <Property Name="IsFatt_PassRisp" Type="Boolean" />
+          <Property Name="DataFattAttRisp" Type="DateTime" Precision="3" />
+          <Property Name="DataFattPassRisp" Type="DateTime" Precision="3" />
+          <Property Name="RifFatturaAttRisp" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="RifFatturaPassRisp" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ImportoFattPassSpacc" Type="Double" />
+          <Property Name="ImportoFattPassRisp" Type="Double" />
+          <Property Name="ImportoFattAttSpacc" Type="Double" />
+          <Property Name="ControlloFunzionale_ok" Type="Boolean" />
+          <Property Name="ControlloFunzionale_anom" Type="Boolean" />
+          <Property Name="ID_UltimoStato" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="SmartRepair" Type="Boolean" />
+          <Property Name="ImportoRivalutazione" Type="Double" />
+          <Property Name="DisaccordoPeritoFlag" Type="Boolean" />
+          <Property Name="KmMedio" Type="Int32" />
+          <Property Name="DataPubblicazionePerizia" Type="DateTime" Precision="3" />
+          <Property Name="FromIncaricoR" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="ccIncaricoR" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OggIncaricoR" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Is_NonFatturare" Type="Boolean" />
+          <Property Name="Is_InterventoMultiplo" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AT_SchedaTecnica" Relationship="AUTOSDUModel.FK_AT_SchedaTecnica_SDU_Perizie" FromRole="SDU_Perizie" ToRole="AT_SchedaTecnica" />
+        </EntityType>
+        <Association Name="FK_AT_SchedaTecnica_SDU_Perizie">
+          <End Type="AUTOSDUModel.SDU_Perizie" Role="SDU_Perizie" Multiplicity="1" />
+          <End Type="AUTOSDUModel.AT_SchedaTecnica" Role="AT_SchedaTecnica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SDU_Perizie">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AT_SchedaTecnica">
+              <PropertyRef Name="IDPerizia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2641,6 +3153,228 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
                 <ScalarProperty Name="IDPErito" ColumnName="IDPErito" />
                 <ScalarProperty Name="Trilettera" ColumnName="Trilettera" />
                 <ScalarProperty Name="DescrITA" ColumnName="DescrITA" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDU_Pratiche">
+            <EntityTypeMapping TypeName="AUTOSDUModel.SDU_Pratiche">
+              <MappingFragment StoreEntitySet="SDU_Pratiche">
+                <ScalarProperty Name="SiglaEuro" ColumnName="SiglaEuro" />
+                <ScalarProperty Name="Lunghezza" ColumnName="Lunghezza" />
+                <ScalarProperty Name="Cilindrata" ColumnName="Cilindrata" />
+                <ScalarProperty Name="is23finenolo" ColumnName="is23finenolo" />
+                <ScalarProperty Name="ID_TipoVernice" ColumnName="ID_TipoVernice" />
+                <ScalarProperty Name="ID_TipoInterni" ColumnName="ID_TipoInterni" />
+                <ScalarProperty Name="ColoreInterni" ColumnName="ColoreInterni" />
+                <ScalarProperty Name="PotenzaMotoreKW" ColumnName="PotenzaMotoreKW" />
+                <ScalarProperty Name="PotenzaMotoreCV" ColumnName="PotenzaMotoreCV" />
+                <ScalarProperty Name="ID_NumeroMarce" ColumnName="ID_NumeroMarce" />
+                <ScalarProperty Name="ID_TipoCambio" ColumnName="ID_TipoCambio" />
+                <ScalarProperty Name="ID_Porte" ColumnName="ID_Porte" />
+                <ScalarProperty Name="ID_Posti" ColumnName="ID_Posti" />
+                <ScalarProperty Name="DataImmatricolazione" ColumnName="DataImmatricolazione" />
+                <ScalarProperty Name="ID_TipoAlimentazione" ColumnName="ID_TipoAlimentazione" />
+                <ScalarProperty Name="ID_TipoVeicolo" ColumnName="ID_TipoVeicolo" />
+                <ScalarProperty Name="ID_SocProp" ColumnName="ID_SocProp" />
+                <ScalarProperty Name="VersioneCliente" ColumnName="VersioneCliente" />
+                <ScalarProperty Name="Chassis2" ColumnName="Chassis2" />
+                <ScalarProperty Name="ImportoFattPass" ColumnName="ImportoFattPass" />
+                <ScalarProperty Name="ImportoFattAtt" ColumnName="ImportoFattAtt" />
+                <ScalarProperty Name="DataFattPass" ColumnName="DataFattPass" />
+                <ScalarProperty Name="DataFattAtt" ColumnName="DataFattAtt" />
+                <ScalarProperty Name="IsFatt_Pass" ColumnName="IsFatt_Pass" />
+                <ScalarProperty Name="IsFatt_Att" ColumnName="IsFatt_Att" />
+                <ScalarProperty Name="Rif_fattura" ColumnName="Rif_fattura" />
+                <ScalarProperty Name="IsChiusa" ColumnName="IsChiusa" />
+                <ScalarProperty Name="Parcheggio" ColumnName="Parcheggio" />
+                <ScalarProperty Name="ID_Colore" ColumnName="ID_Colore" />
+                <ScalarProperty Name="Chassis1" ColumnName="Chassis1" />
+                <ScalarProperty Name="Km" ColumnName="Km" />
+                <ScalarProperty Name="CountGruppoPratiche" ColumnName="CountGruppoPratiche" />
+                <ScalarProperty Name="ID_Societa" ColumnName="ID_Societa" />
+                <ScalarProperty Name="Update_Time" ColumnName="Update_Time" />
+                <ScalarProperty Name="Update_Usr" ColumnName="Update_Usr" />
+                <ScalarProperty Name="Insert_Time" ColumnName="Insert_Time" />
+                <ScalarProperty Name="Insert_Usr" ColumnName="Insert_Usr" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="ID_AziendaUtilizzatrice" ColumnName="ID_AziendaUtilizzatrice" />
+                <ScalarProperty Name="ID_Perito" ColumnName="ID_Perito" />
+                <ScalarProperty Name="ID_TipoSinistro" ColumnName="ID_TipoSinistro" />
+                <ScalarProperty Name="TargaCheck" ColumnName="TargaCheck" />
+                <ScalarProperty Name="Targa" ColumnName="Targa" />
+                <ScalarProperty Name="ID_Versione" ColumnName="ID_Versione" />
+                <ScalarProperty Name="ID_Modello" ColumnName="ID_Modello" />
+                <ScalarProperty Name="ID_Produttore" ColumnName="ID_Produttore" />
+                <ScalarProperty Name="ID_LuogoInt" ColumnName="ID_LuogoInt" />
+                <ScalarProperty Name="ID_ClienteDCliente" ColumnName="ID_ClienteDCliente" />
+                <ScalarProperty Name="DataChiusura" ColumnName="DataChiusura" />
+                <ScalarProperty Name="DataPrimoAccesso" ColumnName="DataPrimoAccesso" />
+                <ScalarProperty Name="MinApertura" ColumnName="MinApertura" />
+                <ScalarProperty Name="OraApertura" ColumnName="OraApertura" />
+                <ScalarProperty Name="DataApertura" ColumnName="DataApertura" />
+                <ScalarProperty Name="PreventivoNum" ColumnName="PreventivoNum" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
+                <ScalarProperty Name="ID_Gestione" ColumnName="ID_Gestione" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SDU_Perizie">
+            <EntityTypeMapping TypeName="AUTOSDUModel.SDU_Perizie">
+              <MappingFragment StoreEntitySet="SDU_Perizie">
+                <ScalarProperty Name="Is_InterventoMultiplo" ColumnName="Is_InterventoMultiplo" />
+                <ScalarProperty Name="Is_NonFatturare" ColumnName="Is_NonFatturare" />
+                <ScalarProperty Name="OggIncaricoR" ColumnName="OggIncaricoR" />
+                <ScalarProperty Name="ccIncaricoR" ColumnName="ccIncaricoR" />
+                <ScalarProperty Name="FromIncaricoR" ColumnName="FromIncaricoR" />
+                <ScalarProperty Name="DataPubblicazionePerizia" ColumnName="DataPubblicazionePerizia" />
+                <ScalarProperty Name="KmMedio" ColumnName="KmMedio" />
+                <ScalarProperty Name="DisaccordoPeritoFlag" ColumnName="DisaccordoPeritoFlag" />
+                <ScalarProperty Name="ImportoRivalutazione" ColumnName="ImportoRivalutazione" />
+                <ScalarProperty Name="SmartRepair" ColumnName="SmartRepair" />
+                <ScalarProperty Name="ID_UltimoStato" ColumnName="ID_UltimoStato" />
+                <ScalarProperty Name="ControlloFunzionale_anom" ColumnName="ControlloFunzionale_anom" />
+                <ScalarProperty Name="ControlloFunzionale_ok" ColumnName="ControlloFunzionale_ok" />
+                <ScalarProperty Name="ImportoFattAttSpacc" ColumnName="ImportoFattAttSpacc" />
+                <ScalarProperty Name="ImportoFattPassRisp" ColumnName="ImportoFattPassRisp" />
+                <ScalarProperty Name="ImportoFattPassSpacc" ColumnName="ImportoFattPassSpacc" />
+                <ScalarProperty Name="RifFatturaPassRisp" ColumnName="RifFatturaPassRisp" />
+                <ScalarProperty Name="RifFatturaAttRisp" ColumnName="RifFatturaAttRisp" />
+                <ScalarProperty Name="DataFattPassRisp" ColumnName="DataFattPassRisp" />
+                <ScalarProperty Name="DataFattAttRisp" ColumnName="DataFattAttRisp" />
+                <ScalarProperty Name="IsFatt_PassRisp" ColumnName="IsFatt_PassRisp" />
+                <ScalarProperty Name="IsFatt_AttRisp" ColumnName="IsFatt_AttRisp" />
+                <ScalarProperty Name="RifFatturaPassSpacc" ColumnName="RifFatturaPassSpacc" />
+                <ScalarProperty Name="RifFatturaAttSpacc" ColumnName="RifFatturaAttSpacc" />
+                <ScalarProperty Name="DataFattPassSpacc" ColumnName="DataFattPassSpacc" />
+                <ScalarProperty Name="DataFattAttSpacc" ColumnName="DataFattAttSpacc" />
+                <ScalarProperty Name="IsFatt_PassSpacc" ColumnName="IsFatt_PassSpacc" />
+                <ScalarProperty Name="IsFatt_AttSpacc" ColumnName="IsFatt_AttSpacc" />
+                <ScalarProperty Name="ImportoBasePass" ColumnName="ImportoBasePass" />
+                <ScalarProperty Name="IsRispacchettata" ColumnName="IsRispacchettata" />
+                <ScalarProperty Name="DeltaPass" ColumnName="DeltaPass" />
+                <ScalarProperty Name="MalusPass" ColumnName="MalusPass" />
+                <ScalarProperty Name="BonusPass" ColumnName="BonusPass" />
+                <ScalarProperty Name="UserInvioIncarico" ColumnName="UserInvioIncarico" />
+                <ScalarProperty Name="DataInvioIncarico" ColumnName="DataInvioIncarico" />
+                <ScalarProperty Name="DataRicezionePerizia" ColumnName="DataRicezionePerizia" />
+                <ScalarProperty Name="IsRichIncUff" ColumnName="IsRichIncUff" />
+                <ScalarProperty Name="IsInSpacc" ColumnName="IsInSpacc" />
+                <ScalarProperty Name="MailIncaricoR" ColumnName="MailIncaricoR" />
+                <ScalarProperty Name="IsFlagFranchigia" ColumnName="IsFlagFranchigia" />
+                <ScalarProperty Name="IsInProvincia" ColumnName="IsInProvincia" />
+                <ScalarProperty Name="ValoreRelitto" ColumnName="ValoreRelitto" />
+                <ScalarProperty Name="ValoreCommerciale" ColumnName="ValoreCommerciale" />
+                <ScalarProperty Name="QuotaOraria" ColumnName="QuotaOraria" />
+                <ScalarProperty Name="DataInvioAdzImplant" ColumnName="DataInvioAdzImplant" />
+                <ScalarProperty Name="IsTxT" ColumnName="IsTxT" />
+                <ScalarProperty Name="NoteAutoriz" ColumnName="NoteAutoriz" />
+                <ScalarProperty Name="IsAutorizzata" ColumnName="IsAutorizzata" />
+                <ScalarProperty Name="IsStorico" ColumnName="IsStorico" />
+                <ScalarProperty Name="DataFaseB" ColumnName="DataFaseB" />
+                <ScalarProperty Name="DataFaseA" ColumnName="DataFaseA" />
+                <ScalarProperty Name="IsIncaricoUff" ColumnName="IsIncaricoUff" />
+                <ScalarProperty Name="IsPdf_PerTot" ColumnName="IsPdf_PerTot" />
+                <ScalarProperty Name="IsPdf" ColumnName="IsPdf" />
+                <ScalarProperty Name="IsFoto" ColumnName="IsFoto" />
+                <ScalarProperty Name="PerizieEsterne" ColumnName="PerizieEsterne" />
+                <ScalarProperty Name="ImpDanni" ColumnName="ImpDanni" />
+                <ScalarProperty Name="ImpConcordato" ColumnName="ImpConcordato" />
+                <ScalarProperty Name="ImpRichiesto" ColumnName="ImpRichiesto" />
+                <ScalarProperty Name="SPA_Utente" ColumnName="SPA_Utente" />
+                <ScalarProperty Name="SPA_Note" ColumnName="SPA_Note" />
+                <ScalarProperty Name="SPA_DanInt" ColumnName="SPA_DanInt" />
+                <ScalarProperty Name="SPA_DanMec" ColumnName="SPA_DanMec" />
+                <ScalarProperty Name="SPA_NonDen" ColumnName="SPA_NonDen" />
+                <ScalarProperty Name="SPA_DanGom50" ColumnName="SPA_DanGom50" />
+                <ScalarProperty Name="SPA_DanLog" ColumnName="SPA_DanLog" />
+                <ScalarProperty Name="SPA_AttrPiazz" ColumnName="SPA_AttrPiazz" />
+                <ScalarProperty Name="SPA_AttrTrasp" ColumnName="SPA_AttrTrasp" />
+                <ScalarProperty Name="SPA_AttrDealer" ColumnName="SPA_AttrDealer" />
+                <ScalarProperty Name="SPA_TotDanDen" ColumnName="SPA_TotDanDen" />
+                <ScalarProperty Name="SPA_DataSinistro4" ColumnName="SPA_DataSinistro4" />
+                <ScalarProperty Name="SPA_NumSinistro4" ColumnName="SPA_NumSinistro4" />
+                <ScalarProperty Name="SPA_Denunciato4" ColumnName="SPA_Denunciato4" />
+                <ScalarProperty Name="SPA_DataSinistro3" ColumnName="SPA_DataSinistro3" />
+                <ScalarProperty Name="SPA_NumSinistro3" ColumnName="SPA_NumSinistro3" />
+                <ScalarProperty Name="SPA_Denunciato3" ColumnName="SPA_Denunciato3" />
+                <ScalarProperty Name="SPA_DataSinistro2" ColumnName="SPA_DataSinistro2" />
+                <ScalarProperty Name="SPA_NumSinistro2" ColumnName="SPA_NumSinistro2" />
+                <ScalarProperty Name="SPA_Denunciato2" ColumnName="SPA_Denunciato2" />
+                <ScalarProperty Name="SPA_DataSinistro1" ColumnName="SPA_DataSinistro1" />
+                <ScalarProperty Name="SPA_NumSinistro1" ColumnName="SPA_NumSinistro1" />
+                <ScalarProperty Name="SPA_Denunciato1" ColumnName="SPA_Denunciato1" />
+                <ScalarProperty Name="SPA_PeriziaCompleta" ColumnName="SPA_PeriziaCompleta" />
+                <ScalarProperty Name="SPA_DataSpacc" ColumnName="SPA_DataSpacc" />
+                <ScalarProperty Name="PrimaGenXSL" ColumnName="PrimaGenXSL" />
+                <ScalarProperty Name="INI_InsTime_File" ColumnName="INI_InsTime_File" />
+                <ScalarProperty Name="INI_DataIncarico_File" ColumnName="INI_DataIncarico_File" />
+                <ScalarProperty Name="INI_DataStock_File" ColumnName="INI_DataStock_File" />
+                <ScalarProperty Name="INI_DataRiconsegna_File" ColumnName="INI_DataRiconsegna_File" />
+                <ScalarProperty Name="INI_DataImmatricolazione_File" ColumnName="INI_DataImmatricolazione_File" />
+                <ScalarProperty Name="INI_Telaio_File" ColumnName="INI_Telaio_File" />
+                <ScalarProperty Name="INI_Targa_File" ColumnName="INI_Targa_File" />
+                <ScalarProperty Name="INI_Km_File" ColumnName="INI_Km_File" />
+                <ScalarProperty Name="INI_Colore_File" ColumnName="INI_Colore_File" />
+                <ScalarProperty Name="INI_Veicolo_File" ColumnName="INI_Veicolo_File" />
+                <ScalarProperty Name="INI_RiferimentoTrasportatore_File" ColumnName="INI_RiferimentoTrasportatore_File" />
+                <ScalarProperty Name="INI_Trasportatore_File" ColumnName="INI_Trasportatore_File" />
+                <ScalarProperty Name="INI_RiferimentoDeposito_File" ColumnName="INI_RiferimentoDeposito_File" />
+                <ScalarProperty Name="INI_Deposito_File" ColumnName="INI_Deposito_File" />
+                <ScalarProperty Name="INI_RiferimentoDealer_File" ColumnName="INI_RiferimentoDealer_File" />
+                <ScalarProperty Name="INI_Dealer_File" ColumnName="INI_Dealer_File" />
+                <ScalarProperty Name="INI_Contratto_File" ColumnName="INI_Contratto_File" />
+                <ScalarProperty Name="INI_TipologiaIncarico_File" ColumnName="INI_TipologiaIncarico_File" />
+                <ScalarProperty Name="INI_DataGenerazione_File" ColumnName="INI_DataGenerazione_File" />
+                <ScalarProperty Name="INI_NumeroPratiche_File" ColumnName="INI_NumeroPratiche_File" />
+                <ScalarProperty Name="ID_FotoAngAntDX" ColumnName="ID_FotoAngAntDX" />
+                <ScalarProperty Name="ID_FotoAngPostDX" ColumnName="ID_FotoAngPostDX" />
+                <ScalarProperty Name="ID_FotoAngPostSX" ColumnName="ID_FotoAngPostSX" />
+                <ScalarProperty Name="ID_FotoAngAntSX" ColumnName="ID_FotoAngAntSX" />
+                <ScalarProperty Name="ID_FotoKm" ColumnName="ID_FotoKm" />
+                <ScalarProperty Name="IsInviate" ColumnName="IsInviate" />
+                <ScalarProperty Name="ID_FotoVIN" ColumnName="ID_FotoVIN" />
+                <ScalarProperty Name="ID_FotoTarga" ColumnName="ID_FotoTarga" />
+                <ScalarProperty Name="IsImpProd" ColumnName="IsImpProd" />
+                <ScalarProperty Name="ID_Cedente" ColumnName="ID_Cedente" />
+                <ScalarProperty Name="DataScadenza" ColumnName="DataScadenza" />
+                <ScalarProperty Name="RifFatturaPass" ColumnName="RifFatturaPass" />
+                <ScalarProperty Name="IsChecked" ColumnName="IsChecked" />
+                <ScalarProperty Name="ID_Visibilita" ColumnName="ID_Visibilita" />
+                <ScalarProperty Name="PosizionePiazzale" ColumnName="PosizionePiazzale" />
+                <ScalarProperty Name="IsBatteriaScarica" ColumnName="IsBatteriaScarica" />
+                <ScalarProperty Name="KM_Incarico" ColumnName="KM_Incarico" />
+                <ScalarProperty Name="Km" ColumnName="Km" />
+                <ScalarProperty Name="Update_Time_Fiat" ColumnName="Update_Time_Fiat" />
+                <ScalarProperty Name="Update_Usr_Fiat" ColumnName="Update_Usr_Fiat" />
+                <ScalarProperty Name="Update_Time" ColumnName="Update_Time" />
+                <ScalarProperty Name="Update_Usr" ColumnName="Update_Usr" />
+                <ScalarProperty Name="Insert_Time" ColumnName="Insert_Time" />
+                <ScalarProperty Name="Insert_Usr" ColumnName="Insert_Usr" />
+                <ScalarProperty Name="ImportoFattPass" ColumnName="ImportoFattPass" />
+                <ScalarProperty Name="ImportoFattAtt" ColumnName="ImportoFattAtt" />
+                <ScalarProperty Name="DataFattPass" ColumnName="DataFattPass" />
+                <ScalarProperty Name="DataFattAtt" ColumnName="DataFattAtt" />
+                <ScalarProperty Name="IsFatt_Pass" ColumnName="IsFatt_Pass" />
+                <ScalarProperty Name="IsFatt_Att" ColumnName="IsFatt_Att" />
+                <ScalarProperty Name="RifFatturaAtt" ColumnName="RifFatturaAtt" />
+                <ScalarProperty Name="IsChiusa" ColumnName="IsChiusa" />
+                <ScalarProperty Name="Note2" ColumnName="Note2" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="ImpTotStima" ColumnName="ImpTotStima" />
+                <ScalarProperty Name="ImportoA" ColumnName="ImportoA" />
+                <ScalarProperty Name="Delta_IC_Prod" ColumnName="Delta_IC_Prod" />
+                <ScalarProperty Name="Imp_Produttore" ColumnName="Imp_Produttore" />
+                <ScalarProperty Name="Imp_IC" ColumnName="Imp_IC" />
+                <ScalarProperty Name="DataPerizia" ColumnName="DataPerizia" />
+                <ScalarProperty Name="DataIncarico" ColumnName="DataIncarico" />
+                <ScalarProperty Name="ID_Meteo" ColumnName="ID_Meteo" />
+                <ScalarProperty Name="ID_LuogoIntervento" ColumnName="ID_LuogoIntervento" />
+                <ScalarProperty Name="ID_TipoPerizia" ColumnName="ID_TipoPerizia" />
+                <ScalarProperty Name="ID_Perito" ColumnName="ID_Perito" />
+                <ScalarProperty Name="ID_Pratica" ColumnName="ID_Pratica" />
+                <ScalarProperty Name="Barcode" ColumnName="Barcode" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -314,6 +314,8 @@ public partial class AT_SchedaTecnica
 
     public virtual AT_VisualizzazioneMezzo AT_VisualizzazioneMezzo { get; set; }
 
+    public virtual SDU_Perizie SDU_Perizie { get; set; }
+
 }
 
 }

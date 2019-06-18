@@ -70,6 +70,10 @@
         <EntityTypeShape EntityType="AUTOSDUModel.AT_VisualizzazioneMezzo" Width="1.5" PointX="15.375" PointY="0.875" />
         <AssociationConnector Association="AUTOSDUModel.FK_AT_SchedaTecnica_AT_VisualizzazioneMezzo" />
         <EntityTypeShape EntityType="AUTOSDUModel.LuoghiTest_vw" Width="1.5" PointX="9.375" PointY="15.75" />
+        <EntityTypeShape EntityType="AUTOSDUModel.SDU_Pratiche" Width="1.5" PointX="11.375" PointY="15.75" />
+        <AssociationConnector Association="AUTOSDUModel.FK_SDU_Pratiche_SDU_Pratiche" />
+        <EntityTypeShape EntityType="AUTOSDUModel.SDU_Perizie" Width="1.5" PointX="15.375" PointY="14.375" />
+        <AssociationConnector Association="AUTOSDUModel.FK_AT_SchedaTecnica_SDU_Perizie" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

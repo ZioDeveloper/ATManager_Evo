@@ -226,6 +226,12 @@
     <Compile Include="Models\SDU_documentiTipi.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SDU_Perizie.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SDU_Pratiche.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SDU_StoricoStatusPerizia.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>

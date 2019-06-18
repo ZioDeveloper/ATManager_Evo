@@ -8,11 +8,13 @@
 <h3>Immissione / modifica telai</h3>
 
 
+
+
 @Html.ActionLink("Torna a selezione telai", "Index", "Home")
 
 @using (Html.BeginForm())
 {
-    <div class="form-horizontal" style="display:none">
+    <div class="form-horizontal" id="Valori" style="display:none">
         @{string aTarga = ViewBag.aTarga;}
         @{string aMatricola = ViewBag.aMatricola;}
         Targa: @Html.TextBox("Targa", aTarga, new { style = "width:80px" })
@@ -40,7 +42,7 @@ else if (ViewBag.Controllo == 1)
 
     using (Html.BeginForm("CreaNuovaTarga", "Telaio", FormMethod.Post))
     {
-
+        <script>MostraCampiNascosti();</script>
         <div id="Test" style="background-color:lightgreen">
             Situazione targa : @aMessage
             <br />
@@ -81,16 +83,31 @@ else if (ViewBag.Controllo == 3)
 }
 else if (ViewBag.Controllo == 4)
 {
-    <div style="background-color: green">
+    <div style="background-color: lightgreen">
         @aMessage
     </div>
 }
 
 else if (ViewBag.Controllo == 5)
 {
-    <div style="background-color: green">
+    <div style="background-color: lightgreen">
         @aMessage
     </div>
+    <div style="display:none">
+        @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
+    </div>
+}
+
+else if (ViewBag.Controllo == 6)
+{
+    <div style="background-color: lightgreen">
+        @aMessage
+        <p></p>
+        <p>Per immettere scheda :<br />
+           1. Usare ricerca per targa e non per matricola. <br />
+           2. Una volta cercata la targa, se questa non esiste, si avrà la possibilità di inserirla premendo apposito tasto</p>
+    </div>
+    
 }
 
 @{ string myResult = ViewBag.MessaggioQuery;}
@@ -133,6 +150,16 @@ else if (ViewBag.Controllo == 5)
 
     </script>
 }
+
+<script type="text/javascript">
+    function MostraCampiNascosti() {
+
+
+        //function clearAllRadios( function MostraDiv() {
+        document.getElementsByName('Targa').style.display = 'block';
+
+    }
+</script>
 
 
 
