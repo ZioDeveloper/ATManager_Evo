@@ -6,13 +6,22 @@
 }
 
 <h3>Immissione / modifica telai</h3>
+
+
+@Html.ActionLink("Torna a selezione telai", "Index", "Home")
+
 @using (Html.BeginForm())
 {
-    <div class="form-horizontal">
+    <div class="form-horizontal" style="display:none" >
         @{string aTarga = ViewBag.aTarga;}
+        @{string aMatricola = ViewBag.aMatricola;}
         Targa: @Html.TextBox("Targa", aTarga, new { style = "width:80px" })
-        @*Matricola: @Html.TextBox("Matricola", null, new { style = "width:80px" })*@
-        <input type="submit" id="TelaioDaInserire" value="Cerca targa su Database" />
+        Matricola:  @Html.TextBox("Matricola", aMatricola, new { style = "width:80px" })
+
+        <input type="submit" id="Test" value="Cerca targa su Database" />
+
+
+
 
     </div>
 }
@@ -28,9 +37,24 @@
 }
 else if (ViewBag.Controllo == 1)
 {
-    <div style="background-color: red ">
-        @aMessage
-    </div>
+    
+    using (Html.BeginForm("CreaNuovaTarga", "Telaio", FormMethod.Post))
+    {
+
+        <div id="Test" style="background-color:lightgreen">
+            Situazione targa : @aMessage
+            <br />
+           
+            
+        </div>
+        <br />
+        <div style="display:none">
+            @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
+
+        </div>
+        
+    <input type="submit" value="Crea targa e apri scheda" />
+    }
 }
 else if (ViewBag.Controllo == 2)
 {
@@ -46,16 +70,13 @@ else if (ViewBag.Controllo == 3)
         <div id="Test" style="background-color:lightgreen">
             Situazione targa : @aMessage
             <br />
-            <tr>
-                <td>Location in cui registrare la scheda :</td>
-            </tr>
-            <tr>
-                <td>   </td>
-            </tr>
+
         </div>
         <br />
-        @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
-        <input type="submit" id="TelaioDaInserire" value="Salva modifica" />
+        <div style="display:none">
+            @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
+        </div>
+        <input type="submit" value="Assegna targa e apri scheda" />
     }
 }
 else if (ViewBag.Controllo == 4)
@@ -71,10 +92,40 @@ else if (ViewBag.Controllo == 4)
     <div style="color: red">
         @myResult
     </div>
-    <p><a class="btn btn-default" href="@Url.Action("Index", "Home", null)">Torna a ricerca telai</a></p>
+    @*<p><a class="btn btn-default" href="@Url.Action("Index", "Home", null)">Torna a ricerca telai</a></p>*@
+
 }
 
 
+@{ string doitjs = Session["ExecJS"].ToString();}
+@if (doitjs == "true")
+{
+    <script>
+
+        var doit = true
+        var auto_refresh = setInterval(
+            function () {
+                if (doit) {
+
+                    doit = false;
+                    submitform();
+                }
+                else
+                    return;
+
+            }, 10);   // mezzo secondo
+
+    function submitform() {
+        //alert('test');
+        //document.frmMAPS.submit(); // SCOMMENTA MEEEEEEEEEEEEEEEE!!!!
+        document.getElementById('Test').click();
+        submitform = undefined;
+    }
+
+    @{Session["ExecJS"] = "false";}
+
+    </script>
+}
 
 
 

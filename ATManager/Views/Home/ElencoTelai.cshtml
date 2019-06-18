@@ -11,6 +11,9 @@
 <script src="~/Scripts/jquery-ui.min.js"></script>
 <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
 
+
+
+
 <h2>ElencoTelai</h2>
 <div>
     @Html.ActionLink("Torna a selezione telai", "Index") @*|| @Html.ActionLink("Inserisci telaio","Index", "Telaio")*@
@@ -20,7 +23,7 @@
 @{var myScelta = @Session["Status"].ToString();}
 
 <table class="table" border="0">
-@*<table id="tblGrid" class="display cell-border compact order-column hover">*@
+    @*<table id="tblGrid" class="display cell-border compact order-column hover">*@
     <thead>
         <tr>
             @*<td  >Finito</td>*@
@@ -44,12 +47,14 @@
                 <p>
                     Telaio non trovato in questo luogo !
 
+
+
                 </p>
-                @*<p><a class="btn btn-default" href="~/Telaio/Index">Premi per approfondire ricerca &raquo;</a></p>
+                @*<p><a class="btn btn-default" id="Test" href="~/Telaio/Index">Premi per approfondire ricerca &raquo;</a></p>*@
 
-                @Html.ActionLink("Inserisci telaio", "Index", "Telaio", new { myTarga = ViewBag.myTarga }, null);*@
+                @*@Html.ActionLink("Inserisci telaio", "Index", "Telaio", new { myTarga = ViewBag.myTarga }, null);*@
 
-                <p><a class="btn btn-default" href="@Url.Action("Index", "Telaio", new { myTarga = ViewBag.myTarga })">Premi per approfondire ricerca</a></p>
+                <p><a class="btn btn-default" style="display:none" id="Test" href="@Url.Action("Index", "Telaio", new { myTarga = ViewBag.myTarga, myMatricola = ViewBag.myMatricola , myIDLuogo = ViewBag.myIDLuogo })">Premi per approfondire ricerca</a></p>
             }
         }
         else
@@ -65,8 +70,8 @@
                     </td>
 
                     @*<td>
-                        @Html.DisplayFor(modelItem => item.Matricola)
-                    </td>*@
+                            @Html.DisplayFor(modelItem => item.Matricola)
+                        </td>*@
 
                     <td>
                         @Html.DisplayFor(modelItem => item.Matricola)
@@ -79,16 +84,17 @@
                     @if (myScelta == "TUTTE")
                     {
                         @*<td  >
-                            @Html.ActionLink("Create", "Create", new { id = item.Perizie_ID, marca = item.Prod_Descr })
-                        </td>
-                        <td  >
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Perizie_ID })
-                        </td>
-                        <td  >
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Perizie_ID })
-                        </td>*@
+                                @Html.ActionLink("Create", "Create", new { id = item.Perizie_ID, marca = item.Prod_Descr })
+                            </td>
+                            <td  >
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Perizie_ID })
+                            </td>
+                            <td  >
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Perizie_ID })
+                            </td>*@
 
                     }
+
                     else if (myScelta == "DA FARE")
                     {
                         <td>
@@ -113,8 +119,8 @@
                             @*<br></br>@Html.ActionLink("Inserisci Foto perizia", "FotoPerizia", new { id = item.Perizie_ID })*@
                         </td>
                         @*<td  >
-                            @Html.ActionLink("Foto perizia", "FotoPerizia", new { id = item.Perizie_ID })
-                        </td>*@
+                                @Html.ActionLink("Foto perizia", "FotoPerizia", new { id = item.Perizie_ID })
+                            </td>*@
                     }
 
                     else if (myScelta == "FATTE")
@@ -142,8 +148,8 @@
                             @Html.ActionLink("Elimina scheda", "Delete", new { id = item.Perizie_ID })
                         </td>
                         @*<td  >
-                            @Html.ActionLink("Foto", "Image", new { id = item.Perizie_ID }, new { @class = "photoImg" })
-                        </td>*@
+                                @Html.ActionLink("Foto", "Image", new { id = item.Perizie_ID }, new { @class = "photoImg" })
+                            </td>*@
                     }
                     else if (myScelta == "FATTECHIUSE")
                     {
@@ -168,8 +174,8 @@
                         </td>
 
                         @*<td>
-                            @Html.ActionLink("Elimina scheda", "Delete", new { id = item.Perizie_ID })
-                        </td>*@
+                                @Html.ActionLink("Elimina scheda", "Delete", new { id = item.Perizie_ID })
+                            </td>*@
                     }
 
                 </tr>
@@ -239,6 +245,26 @@
             "order": [[0, 'desc'], [1, 'desc']],
             buttons: []
         });
+    }
+
+</script>
+
+<script>
+    var doit = true
+    var auto_refresh = setInterval(
+        function () {
+            if (doit) {
+
+                doit = false;
+                submitform();
+            }
+            else
+                return;
+            
+        }, 10);   // mezzo secondo
+
+    function submitform() {
+        document.getElementById('Test').click();
     }
 
 </script>

@@ -18,7 +18,7 @@ namespace ATManager.Controllers
         private AUTOSDUEntities db = new AUTOSDUEntities();
 
         // GET: Telaio
-        public ActionResult Index(string Targa, string Matricola,int?SearchLocation ,string myTarga, string MessaggioQuery)
+        public ActionResult Index(string Targa, string Matricola,int?SearchLocation ,string myTarga, string MessaggioQuery, string myMatricola, string myIDLuogo)
         {
             /* Controllo se la targa  :
                 
@@ -30,12 +30,17 @@ namespace ATManager.Controllers
             */
 
             Session["TargaDaModificare"] = Targa;
+            Session["MatricolaDaModificare"] = Matricola;
             int Controllo = 0;
 
             string myMessage = "";
             if (!String.IsNullOrEmpty(Targa))
             {
-                Controllo = CheckTarga(Targa, Matricola, out myMessage);
+                Controllo = CheckTarga(Targa, Matricola, myIDLuogo, out myMessage);
+            }
+            else if (!String.IsNullOrEmpty(Matricola))
+            {
+                Controllo = CheckMatricola(Targa, Matricola, myIDLuogo, out myMessage);
             }
             else
             {
@@ -47,6 +52,8 @@ namespace ATManager.Controllers
             ViewBag.Messaggio = myMessage;
             ViewBag.MessaggioQuery = MessaggioQuery;
             ViewBag.aTarga = myTarga;
+            ViewBag.aMatricola = myMatricola;
+            ViewBag.aIDLuogo = myIDLuogo;
             return View();
 
 
@@ -54,16 +61,61 @@ namespace ATManager.Controllers
         }
 
         [HttpPost]
+        public ActionResult CreaNuovaTarga(FormCollection form)
+        {
+            string myTarga = Session["TargaDaModificare"].ToString();
+            string myMatricola = Session["MatricolaDaModificare"].ToString();
+            string myUSer = Session["User"].ToString();
+
+            if (String.IsNullOrEmpty(myTarga))
+            {
+                return View("Index");
+            }
+
+            var sql = @" INSERT INTO SDU_PRATICHE (ID_Gestione, DataApertura, OraApertura, MinApertura, VersioneCliente, Targa, Insert_Usr, Insert_Time, Update_Usr) " +
+                        "  VALUES(@ID_Gestione, GETDATE(),0,0, @VersioneCliente, @Targa, @Insert_Usr, GETDATE(), @Update_Usr)";
+
+            int noOfRowInsertedKm = db.Database.ExecuteSqlCommand(sql,
+                            new SqlParameter("@ID_Gestione", "0036"),
+                            new SqlParameter("@VersioneCliente", myMatricola),
+                            new SqlParameter("@Targa", myTarga),
+                            new SqlParameter("@Insert_Usr", myUSer),
+                            new SqlParameter("@Update_Usr", myTarga));
+
+
+
+
+
+
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
         public ActionResult Salva(FormCollection form)
         {
             string myPerito = Session["IDPErito"].ToString();
 
-            string myTarga = Session["TargaDaModificare"].ToString();
-            int IDP = (from s in db.AT_ListaPratiche_vw
-                       where s.Targa.ToString() == myTarga
-                       //where s.Perizie_IDPerito != myPerito
-                       select s.Perizie_ID).FirstOrDefault();
+            int IDP = 0;
 
+            string myTarga = Session["TargaDaModificare"].ToString();
+            string myMatricola = Session["MatricolaDaModificare"].ToString();
+
+            if (!String.IsNullOrEmpty(myTarga))
+            {
+
+                IDP = (from s in db.AT_ListaPratiche_vw
+                           where s.Targa.ToString() == myTarga
+                           //where s.Perizie_IDPerito != myPerito
+                           select s.Perizie_ID).FirstOrDefault();
+            }
+            else
+            {
+                IDP = (from s in db.AT_ListaPratiche_vw
+                           where s.Matricola.ToString() == myMatricola
+                           //where s.Perizie_IDPerito != myPerito
+                           select s.Perizie_ID).FirstOrDefault();
+            }
 
             string myID = form["SearchLocation"].ToString();
 
@@ -78,6 +130,23 @@ namespace ATManager.Controllers
                             new SqlParameter("@ID_perizia", IDP),
                             new SqlParameter("@ID_Perito", myPerito),
                             new SqlParameter("@ID_LuogoIntervento", myID));
+               // ViewBag.Message = "Telaio modificato correttamente";
+            }
+            catch
+            {
+                //ViewBag.Message = "Errore in modifica assegnazione località telaio";
+            }
+
+            var sqlL = @" UPDATE SDU_Link_Pratica_Periti_Incarico SET ID_LuogoIntervento = @ID_LuogoIntervento, " +
+                       "                         ID_Perito = @ID_Perito " +
+                       "  WHERE ID_Perizia = @ID_perizia AND 0=0 ";
+
+            try
+            {
+                int noOfRowInsertedKm = db.Database.ExecuteSqlCommand(sqlL,
+                            new SqlParameter("@ID_perizia", IDP),
+                            new SqlParameter("@ID_Perito", myPerito),
+                            new SqlParameter("@ID_LuogoIntervento", myID));
                 ViewBag.Message = "Telaio modificato correttamente";
             }
             catch
@@ -85,12 +154,116 @@ namespace ATManager.Controllers
                 ViewBag.Message = "Errore in modifica assegnazione località telaio";
             }
 
-            return RedirectToAction("Index", "Telaio", new { MessaggioQuery = ViewBag.Message });
+
+
+
+            var model = new Models.HomeModel();
+            
+
+            if (!String.IsNullOrEmpty(myTarga))
+            {
+                var t = (from s in db.AT_ListaPratiche_vw
+                         where s.Targa.ToString() == myTarga
+                         select s).FirstOrDefault();
+                if (t.ID_SchedaTecnica == null)
+                {
+
+                    return RedirectToAction("Create", "Home", new
+                    {
+                        id = t.Perizie_ID,
+                        dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
+                        marca = t.Prod_Descr,
+                        targa = t.Targa,
+                        dataimmatricolazione = t.DataImmatricolazione,
+                        km = t.Km,
+                        luogoperizia = t.DescrITA,
+                        modello = t.Mod_Descr,
+                        cartacircolazione = t.CartaCircolazione,
+                        matricola = t.Matricola,
+                        telaio = t.Chassis1 + t.Chassis2,
+                        dataultimarevisione = t.DataUltimaRevisione,
+                        aziendautilizzatrice = t.DescrizioneAzienda
+                    });
+                }
+                else
+                {
+                    return RedirectToAction("Create", "Home", new
+                    {
+                        id = t.Perizie_ID,
+                        dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
+                        marca = t.Prod_Descr,
+                        targa = t.Targa,
+                        dataimmatricolazione = t.DataImmatricolazione,
+                        km = t.Km,
+                        luogoperizia = t.DescrITA,
+                        modello = t.Mod_Descr,
+                        cartacircolazione = t.CartaCircolazione,
+                        matricola = t.Matricola,
+                        telaio = t.Chassis1 + t.Chassis2,
+                        dataultimarevisione = t.DataUltimaRevisione,
+                        aziendautilizzatrice = t.DescrizioneAzienda
+                    });
+                }
+            }
+            else
+            {
+                var t = (from s in db.AT_ListaPratiche_vw
+                         where s.Matricola.ToString() == myMatricola
+                         select s).FirstOrDefault();
+                if (t.ID_SchedaTecnica == null)
+                {
+
+                    return RedirectToAction("Create", "Home", new
+                    {
+                        id = t.Perizie_ID,
+                        dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
+                        marca = t.Prod_Descr,
+                        targa = t.Targa,
+                        dataimmatricolazione = t.DataImmatricolazione,
+                        km = t.Km,
+                        luogoperizia = t.DescrITA,
+                        modello = t.Mod_Descr,
+                        cartacircolazione = t.CartaCircolazione,
+                        matricola = t.Matricola,
+                        telaio = t.Chassis1 + t.Chassis2,
+                        dataultimarevisione = t.DataUltimaRevisione,
+                        aziendautilizzatrice = t.DescrizioneAzienda
+                    });
+                }
+                else
+                {
+                    return RedirectToAction("Create", "Home", new
+                    {
+                        id = t.Perizie_ID,
+                        dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
+                        marca = t.Prod_Descr,
+                        targa = t.Targa,
+                        dataimmatricolazione = t.DataImmatricolazione,
+                        km = t.Km,
+                        luogoperizia = t.DescrITA,
+                        modello = t.Mod_Descr,
+                        cartacircolazione = t.CartaCircolazione,
+                        matricola = t.Matricola,
+                        telaio = t.Chassis1 + t.Chassis2,
+                        dataultimarevisione = t.DataUltimaRevisione,
+                        aziendautilizzatrice = t.DescrizioneAzienda
+                    });
+                }
+            }
+
+
+
+ 
+
+
+            
+
+            //return RedirectToAction("Index", "Telaio", new { MessaggioQuery = ViewBag.Message });
 
         }
 
 
-        public int CheckTarga(string aTarga, string aMatricola, out string aMessage)
+        public int CheckTarga(string aTarga, string aMatricola, string aIDLuogo, out string aMessage)
         {
             aMessage = "";
             if (aTarga.Length != 7)
@@ -109,6 +282,19 @@ namespace ATManager.Controllers
                 if (!TargaSenzaPeriziaEsistente)
                 {
                     aMessage = "Targa inesistente in anagrafica";
+                    using (AUTOSDUEntities val = new AUTOSDUEntities())
+                    {
+                        string myZone = Session["Zona"].ToString();
+                        string myPerito = Session["IDPErito"].ToString();
+
+                        var cnt = (from s in db.LuoghiTest_vw
+                                   where s.IDPErito.ToString() == myPerito
+                                   where s.ID == aIDLuogo.ToString()
+                                   select s).ToList();
+                        var fromDatabaseEF = new SelectList(cnt, "ID", "DescrITA");
+                        ViewData["Luoghi"] = fromDatabaseEF;
+
+                    }
                     return 1;
                 }
                 else
@@ -124,6 +310,79 @@ namespace ATManager.Controllers
                 if (HasDifferentLocation)
                 {
                     aMessage = "Targa esistente con location differente";
+
+                    using (AUTOSDUEntities val = new AUTOSDUEntities())
+                    {
+                        string myZone = Session["Zona"].ToString();
+                        string myPerito = Session["IDPErito"].ToString();
+
+                        var cnt = (from s in db.LuoghiTest_vw
+                                   where s.IDPErito.ToString() == myPerito
+                                   where s.ID == aIDLuogo.ToString()
+                                   select s).ToList();
+                        var fromDatabaseEF = new SelectList(cnt, "ID", "DescrITA");
+                        ViewData["Luoghi"] = fromDatabaseEF;
+
+                    }
+
+                    return 3;
+                }
+                else
+                {
+                    aMessage = "La targa esiste già nella location corrente ";
+                    return 4;
+                }
+
+            }
+
+            aMessage = "";
+            return 0;
+
+        }
+
+        public int CheckMatricola(string aTarga, string aMatricola, string aIDLuogo, out string aMessage)
+        {
+            aMessage = "";
+            
+
+            // Prima verifico se esite pratica CON perizia
+            bool MatricolaEPeriziaEsistente = EsiteMatricolaConPerizia(aMatricola);
+            if (!MatricolaEPeriziaEsistente)
+            {
+
+                // Poi verifico se esiste pratica SENZA perizia
+                bool TargaSenzaPeriziaEsistente = EsiteMatricolaSenzaPerizia(aTarga);
+                if (!TargaSenzaPeriziaEsistente)
+                {
+                    aMessage = "Matricola inesistente in anagrafica";
+                    using (AUTOSDUEntities val = new AUTOSDUEntities())
+                    {
+                        string myZone = Session["Zona"].ToString();
+                        string myPerito = Session["IDPErito"].ToString();
+
+                        var cnt = (from s in db.LuoghiTest_vw
+                                   where s.IDPErito.ToString() == myPerito
+                                   where s.ID == aIDLuogo.ToString()
+                                   select s).ToList();
+                        var fromDatabaseEF = new SelectList(cnt, "ID", "DescrITA");
+                        ViewData["Luoghi"] = fromDatabaseEF;
+
+                    }
+                    return 1;
+                }
+                else
+                {
+                    aMessage = "Matricola  SENZA PERIZIA ";
+                    return 2;
+                }
+            }
+            else
+            {
+                // Verifico se esiste targa e perizia assegnata a zona differente..
+                bool HasDifferentLocation = EsisteMatricolaConLocationDifferente(aMatricola);
+                if (HasDifferentLocation)
+                {
+                    aMessage = "Matricola esistente con location differente";
 
                     using (AUTOSDUEntities val = new AUTOSDUEntities())
                     {
@@ -189,13 +448,47 @@ namespace ATManager.Controllers
                 return false;
         }
 
-        public ActionResult ShowAllMobileDetails(FormCollection form)
-        {
-            string strDDLValue = form["ddlVendor"].ToString();
 
-            return View();
+
+
+        public bool EsisteMatricolaConLocationDifferente(string aMatricola)
+        {
+            string myZone = Session["Zona"].ToString();
+            string myPerito = Session["User"].ToString();
+            var cnt = (from s in db.AT_ListaPratiche_vw
+                       where s.Matricola.ToString() == aMatricola
+                       //where s.Perizie_IDPerito != myPerito
+                       select s.Perizie_ID).Count();
+            if (cnt > 0)
+                return true;
+            else
+                return false;
         }
 
+        public bool EsiteMatricolaConPerizia(string aMatricola)
+        {
+            var cnt = (from s in db.AT_ListaPratiche_vw
+                       where s.Matricola.ToString() == aMatricola
+                       select s.Perizie_ID).Count();
+            if (cnt > 0)
+                return true;
+            else
+                return false;
+        }
+
+
+
+        // TODO : sostituire targa con matricola
+        public bool EsiteMatricolaSenzaPerizia(string aMatricola)
+        {
+            var cnt = (from s in db.AT_ListaPraticheSenzaPerizia_vw
+                       where s.Targa.ToString() == aMatricola
+                       select s.ID).Count();
+            if (cnt > 0)
+                return true;
+            else
+                return false;
+        }
 
     }
 
