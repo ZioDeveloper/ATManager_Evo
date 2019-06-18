@@ -72,20 +72,34 @@ namespace ATManager.Controllers
                 return View("Index");
             }
 
-            var sql = @" INSERT INTO SDU_PRATICHE (ID_Gestione, DataApertura, OraApertura, MinApertura, VersioneCliente, Targa, Insert_Usr, Insert_Time, Update_Usr) " +
+            var sql = @" INSERT INTO SDU_PRATICHE (ID_Gestione, DataApertura, OraApertura, MinApertura, VersioneCliente, Targa, Insert_Usr, Insert_Time, Update_Usr ) " +
                         "  VALUES(@ID_Gestione, GETDATE(),0,0, @VersioneCliente, @Targa, @Insert_Usr, GETDATE(), @Update_Usr)";
 
+            //SqlParameter[] @params1= { new SqlParameter("@returnVal", SqlDbType.Int) { Direction = ParameterDirection.Output } };
             int noOfRowInsertedKm = db.Database.ExecuteSqlCommand(sql,
-                            new SqlParameter("@ID_Gestione", "0036"),
-                            new SqlParameter("@VersioneCliente", myMatricola),
-                            new SqlParameter("@Targa", myTarga),
-                            new SqlParameter("@Insert_Usr", myUSer),
-                            new SqlParameter("@Update_Usr", myTarga));
+                           new SqlParameter("@ID_Gestione", "0036"),
+                           new SqlParameter("@VersioneCliente", myMatricola),
+                           new SqlParameter("@Targa", myTarga),
+                           new SqlParameter("@Insert_Usr", myUSer),
+                           new SqlParameter("@Update_Usr", myTarga),
+                           new SqlParameter("@returnVal", SqlDbType.Int) { Direction = ParameterDirection.Output });
+           // string myID = @returnVal[0].Value.ToString();
 
 
+            SqlParameter[] @params = { new SqlParameter("@returnVal", SqlDbType.Int) {Direction = ParameterDirection.Output} };
 
+            var query1 = db.Database.ExecuteSqlCommand("exec @returnVal = dbo.spw_GetNewNumberWise 'ATS_19'", @params);
 
+            string result = @params[0].Value.ToString();
 
+            //sql = " INSERT INTO SDU_PERIZIE (ID_Pratica, Barcode, ID_TipoPerizia, ID_LuogoIntervento, ID_Perito, DataIncarico, DataPerizia, Insert_Usr, Insert_Time) " +
+            //      "  VALUES(@ID_Pratica, @Barcode, @ID_TipoPerizia, @ID_LuogoIntervento, @ID_Perito, GETDATE(), GETDATE() , @Insert_Usr, GETDATE())";
+            //noOfRowInsertedKm = db.Database.ExecuteSqlCommand(sql,
+            //               new SqlParameter("@ID_Gestione", "0036"),
+            //               new SqlParameter("@VersioneCliente", myMatricola),
+            //               new SqlParameter("@Targa", myTarga),
+            //               new SqlParameter("@Insert_Usr", myUSer),
+            //               new SqlParameter("@Update_Usr", myTarga));
 
 
             return RedirectToAction("Index");
@@ -158,7 +172,8 @@ namespace ATManager.Controllers
 
 
             var model = new Models.HomeModel();
-            
+
+            Session["ExecJS"] = "true";
 
             if (!String.IsNullOrEmpty(myTarga))
             {
@@ -327,6 +342,15 @@ namespace ATManager.Controllers
 
                     return 3;
                 }
+                bool HasDifferentLocationExisting = EsisteConLocationDifferenteExisting(aTarga);
+                if (HasDifferentLocationExisting)
+                {
+                    aMessage = "Targa esistente con scheda già associata";
+
+                    
+
+                    return 5;
+                }
                 else
                 {
                     aMessage = "La targa esiste già nella location corrente ";
@@ -399,6 +423,15 @@ namespace ATManager.Controllers
 
                     return 3;
                 }
+                bool HasDifferentLocationExisting = EsisteMatricolaConLocationDifferenteExisting(aTarga);
+                if (HasDifferentLocationExisting)
+                {
+                    aMessage = "Targa esistente con scheda già associata";
+
+
+
+                    return 5;
+                }
                 else
                 {
                     aMessage = "La targa esiste già nella location corrente ";
@@ -418,7 +451,21 @@ namespace ATManager.Controllers
             string myPerito = Session["User"].ToString();
             var cnt = (from s in db.AT_ListaPratiche_vw
                        where s.Targa.ToString() == aTarga
-                       where s.Perizie_IDPerito != myPerito
+                       where s.ID_SchedaTecnica == null
+                       select s.Perizie_ID).Count();
+            if (cnt > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public bool EsisteConLocationDifferenteExisting(string aTarga)
+        {
+            string myZone = Session["Zona"].ToString();
+            string myPerito = Session["User"].ToString();
+            var cnt = (from s in db.AT_ListaPratiche_vw
+                       where s.Targa.ToString() == aTarga
+                       where s.ID_SchedaTecnica != null
                        select s.Perizie_ID).Count();
             if (cnt > 0)
                 return true;
@@ -457,7 +504,21 @@ namespace ATManager.Controllers
             string myPerito = Session["User"].ToString();
             var cnt = (from s in db.AT_ListaPratiche_vw
                        where s.Matricola.ToString() == aMatricola
-                       //where s.Perizie_IDPerito != myPerito
+                       where s.ID_SchedaTecnica == null
+                       select s.Perizie_ID).Count();
+            if (cnt > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public bool EsisteMatricolaConLocationDifferenteExisting(string aMatricola)
+        {
+            string myZone = Session["Zona"].ToString();
+            string myPerito = Session["User"].ToString();
+            var cnt = (from s in db.AT_ListaPratiche_vw
+                       where s.Matricola.ToString() == aMatricola
+                       where s.ID_SchedaTecnica != null
                        select s.Perizie_ID).Count();
             if (cnt > 0)
                 return true;

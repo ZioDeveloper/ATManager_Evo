@@ -12,7 +12,7 @@
 
 @using (Html.BeginForm())
 {
-    <div class="form-horizontal" style="display:none" >
+    <div class="form-horizontal" style="display:none">
         @{string aTarga = ViewBag.aTarga;}
         @{string aMatricola = ViewBag.aMatricola;}
         Targa: @Html.TextBox("Targa", aTarga, new { style = "width:80px" })
@@ -37,23 +37,23 @@
 }
 else if (ViewBag.Controllo == 1)
 {
-    
+
     using (Html.BeginForm("CreaNuovaTarga", "Telaio", FormMethod.Post))
     {
 
         <div id="Test" style="background-color:lightgreen">
             Situazione targa : @aMessage
             <br />
-           
-            
+
+
         </div>
         <br />
         <div style="display:none">
             @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
 
         </div>
-        
-    <input type="submit" value="Crea targa e apri scheda" />
+
+        <input type="submit" value="Crea targa e apri scheda" />
     }
 }
 else if (ViewBag.Controllo == 2)
@@ -80,6 +80,13 @@ else if (ViewBag.Controllo == 3)
     }
 }
 else if (ViewBag.Controllo == 4)
+{
+    <div style="background-color: green">
+        @aMessage
+    </div>
+}
+
+else if (ViewBag.Controllo == 5)
 {
     <div style="background-color: green">
         @aMessage

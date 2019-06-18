@@ -35,7 +35,7 @@ namespace ATManager.Controllers
         //    if (Session["Location"].ToString() == "RESET")
         //        Session["Location"] = "";
 
-
+        //    Session["ExecJS"] = "true";
 
         //    if (usr != null)
         //        Session["User"] = usr;
