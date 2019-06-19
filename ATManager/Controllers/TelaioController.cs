@@ -344,6 +344,179 @@ namespace ATManager.Controllers
 
         }
 
+        public ActionResult Sostituisci(FormCollection form)
+        {
+            string myPerito = Session["IDPErito"].ToString();
+
+            int IDP = 0;
+
+            string myTarga = Session["TargaDaModificare"].ToString();
+            string myMatricola = Session["MatricolaDaModificare"].ToString();
+
+            if (!String.IsNullOrEmpty(myTarga))
+            {
+
+                IDP = (from s in db.AT_ListaPratiche_vw
+                       where s.Targa.ToString() == myTarga
+                       //where s.Perizie_IDPerito != myPerito
+                       select s.Perizie_ID).FirstOrDefault();
+            }
+            else
+            {
+                IDP = (from s in db.AT_ListaPratiche_vw
+                       where s.Matricola.ToString() == myMatricola
+                       //where s.Perizie_IDPerito != myPerito
+                       select s.Perizie_ID).FirstOrDefault();
+            }
+
+            string myID = form["SearchLocation"].ToString();
+
+            var sql = " DELETE FROM AT_SchedaTecnica WHERE IDPerizia = @IDPErizia ";
+            db.Database.ExecuteSqlCommand(sql, new SqlParameter("@IDPErizia", IDP));
+
+            sql = @" UPDATE SDU_PERIZIE SET ID_LuogoIntervento = @ID_LuogoIntervento, " +
+                       "                         ID_Perito = @ID_Perito " +
+                       "  WHERE ID = @ID_perizia AND 0=0 ";
+
+            try
+            {
+                int noOfRowInsertedKm = db.Database.ExecuteSqlCommand(sql,
+                            new SqlParameter("@ID_perizia", IDP),
+                            new SqlParameter("@ID_Perito", myPerito),
+                            new SqlParameter("@ID_LuogoIntervento", myID));
+                // ViewBag.Message = "Telaio modificato correttamente";
+            }
+            catch
+            {
+                //ViewBag.Message = "Errore in modifica assegnazione località telaio";
+            }
+
+            var sqlL = @" UPDATE SDU_Link_Pratica_Periti_Incarico SET ID_LuogoIntervento = @ID_LuogoIntervento, " +
+                       "                         ID_Perito = @ID_Perito " +
+                       "  WHERE ID_Perizia = @ID_perizia AND 0=0 ";
+
+            try
+            {
+                int noOfRowInsertedKm = db.Database.ExecuteSqlCommand(sqlL,
+                            new SqlParameter("@ID_perizia", IDP),
+                            new SqlParameter("@ID_Perito", myPerito),
+                            new SqlParameter("@ID_LuogoIntervento", myID));
+                ViewBag.Message = "Telaio modificato correttamente";
+            }
+            catch
+            {
+                ViewBag.Message = "Errore in modifica assegnazione località telaio";
+            }
+
+
+
+            Session["ExecJS"] = "true";
+            var model = new Models.HomeModel();
+
+
+
+            if (!String.IsNullOrEmpty(myTarga))
+            {
+                var t = (from s in db.AT_ListaPratiche_vw
+                         where s.Targa.ToString() == myTarga
+                         select s).FirstOrDefault();
+                if (t.ID_SchedaTecnica == null)
+                {
+
+                    return RedirectToAction("Create", "Home", new
+                    {
+                        id = t.Perizie_ID,
+                        dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
+                        marca = t.Prod_Descr,
+                        targa = t.Targa,
+                        dataimmatricolazione = t.DataImmatricolazione,
+                        km = t.Km,
+                        luogoperizia = t.DescrITA,
+                        modello = t.Mod_Descr,
+                        cartacircolazione = t.CartaCircolazione,
+                        matricola = t.Matricola,
+                        telaio = t.Chassis1 + t.Chassis2,
+                        dataultimarevisione = t.DataUltimaRevisione,
+                        aziendautilizzatrice = t.DescrizioneAzienda
+                    });
+                }
+                else
+                {
+                    return RedirectToAction("Create", "Home", new
+                    {
+                        id = t.Perizie_ID,
+                        dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
+                        marca = t.Prod_Descr,
+                        targa = t.Targa,
+                        dataimmatricolazione = t.DataImmatricolazione,
+                        km = t.Km,
+                        luogoperizia = t.DescrITA,
+                        modello = t.Mod_Descr,
+                        cartacircolazione = t.CartaCircolazione,
+                        matricola = t.Matricola,
+                        telaio = t.Chassis1 + t.Chassis2,
+                        dataultimarevisione = t.DataUltimaRevisione,
+                        aziendautilizzatrice = t.DescrizioneAzienda
+                    });
+                }
+            }
+            else
+            {
+                var t = (from s in db.AT_ListaPratiche_vw
+                         where s.Matricola.ToString() == myMatricola
+                         select s).FirstOrDefault();
+                if (t.ID_SchedaTecnica == null)
+                {
+
+                    return RedirectToAction("Create", "Home", new
+                    {
+                        id = t.Perizie_ID,
+                        dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
+                        marca = t.Prod_Descr,
+                        targa = t.Targa,
+                        dataimmatricolazione = t.DataImmatricolazione,
+                        km = t.Km,
+                        luogoperizia = t.DescrITA,
+                        modello = t.Mod_Descr,
+                        cartacircolazione = t.CartaCircolazione,
+                        matricola = t.Matricola,
+                        telaio = t.Chassis1 + t.Chassis2,
+                        dataultimarevisione = t.DataUltimaRevisione,
+                        aziendautilizzatrice = t.DescrizioneAzienda
+                    });
+                }
+                else
+                {
+                    return RedirectToAction("Create", "Home", new
+                    {
+                        id = t.Perizie_ID,
+                        dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
+                        marca = t.Prod_Descr,
+                        targa = t.Targa,
+                        dataimmatricolazione = t.DataImmatricolazione,
+                        km = t.Km,
+                        luogoperizia = t.DescrITA,
+                        modello = t.Mod_Descr,
+                        cartacircolazione = t.CartaCircolazione,
+                        matricola = t.Matricola,
+                        telaio = t.Chassis1 + t.Chassis2,
+                        dataultimarevisione = t.DataUltimaRevisione,
+                        aziendautilizzatrice = t.DescrizioneAzienda
+                    });
+                }
+            }
+
+
+
+
+
+
+
+
+            //return RedirectToAction("Index", "Telaio", new { MessaggioQuery = ViewBag.Message });
+
+        }
+
 
         public int CheckTarga(string aTarga, string aMatricola, string aIDLuogo, out string aMessage)
         {
@@ -434,7 +607,7 @@ namespace ATManager.Controllers
                 bool HasDifferentLocationExistingIS6 = EsisteConLocationDifferenteExistingIS6(aTarga);
                 if (HasDifferentLocationExistingIS6)
                 {
-                    aMessage = "Mezzo non visto perchè assente c/o altro deposito !";
+                    aMessage = "Mezzo visto assente c/o altro deposito !";
 
                     using (AUTOSDUEntities val = new AUTOSDUEntities())
                     {

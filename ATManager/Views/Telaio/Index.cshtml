@@ -84,7 +84,7 @@ else if (ViewBag.Controllo == 3)
 
 else if (ViewBag.Controllo == 7)
 {
-    using (Html.BeginForm("Salva", "Telaio", FormMethod.Post))
+    using (Html.BeginForm("Sostituisci", "Telaio", FormMethod.Post))
     {
 
         <div id="Test" style="background-color:lightgreen">
@@ -96,7 +96,7 @@ else if (ViewBag.Controllo == 7)
         <div style="display:none">
             @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
         </div>
-        <input type="submit" value="Assegna targa e apri scheda" />
+        <input type="submit" value="Elimina scheda e crea nuova scheda" />
     }
 }
 else if (ViewBag.Controllo == 4)
