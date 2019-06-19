@@ -94,6 +94,8 @@ public partial class AT_ListaPratiche_vw
 
     public string DescrizioneAzienda { get; set; }
 
+    public Nullable<int> IDVisualizzazioneMezzo { get; set; }
+
 }
 
 }

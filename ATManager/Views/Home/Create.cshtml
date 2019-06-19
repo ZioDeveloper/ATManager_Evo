@@ -3,8 +3,11 @@
 @{
     ViewBag.Title = "Create";
 }
-<script>function checkedCheckbox() {
-    $('#chkCompleted').prop('checked', true);
+
+
+<script>
+    function checkedCheckbox() {
+        $('#chkCompleted').prop('checked', true);
     }
 </script>
 
@@ -25,6 +28,8 @@
         document.getElementById('mostraOfficina').style.display = 'none';
         document.getElementById('StatoMezzo').style.display = 'none';
         //clearAllRadios();
+
+
 
     }
     function MostraSosta() {
@@ -57,7 +62,7 @@
     function NascondiValorizzazione() {
         document.getElementById('StatoMezzo').style.display = 'none';
 
-          
+
     }
 
     function Test() {
@@ -255,6 +260,7 @@
                         <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "4", new { onclick = "MostraRottamare();" }) Rottamare </td>
                         <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "5", new { onclick = "MostraRottamare();" }) Già rott. </td>
                         <td class="bianco">@Html.RadioButtonFor(model => model.IDVisualizzazioneMezzo, "6", new { onclick = "MostraRottamare();" }) Assente </td>
+
                     </tr>
                 </table>
                 @*<p style="color:red">TODO : Impedire salvataggio se non si seleziona una opzione !</p>*@
@@ -697,18 +703,18 @@
                             <td>
 
                                 @*<div   onclick="Test()">
-                                    ...
-                                    <div class="Test" style="display:none">
-                                        Note: @Html.TextAreaFor(model => model.NoteCI835, new { style = "width: 170px; height:100px;", onclick = "alert('Razor Engine')" })
-                                    </div>
-                                </div>*@
-                                    
+                                        ...
+                                        <div class="Test" style="display:none">
+                                            Note: @Html.TextAreaFor(model => model.NoteCI835, new { style = "width: 170px; height:100px;", onclick = "alert('Razor Engine')" })
+                                        </div>
+                                    </div>*@
+
 
                                 <details style="display:inline;">
                                     <summary content: "+"></summary>
                                     Note: @Html.TextAreaFor(model => model.NoteCI835, new { style = "width: 170px; height:100px;", onclick = "alert('Razor Engine')" });)
                                 </details>
-                                
+
                             </td>
                         </tr>
                         @*<tr>
@@ -896,7 +902,12 @@
             </td>
             <td> &nbsp;|| &nbsp; </td>*@
         <td>
-            @Html.ActionLink("Inserisci foto documento", "FotoPratica", new { id = ViewBag.IDPerizia })
+            @using (Html.BeginForm("Create",null, null, FormMethod.Post, new { @id = "myForm", @name = "myForm" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ActionLink("Inserisci foto documento", "FotoPratica", new { id = ViewBag.IDPerizia }, new { @class = "saveButton"})
+
+            }
         </td>
     </tr>
     <tr>
@@ -915,5 +926,15 @@
 <div>
     @Html.ActionLink("Torna a lista telai...", "DoRefresh")
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('.saveButton').click(function () {
+            alert("The paragraph was clicked.");
+            $("#myForm").submit();
+        });
+    });
+</script>
+
 
 

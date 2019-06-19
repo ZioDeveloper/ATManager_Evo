@@ -455,9 +455,6 @@ warning 6002: The table/view 'AUTOSDU.dbo.AT_ListaPratiche_vw' does not have a p
             
             
             
-            
-            
-            
             <PropertyRef Name="CartaCircolazione" />
           </Key>
           <Property Name="TipoPerizia_ID" Type="int" Nullable="false" />
@@ -484,9 +481,9 @@ warning 6002: The table/view 'AUTOSDU.dbo.AT_ListaPratiche_vw' does not have a p
           <Property Name="DescStato" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="AO_Cognome" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="AO_Nome" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Mod_Descr" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Prod_ID" Type="varchar" MaxLength="4" Nullable="false" />
-          <Property Name="Prod_Descr" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mod_Descr" Type="varchar" MaxLength="50" />
+          <Property Name="Prod_ID" Type="varchar" MaxLength="4" />
+          <Property Name="Prod_Descr" Type="varchar" MaxLength="50" />
           <Property Name="ID_SchedaTecnica" Type="int" />
           <Property Name="DataImmatricolazione" Type="datetime" />
           <Property Name="Km" Type="int" />
@@ -498,6 +495,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.AT_ListaPratiche_vw' does not have a p
           <Property Name="Trilettera" Type="varchar" MaxLength="3" />
           <Property Name="ID_AziendaUtilizzatrice" Type="int" />
           <Property Name="DescrizioneAzienda" Type="varchar" MaxLength="150" />
+          <Property Name="IDVisualizzazioneMezzo" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'AUTOSDU.dbo.AT_ListaPraticheConPerizia_vw' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1175,7 +1173,8 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
     [AT_ListaPratiche_vw].[DataUltimaRevisione] AS [DataUltimaRevisione], 
     [AT_ListaPratiche_vw].[Trilettera] AS [Trilettera], 
     [AT_ListaPratiche_vw].[ID_AziendaUtilizzatrice] AS [ID_AziendaUtilizzatrice], 
-    [AT_ListaPratiche_vw].[DescrizioneAzienda] AS [DescrizioneAzienda]
+    [AT_ListaPratiche_vw].[DescrizioneAzienda] AS [DescrizioneAzienda], 
+    [AT_ListaPratiche_vw].[IDVisualizzazioneMezzo] AS [IDVisualizzazioneMezzo]
     FROM [dbo].[AT_ListaPratiche_vw] AS [AT_ListaPratiche_vw]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="AT_ListaPraticheConPerizia_vw" EntityType="Self.AT_ListaPraticheConPerizia_vw" store:Type="Views" store:Schema="dbo">
@@ -1898,9 +1897,9 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
           <Property Name="DescStato" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AO_Cognome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AO_Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Mod_Descr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Prod_ID" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Prod_Descr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Mod_Descr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prod_ID" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="Prod_Descr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ID_SchedaTecnica" Type="Int32" />
           <Property Name="DataImmatricolazione" Type="DateTime" Precision="3" />
           <Property Name="Km" Type="Int32" />
@@ -1912,6 +1911,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
           <Property Name="Trilettera" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="ID_AziendaUtilizzatrice" Type="Int32" />
           <Property Name="DescrizioneAzienda" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="IDVisualizzazioneMezzo" Type="Int32" />
         </EntityType>
         <Association Name="CE110">
           <End Type="AUTOSDUModel.AT_IndiciValutazione" Role="AT_IndiciValutazione" Multiplicity="0..1" />
@@ -2981,6 +2981,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
           <EntitySetMapping Name="AT_ListaPratiche_vw">
             <EntityTypeMapping TypeName="AUTOSDUModel.AT_ListaPratiche_vw">
               <MappingFragment StoreEntitySet="AT_ListaPratiche_vw">
+                <ScalarProperty Name="IDVisualizzazioneMezzo" ColumnName="IDVisualizzazioneMezzo" />
                 <ScalarProperty Name="DescrizioneAzienda" ColumnName="DescrizioneAzienda" />
                 <ScalarProperty Name="ID_AziendaUtilizzatrice" ColumnName="ID_AziendaUtilizzatrice" />
                 <ScalarProperty Name="Trilettera" ColumnName="Trilettera" />

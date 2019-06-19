@@ -81,6 +81,24 @@ else if (ViewBag.Controllo == 3)
         <input type="submit" value="Assegna targa e apri scheda" />
     }
 }
+
+else if (ViewBag.Controllo == 7)
+{
+    using (Html.BeginForm("Salva", "Telaio", FormMethod.Post))
+    {
+
+        <div id="Test" style="background-color:lightgreen">
+            Situazione targa : @aMessage
+            <br />
+
+        </div>
+        <br />
+        <div style="display:none">
+            @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
+        </div>
+        <input type="submit" value="Assegna targa e apri scheda" />
+    }
+}
 else if (ViewBag.Controllo == 4)
 {
     <div style="background-color: lightgreen">
@@ -103,11 +121,13 @@ else if (ViewBag.Controllo == 6)
     <div style="background-color: lightgreen">
         @aMessage
         <p></p>
-        <p>Per immettere scheda :<br />
-           1. Usare ricerca per targa e non per matricola. <br />
-           2. Una volta cercata la targa, se questa non esiste, si avrà la possibilità di inserirla premendo apposito tasto</p>
+        <p>
+            Per immettere scheda :<br />
+            1. Usare ricerca per targa e non per matricola. <br />
+            2. Una volta cercata la targa, se questa non esiste, si avrà la possibilità di inserirla premendo apposito tasto
+        </p>
     </div>
-    
+
 }
 
 @{ string myResult = ViewBag.MessaggioQuery;}
