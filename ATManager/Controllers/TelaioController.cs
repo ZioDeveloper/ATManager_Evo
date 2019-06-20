@@ -564,7 +564,7 @@ namespace ATManager.Controllers
                 bool HasDifferentLocation = EsisteConLocationDifferente(aTarga);
                 if (HasDifferentLocation)
                 {
-                    aMessage = "Targa esistente con location differente.";
+                    aMessage = @"Targa esistente con location differente.Continuando il mezzo verrà abbinato alla location :";
 
                     using (AUTOSDUEntities val = new AUTOSDUEntities())
                     {
@@ -607,7 +607,7 @@ namespace ATManager.Controllers
                 bool HasDifferentLocationExistingIS6 = EsisteConLocationDifferenteExistingIS6(aTarga);
                 if (HasDifferentLocationExistingIS6)
                 {
-                    aMessage = "Targa esistente con location differente.";
+                    aMessage = @"Targa esistente con location differente.Continuando il mezzo verrà abbinato alla location :";
 
                     using (AUTOSDUEntities val = new AUTOSDUEntities())
                     {
@@ -721,7 +721,7 @@ namespace ATManager.Controllers
                 bool HasDifferentLocationExistingIS6 = EsisteMatricolaConLocationDifferenteExistingIS6(aMatricola);
                 if (HasDifferentLocationExistingIS6)
                 {
-                    aMessage = "Targa esistente con location differente.";
+                    aMessage = @"Targa esistente con location differente.Continuando il mezzo verrà abbinato alla location :";
 
                     using (AUTOSDUEntities val = new AUTOSDUEntities())
                     {

@@ -50,7 +50,7 @@ else if (ViewBag.Controllo == 1)
 
         </div>
         <br />
-        <div style="display:none">
+        <div style="display:block">
             @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
 
         </div>
@@ -75,9 +75,10 @@ else if (ViewBag.Controllo == 3)
 
         </div>
         <br />
-        <div style="display:none">
+        <div style="display:block">
             @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
         </div>
+        <br />
         <input type="submit" value="Assegna targa e apri scheda" />
     }
 }
@@ -93,9 +94,10 @@ else if (ViewBag.Controllo == 7)
 
         </div>
         <br />
-        <div style="display:none">
+        <div style="display:block">
             @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
         </div>
+        <br />
         <input type="submit" value="Assegna targa e apri scheda" />
     }
 }

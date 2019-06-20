@@ -359,8 +359,7 @@ namespace ATManager.Controllers
                     var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
                     ViewData["Luoghi"] = fromDatabaseEF;
 
-                    //var fromDatabaseEF = new SelectList(val.LuoghiTest_vw.ToList(), "ID", "DescrITA", SearchLocation);
-                    //ViewData["Luoghi"] = fromDatabaseEF;
+
 
                 }
 
@@ -438,8 +437,7 @@ namespace ATManager.Controllers
 
                 var fromDatabaseEF = new SelectList(model.LuoghiTest_vw.ToList().OrderBy(m => m.DescrITA), "ID", "DescrITA");
                 ViewData["Luoghi"] = fromDatabaseEF;
-                //var fromDatabaseEF = new SelectList(val.LuoghiTest_vw.ToList(), "ID", "DescrITA", SearchLocation);
-                //ViewData["Luoghi"] = fromDatabaseEF;
+
 
             }
 
@@ -476,7 +474,7 @@ namespace ATManager.Controllers
                 return View();
             }
 
-            return RedirectToAction("DoRefresh", "Home");
+            //return RedirectToAction("DoRefresh", "Home");
         }
 
         public ActionResult ContaTelai(int? SearchLocation)

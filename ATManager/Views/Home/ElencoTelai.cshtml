@@ -22,7 +22,29 @@
 
 @{var myScelta = @Session["Status"].ToString();}
 
-<table class="table" border="0">
+@if (Model.AT_ListaPratiche_vw.Count() == 0)
+{
+    string myStato = Session["Status"].ToString();
+    if (myStato == "DA FARE")
+    {
+
+        <p>
+            Ricerca dati in corso...
+
+
+
+        </p>
+        @*<p><a class="btn btn-default" id="Test" href="~/Telaio/Index">Premi per approfondire ricerca &raquo;</a></p>*@
+
+        @*@Html.ActionLink("Inserisci telaio", "Index", "Telaio", new { myTarga = ViewBag.myTarga }, null);*@
+
+        <p><a class="btn btn-default" style="display:none" id="Test" href="@Url.Action("Index", "Telaio", new { myTarga = ViewBag.myTarga, myMatricola = ViewBag.myMatricola, myIDLuogo = ViewBag.myIDLuogo })">Premi per approfondire ricerca</a></p>
+    }
+}
+
+else
+{
+<table class="table" id="tblGrid" border="0">
     @*<table id="tblGrid" class="display cell-border compact order-column hover">*@
     <thead>
         <tr>
@@ -39,23 +61,9 @@
 
         @if (Model.AT_ListaPratiche_vw.Count() == 0)
         {
-            string myStato = Session["Status"].ToString();
 
-            if (myStato == "DA FARE")
-            {
+            // Placeholder
 
-                <p>
-                    Ricerca dati in corso...
-
-
-
-                </p>
-                @*<p><a class="btn btn-default" id="Test" href="~/Telaio/Index">Premi per approfondire ricerca &raquo;</a></p>*@
-
-                @*@Html.ActionLink("Inserisci telaio", "Index", "Telaio", new { myTarga = ViewBag.myTarga }, null);*@
-
-                <p><a class="btn btn-default" style="display:none" id="Test" href="@Url.Action("Index", "Telaio", new { myTarga = ViewBag.myTarga, myMatricola = ViewBag.myMatricola , myIDLuogo = ViewBag.myIDLuogo })">Premi per approfondire ricerca</a></p>
-            }
         }
         else
         {
@@ -183,6 +191,7 @@
         }
     </tbody>
 </table>
+}
 <div>
     @Html.ActionLink("Torna a selezione telai", "Index")
 </div>
@@ -224,7 +233,7 @@
                 infoPostFix: "",
                 loadingRecords: "Caricamento...",
                 zeroRecords: "La ricerca non ha portato alcun risultato.",
-                emptyTable: "Nessun record presentein tabella",
+                emptyTable: "Nessun record presente in tabella",
                 paginate: {
                     first: "Inizio",
                     previous: "Precedente",
@@ -260,7 +269,7 @@
             }
             else
                 return;
-            
+
         }, 10);   // mezzo secondo
 
     function submitform() {
