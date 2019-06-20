@@ -160,7 +160,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="~/Scripts/JQuery/JavaScript.js"></script>
-@using (Html.BeginForm())
+@using (Html.BeginForm(null,null, FormMethod.Post, new{ name = "myForm", id = "myForm" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
@@ -865,7 +865,7 @@
             }
             else
             {
-                <input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
+                <input type="submit" id="foo" name="foo" value="Salva"  />
                 @*<input type="submit" value="Salva & Chiudi" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
             }
             <font color="red">Salva e chiudi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
@@ -894,27 +894,14 @@
         <script>MostraRottamare();</script>
     }
 }
-<table>
+<table style="display:none" >
     <tr>
-        @*<td>
-                @Html.ActionLink("Inserisci foto mezzo", "FotoPerizia", new { id = ViewBag.IDPerizia })
-
-            </td>
-            <td> &nbsp;|| &nbsp; </td>*@
         <td>
-            @using (Html.BeginForm("Create",null, null, FormMethod.Post, new { @id = "myForm", @name = "myForm" }))
-            {
-                @Html.AntiForgeryToken()
                 @Html.ActionLink("Inserisci foto documento", "FotoPratica", new { id = ViewBag.IDPerizia }, new { @class = "saveButton"})
-
-            }
+                @*<input type="submit" value="Insert foto" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
         </td>
     </tr>
     <tr>
-        @*<td>
-                @Html.ActionLink("Visualizza foto mezzo", "PerizieImages", new { id = ViewBag.IDPerizia })
-            </td>
-            <td> &nbsp;|| &nbsp; </td>*@
         <td>
             @Html.ActionLink("Visualizza foto documento", "PraticheImages", new { id = ViewBag.IDPerizia })
         </td>
@@ -927,14 +914,7 @@
     @Html.ActionLink("Torna a lista telai...", "DoRefresh")
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('.saveButton').click(function () {
-            alert("The paragraph was clicked.");
-            $("#myForm").submit();
-        });
-    });
-</script>
+
 
 
 

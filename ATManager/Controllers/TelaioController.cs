@@ -564,7 +564,7 @@ namespace ATManager.Controllers
                 bool HasDifferentLocation = EsisteConLocationDifferente(aTarga);
                 if (HasDifferentLocation)
                 {
-                    aMessage = "Targa esistente con location differente";
+                    aMessage = "Targa esistente con location differente.";
 
                     using (AUTOSDUEntities val = new AUTOSDUEntities())
                     {
@@ -607,7 +607,7 @@ namespace ATManager.Controllers
                 bool HasDifferentLocationExistingIS6 = EsisteConLocationDifferenteExistingIS6(aTarga);
                 if (HasDifferentLocationExistingIS6)
                 {
-                    aMessage = "Mezzo visto assente c/o altro deposito !";
+                    aMessage = "Targa esistente con location differente.";
 
                     using (AUTOSDUEntities val = new AUTOSDUEntities())
                     {
