@@ -160,7 +160,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script src="~/Scripts/JQuery/JavaScript.js"></script>
-@using (Html.BeginForm(null,null, FormMethod.Post, new{ name = "myForm", id = "myForm" }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { name = "myForm", id = "myForm" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
@@ -865,7 +865,7 @@
             }
             else
             {
-                <input type="submit" id="foo" name="foo" value="Salva"  />
+                <input type="submit" id="foo" name="foo" value="Salva" />
                 @*<input type="submit" value="Salva & Chiudi" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
             }
             <font color="red">Salva e chiudi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
@@ -888,17 +888,21 @@
     if (ViewBag.IDVisualizzazioneMezzo == "3")
     {
         <script>MostraOfficina();</script>
+        if (ViewBag.myManutenzione == "False")
+        {
+            <script>MostraValorizzazione()</script>
+        }
     }
     if (ViewBag.IDVisualizzazioneMezzo == "4")
     {
         <script>MostraRottamare();</script>
     }
 }
-<table style="display:none" >
+<table style="display:none">
     <tr>
         <td>
-                @Html.ActionLink("Inserisci foto documento", "FotoPratica", new { id = ViewBag.IDPerizia }, new { @class = "saveButton"})
-                @*<input type="submit" value="Insert foto" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
+            @Html.ActionLink("Inserisci foto documento", "FotoPratica", new { id = ViewBag.IDPerizia }, new { @class = "saveButton" })
+            @*<input type="submit" value="Insert foto" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
         </td>
     </tr>
     <tr>

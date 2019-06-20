@@ -696,14 +696,47 @@ namespace ATManager.Controllers
 
                     return 3;
                 }
-                bool HasDifferentLocationExisting = EsisteMatricolaConLocationDifferenteExisting(aTarga);
+                bool HasDifferentLocationExisting = EsisteMatricolaConLocationDifferenteExisting(aMatricola);
                 if (HasDifferentLocationExisting)
                 {
-                    aMessage = "Targa esistente con scheda già associata";
+                    aMessage = "Mezzo già ispezionato c/o altro deposito !";
 
+                    using (AUTOSDUEntities val = new AUTOSDUEntities())
+                    {
+                        string myZone = Session["Zona"].ToString();
+                        string myPerito = Session["IDPErito"].ToString();
+
+                        var cnt = (from s in db.LuoghiTest_vw
+                                   where s.IDPErito.ToString() == myPerito
+                                   where s.ID == aIDLuogo.ToString()
+                                   select s).ToList();
+                        var fromDatabaseEF = new SelectList(cnt, "ID", "DescrITA");
+                        ViewData["Luoghi"] = fromDatabaseEF;
+
+                    }
 
 
                     return 5;
+                }
+                bool HasDifferentLocationExistingIS6 = EsisteMatricolaConLocationDifferenteExistingIS6(aMatricola);
+                if (HasDifferentLocationExistingIS6)
+                {
+                    aMessage = "Targa esistente con location differente.";
+
+                    using (AUTOSDUEntities val = new AUTOSDUEntities())
+                    {
+                        string myZone = Session["Zona"].ToString();
+                        string myPerito = Session["IDPErito"].ToString();
+
+                        var cnt = (from s in db.LuoghiTest_vw
+                                   where s.IDPErito.ToString() == myPerito
+                                   where s.ID == aIDLuogo.ToString()
+                                   select s).ToList();
+                        var fromDatabaseEF = new SelectList(cnt, "ID", "DescrITA");
+                        ViewData["Luoghi"] = fromDatabaseEF;
+                    }
+
+                    return 7;
                 }
                 else
                 {
@@ -724,7 +757,21 @@ namespace ATManager.Controllers
             string myPerito = Session["User"].ToString();
             var cnt = (from s in db.AT_ListaPratiche_vw
                        where s.Targa.ToString() == aTarga
-                       where ( s.ID_SchedaTecnica == null )
+                       where (s.ID_SchedaTecnica == null )
+                       select s.Perizie_ID).Count();
+            if (cnt > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public bool EsisteMatricolaConLocationDifferente(string aMatricola)
+        {
+            string myZone = Session["Zona"].ToString();
+            string myPerito = Session["User"].ToString();
+            var cnt = (from s in db.AT_ListaPratiche_vw
+                       where s.Matricola.ToString() == aMatricola
+                       where (s.ID_SchedaTecnica == null )
                        select s.Perizie_ID).Count();
             if (cnt > 0)
                 return true;
@@ -746,19 +793,21 @@ namespace ATManager.Controllers
                 return false;
         }
 
-        public bool EsisteConLocationDifferenteExistingIS6(string aTarga)
+        public bool EsisteMatricolaConLocationDifferenteExisting(string aMatricola)
         {
             string myZone = Session["Zona"].ToString();
             string myPerito = Session["User"].ToString();
             var cnt = (from s in db.AT_ListaPratiche_vw
-                       where s.Targa.ToString() == aTarga
-                       where (s.ID_SchedaTecnica != null && s.IDVisualizzazioneMezzo == 6)
+                       where s.Matricola.ToString() == aMatricola
+                       where (s.ID_SchedaTecnica != null && s.IDVisualizzazioneMezzo != 6)
                        select s.Perizie_ID).Count();
             if (cnt > 0)
                 return true;
             else
                 return false;
         }
+
+
 
         public bool EsiteTargaConPerizia(string aTarga)
         {
@@ -785,13 +834,13 @@ namespace ATManager.Controllers
 
 
 
-        public bool EsisteMatricolaConLocationDifferente(string aMatricola)
+        public bool EsisteConLocationDifferenteExistingIS6(string aTarga)
         {
             string myZone = Session["Zona"].ToString();
             string myPerito = Session["User"].ToString();
             var cnt = (from s in db.AT_ListaPratiche_vw
-                       where s.Matricola.ToString() == aMatricola
-                       where s.ID_SchedaTecnica == null
+                       where s.Targa.ToString() == aTarga
+                       where (s.ID_SchedaTecnica != null && s.IDVisualizzazioneMezzo == 6)
                        select s.Perizie_ID).Count();
             if (cnt > 0)
                 return true;
@@ -799,19 +848,21 @@ namespace ATManager.Controllers
                 return false;
         }
 
-        public bool EsisteMatricolaConLocationDifferenteExisting(string aMatricola)
+        public bool EsisteMatricolaConLocationDifferenteExistingIS6(string aMatricola)
         {
             string myZone = Session["Zona"].ToString();
             string myPerito = Session["User"].ToString();
             var cnt = (from s in db.AT_ListaPratiche_vw
                        where s.Matricola.ToString() == aMatricola
-                       where s.ID_SchedaTecnica != null
+                       where (s.ID_SchedaTecnica != null && s.IDVisualizzazioneMezzo == 6)
                        select s.Perizie_ID).Count();
             if (cnt > 0)
                 return true;
             else
                 return false;
         }
+
+       
 
         public bool EsiteMatricolaConPerizia(string aMatricola)
         {

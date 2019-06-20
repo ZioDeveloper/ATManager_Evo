@@ -172,13 +172,13 @@ else
 
         <div class="form-group">
             @*@Html.LabelFor(model => model.IDTipoScheda, "Tipo scheda", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IDTipoScheda", null, htmlAttributes: new { @class = "form-control" })
+                <div class="col-md-10">
+                    @Html.DropDownList("IDTipoScheda", null, htmlAttributes: new { @class = "form-control" })
 
-            </div>*@
+                </div>*@
         </div>
 
-        
+
         @Html.TextBoxFor(model => model.IDTipoScheda, new { style = "width:80px" })
 
         @Html.TextBox("txtMatricola", (string)ViewBag.matricola)
@@ -845,7 +845,7 @@ else
                 @if (ViewBag.cartacircolazione == "SI")
                 {
                     <input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
-                    <input type="submit" value="Salva & Chiudi" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
+                    @*<input type="submit" value="Salva & Chiudi" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
                 }
                 else
                 {
@@ -860,24 +860,51 @@ else
     }
     else
     {
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                @if (ViewBag.cartacircolazione == "SI")
-                {
-                    @*<input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
-                    <input type="submit" disabled value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
-                }
-                else
-                {
-                    @*<input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
-                    <input type="submit" disabled value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
-                }
-                <font color="red">Scheda Chiusa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
-                @Html.EditorFor(model => model.IsCompleted, new { htmlAttributes = new { @disabled = "disabled" } })
-                @*@Html.EditorFor(model => model.IsCompleted)*@
-                @Html.ValidationMessageFor(model => model.IsCompleted, "", new { @class = "text-danger" })
+        if (ViewBag.MostraChiusura != "NO")
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @if (ViewBag.cartacircolazione == "SI")
+                    {
+                        @*<input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
+                        @*<input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
+                    }
+                    else
+                    {
+                        @*<input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
+                        @*<input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
+                    }
+                    <font color="red">Scheda Chiusa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
+                    @Html.EditorFor(model => model.IsCompleted, new { htmlAttributes = new { @disabled = "disabled" } })
+                    @*@Html.EditorFor(model => model.IsCompleted)*@
+                    @*@Html.EditorFor(model => model.IsCompleted)*@
+                    @Html.ValidationMessageFor(model => model.IsCompleted, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
+
+        }
+        else
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @if (ViewBag.cartacircolazione == "SI")
+                    {
+                        @*<input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
+                        <input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
+                    }
+                    else
+                    {
+                        @*<input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
+                        <input type="submit" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />
+                    }
+                    <font color="red">Scheda Chiusa &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
+                    @Html.EditorFor(model => model.IsCompleted, new { htmlAttributes = new { @disabled = "disabled" } })
+                    @*@Html.EditorFor(model => model.IsCompleted)*@
+                    @*@Html.EditorFor(model => model.IsCompleted)*@
+                    @Html.ValidationMessageFor(model => model.IsCompleted, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
     }
 
 }
