@@ -344,6 +344,7 @@ namespace ATManager.Controllers
 
         }
 
+        [HttpPost]
         public ActionResult Sostituisci(FormCollection form)
         {
             string myPerito = Session["IDPErito"].ToString();
@@ -564,8 +565,8 @@ namespace ATManager.Controllers
                 bool HasDifferentLocation = EsisteConLocationDifferente(aTarga);
                 if (HasDifferentLocation)
                 {
-                    aMessage = @"Targa esistente con location differente.Continuando il mezzo verrà abbinato alla location :";
-
+                    aMessage = @"Targa esistente con location differente. ";
+                   
                     using (AUTOSDUEntities val = new AUTOSDUEntities())
                     {
                         string myZone = Session["Zona"].ToString();
@@ -688,9 +689,12 @@ namespace ATManager.Controllers
 
                         var cnt = (from s in db.LuoghiTest_vw
                                    where s.IDPErito.ToString() == myPerito
+                                   where s.ID == aIDLuogo.ToString()
                                    select s).ToList();
                         var fromDatabaseEF = new SelectList(cnt, "ID", "DescrITA");
                         ViewData["Luoghi"] = fromDatabaseEF;
+
+                        
 
                     }
 

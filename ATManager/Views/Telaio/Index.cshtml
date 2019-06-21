@@ -69,11 +69,12 @@ else if (ViewBag.Controllo == 3)
     using (Html.BeginForm("Salva", "Telaio", FormMethod.Post))
     {
 
-        <div id="Test" style="background-color:lightgreen">
-            Situazione targa : @aMessage
-            <br />
+    <div id="Test" style="background-color:lightgreen">
+        Situazione targa : @aMessage <br />
+        Continuando il mezzo verrà abbinato alla location :
+        <br />
 
-        </div>
+    </div>
         <br />
         <div style="display:block">
             @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])

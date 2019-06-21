@@ -153,6 +153,7 @@ else
 <script src="~/Scripts/JQuery/JavaScript.js"></script>
 @using (Html.BeginForm())
 {
+    @*@Html.AntiForgeryToken()*@
     <div>
         @Html.ActionLink("Torna a lista telai...", "DoRefresh")
     </div>

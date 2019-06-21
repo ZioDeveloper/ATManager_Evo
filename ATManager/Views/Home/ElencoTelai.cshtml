@@ -11,6 +11,7 @@
 <script src="~/Scripts/jquery-ui.min.js"></script>
 <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
 
+@Styles.Render("~/Content/mygrid.css")
 
 
 
@@ -44,7 +45,7 @@
 
 else
 {
-<table class="table" id="tblGrid" border="0">
+<table id="tblGrid"  class="display" >
     @*<table id="tblGrid" class="display cell-border compact order-column hover">*@
     <thead>
         <tr>
@@ -246,7 +247,9 @@ else
                 }
             },
             select: true,
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Tutti    "]],
+            searching: true,
+            lengthMenu: [[9, 25, 50, -1], [9, 25, 50, "Tutti    "]],
+            
             "bFilter": false,
             "bLengthChange": true,
             "bPaginate": true,
