@@ -194,7 +194,7 @@
         @Html.TextBox("txtLuogoPerizia", (string)ViewBag.luogoperizia)
         @Html.TextBox("txtModello", (string)ViewBag.modello)
         @Html.TextBox("txtTelaio", (string)ViewBag.luogoperizia)
-        @Html.TextBox("txtAziendaUtilizzatrice", (string)ViewBag.modello)
+        @Html.TextBox("txtAziendaUtilizzatrice", (string)ViewBag.aziendaproprietaria)
 
     </div>
 
@@ -236,8 +236,8 @@
                     <tr>
                         <td class="grigetto">Km</td>
                         <td>@Html.TextBox("txtKm", (string)ViewBag.km)</td>
-                        <td class="grigetto">Azienda utilizzatrice</td>
-                        <td>@ViewBag.aziendautilizzatrice</td>
+                        <td class="grigetto">Azienda proprietaria</td>
+                        <td>@ViewBag.aziendaproprietaria</td>
                     </tr>
                     <tr>
                         <td class="grigetto">Carta di circolazione </td>

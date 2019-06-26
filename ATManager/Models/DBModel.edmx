@@ -496,6 +496,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.AT_ListaPratiche_vw' does not have a p
           <Property Name="ID_AziendaUtilizzatrice" Type="int" />
           <Property Name="DescrizioneAzienda" Type="varchar" MaxLength="150" />
           <Property Name="IDVisualizzazioneMezzo" Type="int" />
+          <Property Name="AziendaProprietaria" Type="varchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'AUTOSDU.dbo.AT_ListaPraticheConPerizia_vw' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -1174,7 +1175,8 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
     [AT_ListaPratiche_vw].[Trilettera] AS [Trilettera], 
     [AT_ListaPratiche_vw].[ID_AziendaUtilizzatrice] AS [ID_AziendaUtilizzatrice], 
     [AT_ListaPratiche_vw].[DescrizioneAzienda] AS [DescrizioneAzienda], 
-    [AT_ListaPratiche_vw].[IDVisualizzazioneMezzo] AS [IDVisualizzazioneMezzo]
+    [AT_ListaPratiche_vw].[IDVisualizzazioneMezzo] AS [IDVisualizzazioneMezzo], 
+    [AT_ListaPratiche_vw].[AziendaProprietaria] AS [AziendaProprietaria]
     FROM [dbo].[AT_ListaPratiche_vw] AS [AT_ListaPratiche_vw]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="AT_ListaPraticheConPerizia_vw" EntityType="Self.AT_ListaPraticheConPerizia_vw" store:Type="Views" store:Schema="dbo">
@@ -1912,6 +1914,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
           <Property Name="ID_AziendaUtilizzatrice" Type="Int32" />
           <Property Name="DescrizioneAzienda" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="IDVisualizzazioneMezzo" Type="Int32" />
+          <Property Name="AziendaProprietaria" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="CE110">
           <End Type="AUTOSDUModel.AT_IndiciValutazione" Role="AT_IndiciValutazione" Multiplicity="0..1" />
@@ -2981,6 +2984,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
           <EntitySetMapping Name="AT_ListaPratiche_vw">
             <EntityTypeMapping TypeName="AUTOSDUModel.AT_ListaPratiche_vw">
               <MappingFragment StoreEntitySet="AT_ListaPratiche_vw">
+                <ScalarProperty Name="AziendaProprietaria" ColumnName="AziendaProprietaria" />
                 <ScalarProperty Name="IDVisualizzazioneMezzo" ColumnName="IDVisualizzazioneMezzo" />
                 <ScalarProperty Name="DescrizioneAzienda" ColumnName="DescrizioneAzienda" />
                 <ScalarProperty Name="ID_AziendaUtilizzatrice" ColumnName="ID_AziendaUtilizzatrice" />

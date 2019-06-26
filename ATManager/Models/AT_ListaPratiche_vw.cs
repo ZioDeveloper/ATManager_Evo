@@ -96,6 +96,8 @@ public partial class AT_ListaPratiche_vw
 
     public Nullable<int> IDVisualizzazioneMezzo { get; set; }
 
+    public string AziendaProprietaria { get; set; }
+
 }
 
 }
