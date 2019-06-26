@@ -61,6 +61,7 @@ namespace ATManager.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreaNuovaTarga(FormCollection form)
         {
             string myTarga = Session["TargaDaModificare"].ToString();
@@ -76,8 +77,9 @@ namespace ATManager.Controllers
             string myIDLocation = form["SearchLocation"].ToString();
 
             // Insert SDU_Pratiche
-            var sql = @" INSERT INTO SDU_PRATICHE (ID_Gestione, DataApertura, OraApertura, MinApertura, VersioneCliente, Targa, Insert_Usr, Insert_Time, Update_Usr ) " +
-                        "  VALUES(@ID_Gestione, GETDATE(),0,0, @VersioneCliente, @Targa, @Insert_Usr, GETDATE(), @Update_Usr)";
+            var sql = @" INSERT INTO SDU_PRATICHE ( ID_Gestione, DataApertura, OraApertura, MinApertura, VersioneCliente, Targa, Insert_Usr, Insert_Time, Update_Usr, " +
+                                                  " ID_Produttore,ID_Modello ) " +
+                        "  VALUES(@ID_Gestione, GETDATE(),0,0, @VersioneCliente, @Targa, @Insert_Usr, GETDATE(), @Update_Usr ,'0000' , '0000' )";
 
             
             int noOfRowInsertedKm = db.Database.ExecuteSqlCommand(sql,
@@ -85,7 +87,7 @@ namespace ATManager.Controllers
                            new SqlParameter("@VersioneCliente", myMatricola),
                            new SqlParameter("@Targa", myTarga),
                            new SqlParameter("@Insert_Usr", myUSer),
-                           new SqlParameter("@Update_Usr", myTarga));
+                           new SqlParameter("@Update_Usr", myUSer));
 
             // recupero maX ID Pratica
              var myIDPratica = (from s in db.SDU_Pratiche
@@ -95,7 +97,9 @@ namespace ATManager.Controllers
 
             int myID = myIDPratica;
 
-           
+
+            sql = " INSERT INTO AT_AnagraficaMezzo (ID_Pratica) VALUES (@ID_Pratica) ";
+            noOfRowInsertedKm = db.Database.ExecuteSqlCommand(sql, new SqlParameter("@ID_Pratica", myID));
 
 
             SqlParameter[] @params = { new SqlParameter("@returnVal", SqlDbType.Int) {Direction = ParameterDirection.Output} };
@@ -173,6 +177,7 @@ namespace ATManager.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Salva(FormCollection form)
         {
             string myPerito = Session["IDPErito"].ToString();
@@ -345,6 +350,7 @@ namespace ATManager.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Sostituisci(FormCollection form)
         {
             string myPerito = Session["IDPErito"].ToString();

@@ -42,6 +42,7 @@ else if (ViewBag.Controllo == 1)
 
     using (Html.BeginForm("CreaNuovaTarga", "Telaio", FormMethod.Post))
     {
+        @Html.AntiForgeryToken()
         <script>MostraCampiNascosti();</script>
         <div id="Test" style="background-color:lightgreen">
             Situazione targa : @aMessage
@@ -68,13 +69,14 @@ else if (ViewBag.Controllo == 3)
 {
     using (Html.BeginForm("Salva", "Telaio", FormMethod.Post))
     {
+        @Html.AntiForgeryToken()
 
-    <div id="Test" style="background-color:lightgreen">
-        Situazione targa : @aMessage <br />
-        Continuando il mezzo verrà abbinato alla location :
-        <br />
+        <div id="Test" style="background-color:lightgreen">
+            Situazione targa : @aMessage <br />
+            Continuando il mezzo verrà abbinato alla location :
+            <br />
 
-    </div>
+        </div>
         <br />
         <div style="display:block">
             @Html.DropDownList("SearchLocation", (IEnumerable<SelectListItem>)ViewData["Luoghi"])
@@ -88,7 +90,7 @@ else if (ViewBag.Controllo == 7)
 {
     using (Html.BeginForm("Sostituisci", "Telaio", FormMethod.Post))
     {
-
+        @Html.AntiForgeryToken()
         <div id="Test" style="background-color:lightgreen">
             Situazione targa : @aMessage
             <br />

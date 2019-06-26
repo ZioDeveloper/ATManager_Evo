@@ -870,6 +870,7 @@
             }
             <font color="red">Salva e chiudi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
             @Html.EditorFor(model => model.IsCompleted, new { @nameof = "chkCompleted" })
+            @*@Html.EditorFor(model => model.IsCompleted)*@
             @Html.ValidationMessageFor(model => model.IsCompleted, "", new { @class = "text-danger" })
         </div>
     </div>
