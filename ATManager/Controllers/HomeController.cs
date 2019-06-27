@@ -140,17 +140,20 @@ namespace ATManager.Controllers
 
         //                var cnt = (from s in db.AT_ListaPratiche_vw
         //                           where s.ID_LuogoIntervento == myID.ToString()
+        //                           where s.Perizie_IDPerito == myIDPErito
         //                           select s.Perizie_ID).Count();
         //                ViewBag.Tutte = cnt;
 
         //                cnt = (from s in db.AT_ListaPratiche_vw
         //                       where s.ID_LuogoIntervento == myID.ToString()
+        //                       where s.Perizie_IDPerito == myIDPErito
         //                       where s.IsCompleted == true
         //                       select s.Perizie_ID).Count();
         //                ViewBag.Chiuse = cnt;
 
         //                cnt = (from s in db.AT_ListaPratiche_vw
         //                       where s.ID_LuogoIntervento == myID.ToString()
+        //                       where s.Perizie_IDPerito == myIDPErito
         //                       where s.IsCompleted == false
         //                       select s.Perizie_ID).Count();
         //                ViewBag.Aperte = cnt;
@@ -158,6 +161,7 @@ namespace ATManager.Controllers
         //                cnt = (from s in db.AT_ListaPratiche_vw
         //                       where s.ID_SchedaTecnica == null
         //                       where s.ID_LuogoIntervento == myID.ToString()
+        //                       where s.Perizie_IDPerito == myIDPErito
         //                       select s.Perizie_ID).Count();
         //                ViewBag.Assenti = cnt;
 
@@ -857,6 +861,14 @@ namespace ATManager.Controllers
                                     string dataultimarevisione, string aziendautilizzatrice)
         {
 
+            var cnt = (from s in db.AT_ListaPratiche_vw
+                       where s.Targa.ToString() == targa
+                       where s.ID_SchedaTecnica != null
+                       select s.Perizie_ID).Count();
+            if (cnt > 0)
+            { return View("ErroreImmissioneScheda"); }
+              
+            
             if (ID == null)
                 ID = TempData["IDPerizia"].ToString();
             else
@@ -905,11 +917,17 @@ namespace ATManager.Controllers
                             select s.CartaCircolazione).FirstOrDefault();
             ViewBag.cartacircolazione = myScheda.ToString();
 
-            var mySchedaAP = (from s in db.AT_ListaPratiche_vw
-                            where s.Perizie_ID.ToString() == ID
-                            select s.AziendaProprietaria).FirstOrDefault();
-            ViewBag.aziendaproprietaria = mySchedaAP.ToString();
-
+            try
+            {
+                var mySchedaAP = (from s in db.AT_ListaPratiche_vw
+                                  where s.Perizie_ID.ToString() == ID
+                                  select s.AziendaProprietaria).FirstOrDefault();
+                ViewBag.aziendaproprietaria = mySchedaAP.ToString();
+            }
+            catch
+            {
+                ViewBag.aziendaproprietaria = "";
+            }
            
 
 
@@ -947,6 +965,13 @@ namespace ATManager.Controllers
             string txtMatricola, string txtDataPerizia, string txtMarca, string txtDataImmatricolazione, string txtCartaCircolazione,
             string txtLuogoPerizia, string txtModello, string txtTelaio, string txtAziendaUtilizzatrice, FormCollection frmCreate)
         {
+
+            var cntP = (from s in db.AT_ListaPratiche_vw
+                       where s.Targa.ToString() == txtTarga
+                        where s.ID_SchedaTecnica != null
+                       select s.Perizie_ID).Count();
+            if (cntP > 0)
+            { return View("ErroreImmissioneScheda"); }
 
 
 
@@ -1157,7 +1182,7 @@ namespace ATManager.Controllers
                 ModelState.AddModelError("IDStatoMezzo", "Foto mezzo obbligatorie per mezzi da ricontrollare fase 2 !");
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid )
             {
 
 
@@ -1210,7 +1235,17 @@ namespace ATManager.Controllers
                     var p4 = new SqlParameter("@DataStato", DateTime.Now);
                     var p5 = new SqlParameter("@Note", "");
 
-                    int noOfRowInserted = db.Database.ExecuteSqlCommand("EXEC sp_InsertStatus {0}, {1}, {2}, {3} , {4}", p1.Value, p2.Value, p3.Value, p4.Value, p5.Value);
+
+                    var cnt = (from s in db.AT_ListaPratiche_vw
+                               where s.Targa.ToString() == txtTarga
+                               where s.ID_SchedaTecnica != null
+                               select s.Perizie_ID).Count();
+                    if (cnt == 0)
+                    {
+                        int noOfRowInserted = db.Database.ExecuteSqlCommand("EXEC sp_InsertStatus {0}, {1}, {2}, {3} , {4}", p1.Value, p2.Value, p3.Value, p4.Value, p5.Value);
+                    }
+
+                    
 
                     // Aggiorno IDPerito Scheda
                     string myIDPerito = Session["IDPErito"].ToString();
@@ -1274,7 +1309,14 @@ namespace ATManager.Controllers
 
 
                 db.AT_SchedaTecnica.Add(aT_SchedaTecnica);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch 
+                {
+                    
+                }
 
                 /*
                 // Test
@@ -1508,11 +1550,17 @@ namespace ATManager.Controllers
                               select s.CartaCircolazione).FirstOrDefault();
             ViewBag.cartacircolazione = mySchedacc.ToString();
 
-            var mySchedaAP = (from s in db.AT_ListaPratiche_vw
-                              where s.Perizie_ID.ToString() == id
-                              select s.AziendaProprietaria).FirstOrDefault();
-            ViewBag.aziendaproprietaria = mySchedaAP.ToString();
-
+            try
+            {
+                var mySchedaAP = (from s in db.AT_ListaPratiche_vw
+                                  where s.Perizie_ID.ToString() == id
+                                  select s.AziendaProprietaria).FirstOrDefault();
+                ViewBag.aziendaproprietaria = mySchedaAP.ToString();
+            }
+            catch
+            {
+                ViewBag.aziendaproprietaria = "";
+            }
 
             if (!string.IsNullOrEmpty(dataultimarevisione))
             {

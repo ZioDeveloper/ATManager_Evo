@@ -223,7 +223,7 @@
                     <tr>
                         <td class="grigetto">Targa</td>
                         @*<td>@ViewBag.targa</td>*@
-                        <td>@Html.TextBox("txtTarga", (string)ViewBag.targa)</td>
+                        <td>@Html.TextBox("txtTarga", (string)ViewBag.targa,new {  @readonly = "readonly" })</td>
                         <td class="grigetto">Matricola</td>
                         <td>@ViewBag.matricola</td>
                     </tr>
@@ -712,7 +712,7 @@
 
                                 <details style="display:inline;">
                                     <summary content: "+"></summary>
-                                    Note: @Html.TextAreaFor(model => model.NoteCI835, new { style = "width: 170px; height:100px;", onclick = "alert('Razor Engine')" });)
+                                    Note: @Html.TextAreaFor(model => model.NoteCI835, new { style = "width: 170px; height:100px;" });)
                                 </details>
 
                             </td>

@@ -2,6 +2,10 @@
 @{
     ViewBag.Title = "Index";
 }
+
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+
+
 <script type="text/javascript">
     function AttivaOpzioni() {
         document.getElementById('CercaTarga').disabled = false;
@@ -62,17 +66,17 @@
 }
 
 @*@using (Html.BeginForm("Index", "Home", FormMethod.Get))
-{
-    <div>
-        @{Session["Location"] = "";}
-        Sblocca ricerca località : @Html.CheckBox("AutoCalculateMandate", true, new { @checked = false, @onchange = "this.form.submit();" })
-    </div>
-}*@
+    {
+        <div>
+            @{Session["Location"] = "";}
+            Sblocca ricerca località : @Html.CheckBox("AutoCalculateMandate", true, new { @checked = false, @onchange = "this.form.submit();" })
+        </div>
+    }*@
 
 
 @using (Html.BeginForm("DoRefresh", "Home", FormMethod.Get))
 {
-    
+
 
     <div class="form-horizontal">
         @{var Scelta01 = "Elenco completo veicoli  :";}
@@ -94,7 +98,7 @@
                         &nbsp;@ViewBag.Location
                     </td>
                     <td style="font-weight:bold;text-align:center">
-                        &nbsp;Vai a lista 
+                        &nbsp;Vai a lista
                     </td>
                 </tr>
                 <tr>
@@ -104,11 +108,7 @@
                     <td style="text-align:center">
                         &nbsp;@ViewBag.Tutte
                     </td>
-                    <td>
-                        
-                        
-
-                    </td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>
@@ -168,20 +168,20 @@
 
                 </tr>*@
             @*<tr>
-                <td>&nbsp;@Scelta02&nbsp;</td>
+                    <td>&nbsp;@Scelta02&nbsp;</td>
 
-                <td> @Html.RadioButton("Opt1", "DA FARE", new { @onclick = "this.form.submit();" })</td>
-            </tr>
-            <tr>
-                <td style="color:green">&nbsp;@Scelta03&nbsp;</td>
+                    <td> @Html.RadioButton("Opt1", "DA FARE", new { @onclick = "this.form.submit();" })</td>
+                </tr>
+                <tr>
+                    <td style="color:green">&nbsp;@Scelta03&nbsp;</td>
 
-                <td> @Html.RadioButton("Opt1", "FATTE", new { @onclick = "this.form.submit();" })</td>
-            </tr>
-            <tr>
-                <td style="color:blue">&nbsp;@Scelta04&nbsp;</td>
+                    <td> @Html.RadioButton("Opt1", "FATTE", new { @onclick = "this.form.submit();" })</td>
+                </tr>
+                <tr>
+                    <td style="color:blue">&nbsp;@Scelta04&nbsp;</td>
 
-                <td> @Html.RadioButton("Opt1", "FATTECHIUSE", new { @onclick = "this.form.submit();" })</td>
-            </tr>*@
+                    <td> @Html.RadioButton("Opt1", "FATTECHIUSE", new { @onclick = "this.form.submit();" })</td>
+                </tr>*@
 
         </table>
         <p></p><p></p>

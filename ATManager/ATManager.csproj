@@ -334,6 +334,7 @@
     <Content Include="Views\Home\PraticheImagesEdit.cshtml" />
     <Content Include="Views\Telaio\Index.cshtml" />
     <Content Include="Views\Home\Testing.cshtml" />
+    <Content Include="Views\Home\ErroreImmissioneScheda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

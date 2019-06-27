@@ -221,7 +221,7 @@ else
                     <tr>
                         <td class="grigetto">Targa</td>
                         @*<td>@ViewBag.targa</td>*@
-                        <td>@Html.TextBox("txtTarga", (string)ViewBag.targa)</td>
+                        <td>@Html.TextBox("txtTarga", (string)ViewBag.targa, new { @readonly = "readonly" })</td>
                         <td class="grigetto">Matricola</td>
                         <td>@ViewBag.matricola</td>
                     </tr>
