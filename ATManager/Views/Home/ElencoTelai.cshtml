@@ -156,35 +156,31 @@ else
                         <td>
                             @Html.ActionLink("Elimina scheda", "Delete", new { id = item.Perizie_ID })
                         </td>
-                        @*<td  >
-                                @Html.ActionLink("Foto", "Image", new { id = item.Perizie_ID }, new { @class = "photoImg" })
-                            </td>*@
+
                     }
                     else if (myScelta == "FATTECHIUSE")
                     {
                         <td>
                             @Html.ActionLink("Visualizza scheda", "Edit", new
-                       {
-                           id = item.Perizie_ID,
-                           dataperizia = item.Perizie_DataPerizia,
-                           marca = item.Prod_Descr,
-                           targa = item.Targa,
-                           dataimmatricolazione = item.DataImmatricolazione,
-                           km = item.Km,
-                           luogoperizia = item.DescrITA,
-                           modello = item.Mod_Descr,
-                           cartacircolazione = item.CartaCircolazione,
-                           matricola = item.Matricola,
-                           telaio = item.Chassis1 + item.Chassis2,
-                           dataultimarevisione = item.DataUltimaRevisione,
-                           aziendautilizzatrice = item.DescrizioneAzienda,
-                           blocked = "SI"
-                       })
+                               {
+                                   id = item.Perizie_ID,
+                                   dataperizia = item.Perizie_DataPerizia,
+                                   marca = item.Prod_Descr,
+                                   targa = item.Targa,
+                                   dataimmatricolazione = item.DataImmatricolazione,
+                                   km = item.Km,
+                                   luogoperizia = item.DescrITA,
+                                   modello = item.Mod_Descr,
+                                   cartacircolazione = item.CartaCircolazione,
+                                   matricola = item.Matricola,
+                                   telaio = item.Chassis1 + item.Chassis2,
+                                   dataultimarevisione = item.DataUltimaRevisione,
+                                   aziendautilizzatrice = item.DescrizioneAzienda,
+                                   blocked = "SI"
+                               })
                         </td>
 
-                        @*<td>
-                                @Html.ActionLink("Elimina scheda", "Delete", new { id = item.Perizie_ID })
-                            </td>*@
+
                     }
 
                 </tr>
