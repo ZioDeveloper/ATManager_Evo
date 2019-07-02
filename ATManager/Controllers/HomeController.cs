@@ -961,7 +961,7 @@ namespace ATManager.Controllers
                                                    "CE265,CE135,CE160,CE145,CE150,CI820,CI825,CI835,CI837,CI1135, " +
                                                    "NoteCE110,NoteCE112,NoteCE115,NoteCE840,NoteCE841,NoteCE842,NoteCE843,NoteCE816," +
                                                    "NoteCE265,NoteCE135,NoteCE160,NoteCE145,NoteCE150,NoteCI820,NoteCI825,NoteCI835,NoteCI837,NoteCI1135," +
-                                                   "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
+                                                   "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria,Martelletti, Estintori, Obliteratrici")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
             string txtMatricola, string txtDataPerizia, string txtMarca, string txtDataImmatricolazione, string txtCartaCircolazione,
             string txtLuogoPerizia, string txtModello, string txtTelaio, string txtAziendaUtilizzatrice, FormCollection frmCreate)
         {
@@ -976,6 +976,20 @@ namespace ATManager.Controllers
 
 
             string a = aT_SchedaTecnica.isMarciante.ToString();
+
+            if(aT_SchedaTecnica.IDVisualizzazioneMezzo != 2 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 3)
+            {
+                aT_SchedaTecnica.CE110 = null;
+                aT_SchedaTecnica.CE265 = null;
+                aT_SchedaTecnica.CE816 = null;
+                aT_SchedaTecnica.CE135 = null;
+                aT_SchedaTecnica.CE150 = null;
+                aT_SchedaTecnica.CI835 = null;
+                aT_SchedaTecnica.Martelletti = null;
+                aT_SchedaTecnica.Estintori = null;
+                aT_SchedaTecnica.Obliteratrici = null;
+
+            }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1)
             {
@@ -1120,6 +1134,29 @@ namespace ATManager.Controllers
                                                                                        && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("CI835", CompileErrorMessage("CI835"));
 
+            if (aT_SchedaTecnica.Martelletti == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
+                ModelState.AddModelError("Martelletti", CompileErrorMessage("Martelletti"));
+
+            if (aT_SchedaTecnica.Estintori == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
+                ModelState.AddModelError("Estintori", CompileErrorMessage("Estintori"));
+
+            if (aT_SchedaTecnica.Obliteratrici == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
+                ModelState.AddModelError("Obliteratrici", CompileErrorMessage("Obliteratrici"));
+
+
+
+
+
+
             //if (aT_SchedaTecnica.CI837 == null && aT_SchedaTecnica.IsCompleted == true)
             //    ModelState.AddModelError("CI837", CompileErrorMessage("CI837"));
 
@@ -1165,10 +1202,13 @@ namespace ATManager.Controllers
 
             int number;
 
+
             bool success = Int32.TryParse(txtKm, out number);
             if (!success)
             {
-                ModelState.AddModelError("txtKm", "Il valore del campo KM deve essere un numero...");
+               
+                    ModelState.AddModelError("txtKm", "Il valore del campo KM deve essere un numero...");
+
             }
 
             // Verifica presenza foto in caso di ID Stato mezzo = 2
@@ -1655,7 +1695,7 @@ namespace ATManager.Controllers
                                                    "CE265,CE135,CE160,CE145,CE150,CI820,CI825,CI835,CI837,CI1135, " +
                                                    "NoteCE110,NoteCE112,NoteCE115,NoteCE840,NoteCE841,NoteCE842,NoteCE843,NoteCE816," +
                                                    "NoteCE265,NoteCE135,NoteCE160,NoteCE145,NoteCE150,NoteCI820,NoteCI825,NoteCI835,NoteCI837,NoteCI1135," +
-                                                   "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
+                                                   "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria,Martelletti, Estintori, Obliteratrici")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
             string txtMatricola, string txtDataPerizia, string txtMarca, string txtDataImmatricolazione, string txtCartaCircolazione,
             string txtLuogoPerizia, string txtModello, string txtTelaio, string txtAziendaUtilizzatrice)
         {
@@ -1664,7 +1704,19 @@ namespace ATManager.Controllers
             int myID = 0;
             myID = (int)TempData["myIDScheda"];
 
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo != 2 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 3)
+            {
+                aT_SchedaTecnica.CE110 = null;
+                aT_SchedaTecnica.CE265 = null;
+                aT_SchedaTecnica.CE816 = null;
+                aT_SchedaTecnica.CE135 = null;
+                aT_SchedaTecnica.CE150 = null;
+                aT_SchedaTecnica.CI835 = null;
+                aT_SchedaTecnica.Martelletti = null;
+                aT_SchedaTecnica.Estintori = null;
+                aT_SchedaTecnica.Obliteratrici = null;
 
+            }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1)
             {
@@ -1827,6 +1879,25 @@ namespace ATManager.Controllers
             //if (aT_SchedaTecnica.CI1135 == null && aT_SchedaTecnica.IsCompleted == true)
             //    ModelState.AddModelError("CI1135", CompileErrorMessage("CI1135"));
 
+            if (aT_SchedaTecnica.Martelletti == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
+                ModelState.AddModelError("Martelletti", CompileErrorMessage("Martelletti"));
+
+            if (aT_SchedaTecnica.Estintori == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
+                ModelState.AddModelError("Estintori", CompileErrorMessage("Estintori"));
+
+            if (aT_SchedaTecnica.Obliteratrici == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 1
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
+                ModelState.AddModelError("Obliteratrici", CompileErrorMessage("Obliteratrici"));
+
+
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 3 && aT_SchedaTecnica.IDPreventivoDanno == 0 && aT_SchedaTecnica.IsManutOrdinaria == false && aT_SchedaTecnica.IsCompleted == true)
                 ModelState.AddModelError("IDStatoMezzo", "Valorizzazione mezzo obbligatoria.");
@@ -1876,6 +1947,16 @@ namespace ATManager.Controllers
             if ((String.IsNullOrEmpty(txtKm)) && (aT_SchedaTecnica.IsCompleted == true))
             {
                 ModelState.AddModelError("Km", "Km : il dato è obbligatorio.");
+            }
+            int number;
+
+
+            bool success = Int32.TryParse(txtKm, out number);
+            if (!success)
+            {
+                
+                    ModelState.AddModelError("txtKm", "Il valore del campo KM deve essere un numero...");
+
             }
 
             if (ModelState.IsValid)

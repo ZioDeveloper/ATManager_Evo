@@ -134,6 +134,9 @@
           <Property Name="isMarciante" Type="bit" />
           <Property Name="isAvviante" Type="varchar" MaxLength="1" />
           <Property Name="IsManutOrdinaria" Type="bit" />
+          <Property Name="Martelletti" Type="int" />
+          <Property Name="Estintori" Type="int" />
+          <Property Name="Obliteratrici" Type="int" />
         </EntityType>
         <EntityType Name="AT_StatiMezzo">
           <Key>
@@ -1608,6 +1611,9 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
           <Property Name="isAvviante" Type="String" MaxLength="1" Unicode="false" FixedLength="false" />
           <Property Name="IsManutOrdinaria" Type="Boolean" />
           <NavigationProperty Name="SDU_Perizie" Relationship="AUTOSDUModel.FK_AT_SchedaTecnica_SDU_Perizie" FromRole="AT_SchedaTecnica" ToRole="SDU_Perizie" />
+          <Property Name="Martelletti" Type="Int32" />
+          <Property Name="Estintori" Type="Int32" />
+          <Property Name="Obliteratrici" Type="Int32" />
         </EntityType>
         <EntityType Name="AT_StatiMezzo">
           <Key>
@@ -2862,6 +2868,9 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
           <EntitySetMapping Name="AT_SchedaTecnica">
             <EntityTypeMapping TypeName="AUTOSDUModel.AT_SchedaTecnica">
               <MappingFragment StoreEntitySet="AT_SchedaTecnica">
+                <ScalarProperty Name="Obliteratrici" ColumnName="Obliteratrici" />
+                <ScalarProperty Name="Estintori" ColumnName="Estintori" />
+                <ScalarProperty Name="Martelletti" ColumnName="Martelletti" />
                 <ScalarProperty Name="IsManutOrdinaria" ColumnName="IsManutOrdinaria" />
                 <ScalarProperty Name="isAvviante" ColumnName="isAvviante" />
                 <ScalarProperty Name="isMarciante" ColumnName="isMarciante" />

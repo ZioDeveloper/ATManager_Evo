@@ -218,6 +218,12 @@ public partial class AT_SchedaTecnica
 
     public Nullable<bool> IsManutOrdinaria { get; set; }
 
+    public Nullable<int> Martelletti { get; set; }
+
+    public Nullable<int> Estintori { get; set; }
+
+    public Nullable<int> Obliteratrici { get; set; }
+
 
 
     public virtual AT_StatiMezzo AT_StatiMezzo { get; set; }

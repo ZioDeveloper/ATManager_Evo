@@ -382,43 +382,43 @@
                             </td>
                         </tr>
                         @*<tr>
-                                <td class="grassetto">112</td>
-                                <td class="azzurrino">RISCHIO INCENDIO</td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td class="verde">@Html.RadioButtonFor(model => model.CE112, "1")</td>
-                                            <td class="giallo">@Html.RadioButtonFor(model => model.CE112, "2")</td>
-                                            <td class="rosso">@Html.RadioButtonFor(model => model.CE112, "3")</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <details style="display:inline;">
-                                        <summary content: "+"></summary>
-                                        Note: @Html.TextAreaFor(model => model.NoteCE112, new { style = "width: 170px; height:100px;" })
-                                    </details>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="grassetto">115</td>
-                                <td class="azzurrino">TRAFILAMENTO DI OLIO E GASOLIO</td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td class="verde">@Html.RadioButtonFor(model => model.CE115, "1")</td>
-                                            <td class="giallo">@Html.RadioButtonFor(model => model.CE115, "2")</td>
-                                            <td class="rosso">@Html.RadioButtonFor(model => model.CE115, "3")</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <details style="display:inline;">
-                                        <summary content: "+"></summary>
-                                        Note: @Html.TextAreaFor(model => model.NoteCE115, new { style = "width: 170px; height:100px;" })
-                                    </details>
-                                </td>
-                            </tr>*@
+            <td class="grassetto">112</td>
+            <td class="azzurrino">RISCHIO INCENDIO</td>
+            <td>
+                <table>
+                    <tr>
+                        <td class="verde">@Html.RadioButtonFor(model => model.CE112, "1")</td>
+                        <td class="giallo">@Html.RadioButtonFor(model => model.CE112, "2")</td>
+                        <td class="rosso">@Html.RadioButtonFor(model => model.CE112, "3")</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <details style="display:inline;">
+                    <summary content: "+"></summary>
+                    Note: @Html.TextAreaFor(model => model.NoteCE112, new { style = "width: 170px; height:100px;" })
+                </details>
+            </td>
+        </tr>
+        <tr>
+            <td class="grassetto">115</td>
+            <td class="azzurrino">TRAFILAMENTO DI OLIO E GASOLIO</td>
+            <td>
+                <table>
+                    <tr>
+                        <td class="verde">@Html.RadioButtonFor(model => model.CE115, "1")</td>
+                        <td class="giallo">@Html.RadioButtonFor(model => model.CE115, "2")</td>
+                        <td class="rosso">@Html.RadioButtonFor(model => model.CE115, "3")</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <details style="display:inline;">
+                    <summary content: "+"></summary>
+                    Note: @Html.TextAreaFor(model => model.NoteCE115, new { style = "width: 170px; height:100px;" })
+                </details>
+            </td>
+        </tr>*@
                         <tr>
                             <td class="grigetto">&nbsp;</td>
                             <td class="grigetto" style="text-align:center">CARROZZERIA/TELAIO</td>
@@ -426,81 +426,81 @@
                             <td class="grigetto">NOTE</td>
                         </tr>
                         @*<tr>
-                                <td class="grassetto">840</td>
-                                <td class="azzurrino">STATO PASSARUOTE E BAULIERE</td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td class="verde">@Html.RadioButtonFor(model => model.CE840, "1")</td>
-                                            <td class="giallo">@Html.RadioButtonFor(model => model.CE840, "2")</td>
-                                            <td class="rosso">@Html.RadioButtonFor(model => model.CE840, "3")</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <details style="display:inline;">
-                                        <summary content: "+"></summary>
-                                        Note: @Html.TextAreaFor(model => model.NoteCE840, new { style = "width: 170px; height:100px;" })
-                                    </details>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="grassetto">841</td>
-                                <td class="azzurrino">CONTROLLO FUNZIONAMENTO MECCANISMI APERTURE CHIUSURE/PORTE</td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td class="verde">@Html.RadioButtonFor(model => model.CE841, "1")</td>
-                                            <td class="giallo">@Html.RadioButtonFor(model => model.CE841, "2")</td>
-                                            <td class="rosso">@Html.RadioButtonFor(model => model.CE841, "3")</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <details style="display:inline;">
-                                        <summary content: "+"></summary>
-                                        Note: @Html.TextAreaFor(model => model.NoteCE841, new { style = "width: 170px; height:100px;" })
-                                    </details>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="grassetto">842</td>
-                                <td class="azzurrino">VERIFICA DEI SISTEMI DI SICUREZZA DELLE PORTE (BORDI SENS., VALVOLE.FRIZ. ECC)</td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td class="verde">@Html.RadioButtonFor(model => model.CE842, "1")</td>
-                                            <td class="giallo">@Html.RadioButtonFor(model => model.CE842, "2")</td>
-                                            <td class="rosso">@Html.RadioButtonFor(model => model.CE842, "3")</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <details style="display:inline;">
-                                        <summary content: "+"></summary>
-                                        Note: @Html.TextAreaFor(model => model.NoteCE842, new { style = "width: 170px; height:100px;" })
-                                    </details>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="grassetto">843</td>
-                                <td class="azzurrino">CONTROLLO FUNZIONAMENTO APERTURA DI EMERGENZA PORTE</td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td class="verde">@Html.RadioButtonFor(model => model.CE843, "1")</td>
-                                            <td class="giallo">@Html.RadioButtonFor(model => model.CE843, "2")</td>
-                                            <td class="rosso">@Html.RadioButtonFor(model => model.CE843, "3")</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <details style="display:inline;">
-                                        <summary content: "+"></summary>
-                                        Note: @Html.TextAreaFor(model => model.NoteCE843, new { style = "width: 170px; height:100px;" })
-                                    </details>
-                                </td>
-                            </tr>*@
+            <td class="grassetto">840</td>
+            <td class="azzurrino">STATO PASSARUOTE E BAULIERE</td>
+            <td>
+                <table>
+                    <tr>
+                        <td class="verde">@Html.RadioButtonFor(model => model.CE840, "1")</td>
+                        <td class="giallo">@Html.RadioButtonFor(model => model.CE840, "2")</td>
+                        <td class="rosso">@Html.RadioButtonFor(model => model.CE840, "3")</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <details style="display:inline;">
+                    <summary content: "+"></summary>
+                    Note: @Html.TextAreaFor(model => model.NoteCE840, new { style = "width: 170px; height:100px;" })
+                </details>
+            </td>
+        </tr>
+        <tr>
+            <td class="grassetto">841</td>
+            <td class="azzurrino">CONTROLLO FUNZIONAMENTO MECCANISMI APERTURE CHIUSURE/PORTE</td>
+            <td>
+                <table>
+                    <tr>
+                        <td class="verde">@Html.RadioButtonFor(model => model.CE841, "1")</td>
+                        <td class="giallo">@Html.RadioButtonFor(model => model.CE841, "2")</td>
+                        <td class="rosso">@Html.RadioButtonFor(model => model.CE841, "3")</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <details style="display:inline;">
+                    <summary content: "+"></summary>
+                    Note: @Html.TextAreaFor(model => model.NoteCE841, new { style = "width: 170px; height:100px;" })
+                </details>
+            </td>
+        </tr>
+        <tr>
+            <td class="grassetto">842</td>
+            <td class="azzurrino">VERIFICA DEI SISTEMI DI SICUREZZA DELLE PORTE (BORDI SENS., VALVOLE.FRIZ. ECC)</td>
+            <td>
+                <table>
+                    <tr>
+                        <td class="verde">@Html.RadioButtonFor(model => model.CE842, "1")</td>
+                        <td class="giallo">@Html.RadioButtonFor(model => model.CE842, "2")</td>
+                        <td class="rosso">@Html.RadioButtonFor(model => model.CE842, "3")</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <details style="display:inline;">
+                    <summary content: "+"></summary>
+                    Note: @Html.TextAreaFor(model => model.NoteCE842, new { style = "width: 170px; height:100px;" })
+                </details>
+            </td>
+        </tr>
+        <tr>
+            <td class="grassetto">843</td>
+            <td class="azzurrino">CONTROLLO FUNZIONAMENTO APERTURA DI EMERGENZA PORTE</td>
+            <td>
+                <table>
+                    <tr>
+                        <td class="verde">@Html.RadioButtonFor(model => model.CE843, "1")</td>
+                        <td class="giallo">@Html.RadioButtonFor(model => model.CE843, "2")</td>
+                        <td class="rosso">@Html.RadioButtonFor(model => model.CE843, "3")</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <details style="display:inline;">
+                    <summary content: "+"></summary>
+                    Note: @Html.TextAreaFor(model => model.NoteCE843, new { style = "width: 170px; height:100px;" })
+                </details>
+            </td>
+        </tr>*@
                         <tr>
                             <td class="grassetto">816</td>
                             <td class="azzurrino">DANNI ALLA CARROZZERIA</td>
@@ -577,43 +577,43 @@
                             </td>
                         </tr>
                         @*<tr>
-                                <td class="grassetto">160</td>
-                                <td class="azzurrino">ESAME VISIVO SFIATO MOTORE (FREDDO E CALDO)</td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td class="verde">@Html.RadioButtonFor(model => model.CE160, "1")</td>
-                                            <td class="giallo">@Html.RadioButtonFor(model => model.CE160, "2")</td>
-                                            <td class="rosso">@Html.RadioButtonFor(model => model.CE160, "3")</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <details style="display:inline;">
-                                        <summary content: "+"></summary>
-                                        Note: @Html.TextAreaFor(model => model.NoteCE160, new { style = "width: 170px; height:100px;" })
-                                    </details>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="grassetto">145</td>
-                                <td class="azzurrino">GIOCO DELLE PULEGGE / STATO CINGHIE</td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td class="verde">@Html.RadioButtonFor(model => model.CE145, "1")</td>
-                                            <td class="giallo">@Html.RadioButtonFor(model => model.CE145, "2")</td>
-                                            <td class="rosso">@Html.RadioButtonFor(model => model.CE145, "3")</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <details style="display:inline;">
-                                        <summary content: "+"></summary>
-                                        Note: @Html.TextAreaFor(model => model.NoteCE145, new { style = "width: 170px; height:100px;" })
-                                    </details>
-                                </td>
-                            </tr>*@
+            <td class="grassetto">160</td>
+            <td class="azzurrino">ESAME VISIVO SFIATO MOTORE (FREDDO E CALDO)</td>
+            <td>
+                <table>
+                    <tr>
+                        <td class="verde">@Html.RadioButtonFor(model => model.CE160, "1")</td>
+                        <td class="giallo">@Html.RadioButtonFor(model => model.CE160, "2")</td>
+                        <td class="rosso">@Html.RadioButtonFor(model => model.CE160, "3")</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <details style="display:inline;">
+                    <summary content: "+"></summary>
+                    Note: @Html.TextAreaFor(model => model.NoteCE160, new { style = "width: 170px; height:100px;" })
+                </details>
+            </td>
+        </tr>
+        <tr>
+            <td class="grassetto">145</td>
+            <td class="azzurrino">GIOCO DELLE PULEGGE / STATO CINGHIE</td>
+            <td>
+                <table>
+                    <tr>
+                        <td class="verde">@Html.RadioButtonFor(model => model.CE145, "1")</td>
+                        <td class="giallo">@Html.RadioButtonFor(model => model.CE145, "2")</td>
+                        <td class="rosso">@Html.RadioButtonFor(model => model.CE145, "3")</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <details style="display:inline;">
+                    <summary content: "+"></summary>
+                    Note: @Html.TextAreaFor(model => model.NoteCE145, new { style = "width: 170px; height:100px;" })
+                </details>
+            </td>
+        </tr>*@
                         <tr>
                             <td class="grassetto">150</td>
                             <td class="azzurrino">RUMORI ANOMALI</td>
@@ -635,11 +635,11 @@
                             </td>
                         </tr>
                         @*<tr>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                            </tr>*@
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>*@
                         <tr>
                             <td colspan="4" align="center" class="azzurro">CONTROLLI DA EFFETTURE A MOTORE E VEICOLO FERMO</td>
                         </tr>
@@ -650,43 +650,43 @@
                             <td class="grigetto">NOTE</td>
                         </tr>
                         @*<tr>
-                                <td class="grassetto">820</td>
-                                <td class="azzurrino">STATO DEL PAVIMENTO CON ATTENZIONE AL POSTO GUIDA</td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td class="verde">@Html.RadioButtonFor(model => model.CI820, "1")</td>
-                                            <td class="giallo">@Html.RadioButtonFor(model => model.CI820, "2")</td>
-                                            <td class="rosso">@Html.RadioButtonFor(model => model.CI820, "3")</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <details style="display:inline;">
-                                        <summary content: "+"></summary>
-                                        Note: @Html.TextAreaFor(model => model.NoteCI820, new { style = "width: 170px; height:100px;" })
-                                    </details>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="grassetto">825</td>
-                                <td class="azzurrino">STATO DEI VETRI (CONTROLLO INFILTRAZIONI IN VETRI DOPPI)</td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td class="verde">@Html.RadioButtonFor(model => model.CI825, "1")</td>
-                                            <td class="giallo">@Html.RadioButtonFor(model => model.CI825, "2")</td>
-                                            <td class="rosso">@Html.RadioButtonFor(model => model.CI825, "3")</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <details style="display:inline;">
-                                        <summary content: "+"></summary>
-                                        Note: @Html.TextAreaFor(model => model.NoteCI825, new { style = "width: 170px; height:100px;" })
-                                    </details>
-                                </td>
-                            </tr>*@
+            <td class="grassetto">820</td>
+            <td class="azzurrino">STATO DEL PAVIMENTO CON ATTENZIONE AL POSTO GUIDA</td>
+            <td>
+                <table>
+                    <tr>
+                        <td class="verde">@Html.RadioButtonFor(model => model.CI820, "1")</td>
+                        <td class="giallo">@Html.RadioButtonFor(model => model.CI820, "2")</td>
+                        <td class="rosso">@Html.RadioButtonFor(model => model.CI820, "3")</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <details style="display:inline;">
+                    <summary content: "+"></summary>
+                    Note: @Html.TextAreaFor(model => model.NoteCI820, new { style = "width: 170px; height:100px;" })
+                </details>
+            </td>
+        </tr>
+        <tr>
+            <td class="grassetto">825</td>
+            <td class="azzurrino">STATO DEI VETRI (CONTROLLO INFILTRAZIONI IN VETRI DOPPI)</td>
+            <td>
+                <table>
+                    <tr>
+                        <td class="verde">@Html.RadioButtonFor(model => model.CI825, "1")</td>
+                        <td class="giallo">@Html.RadioButtonFor(model => model.CI825, "2")</td>
+                        <td class="rosso">@Html.RadioButtonFor(model => model.CI825, "3")</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <details style="display:inline;">
+                    <summary content: "+"></summary>
+                    Note: @Html.TextAreaFor(model => model.NoteCI825, new { style = "width: 170px; height:100px;" })
+                </details>
+            </td>
+        </tr>*@
                         <tr>
                             <td class="grassetto">835</td>
                             <td class="azzurrino">STATO DELLA SELLERIA</td>
@@ -703,11 +703,11 @@
                             <td>
 
                                 @*<div   onclick="Test()">
-                                        ...
-                                        <div class="Test" style="display:none">
-                                            Note: @Html.TextAreaFor(model => model.NoteCI835, new { style = "width: 170px; height:100px;", onclick = "alert('Razor Engine')" })
-                                        </div>
-                                    </div>*@
+                    ...
+                    <div class="Test" style="display:none">
+                        Note: @Html.TextAreaFor(model => model.NoteCI835, new { style = "width: 170px; height:100px;", onclick = "alert('Razor Engine')" })
+                    </div>
+                </div>*@
 
 
                                 <details style="display:inline;">
@@ -717,56 +717,104 @@
 
                             </td>
                         </tr>
+
                         @*<tr>
-                                <td class="grassetto">837</td>
-                                <td class="azzurrino">STATO CINTURE DI SICUREZZA</td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td class="verde">@Html.RadioButtonFor(model => model.CI837, "1")</td>
-                                            <td class="giallo">@Html.RadioButtonFor(model => model.CI837, "2")</td>
-                                            <td class="rosso">@Html.RadioButtonFor(model => model.CI837, "3")</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <details style="display:inline;">
-                                        <summary content: "+"></summary>
-                                        Note: @Html.TextAreaFor(model => model.NoteCI837, new { style = "width: 170px; height:100px;" })
-                                    </details>
-                                </td>
-                            </tr>*@
+                            <td colspan="4" align="center" class="azzurro">CONTROLLI DA EFFETTURE A MOTORE E VEICOLO FERMO</td>
+                        </tr>*@
+
+
+                        <tr>
+                            <td class="grigetto">&nbsp;</td>
+                            <td class="grigetto" style="text-align:center">EQUIPAGGIAMENTO DI BORDO</td>
+                            <td class="grigetto"></td>
+                            <td class="grigetto"></td>
+                        </tr>
+                        <tr>
+                            <td class="grassetto"></td>
+                            <td colspan="3">
+                                <table style="text-align:center" width="60%" border="0">
+                                    <tr>
+                                        <td style="text-align:left"><b></b></td>
+                                        <td>Presente</td>
+                                        <td>Assente</td>
+                                        <td>&nbsp;&nbsp;&nbsp;N.P</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left"><b>MARTELLETTI</b></td>
+                                        <td>@Html.RadioButtonFor(model => model.Martelletti, "1")</td>
+                                        <td>@Html.RadioButtonFor(model => model.Martelletti, "2")</td>
+                                        <td>&nbsp;&nbsp;&nbsp;@Html.RadioButtonFor(model => model.Martelletti, "3")</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left"><b>ESTINTORI</b></td>
+                                        <td>@Html.RadioButtonFor(model => model.Estintori, "1")</td>
+                                        <td>@Html.RadioButtonFor(model => model.Estintori, "2")</td>
+                                        <td>&nbsp;&nbsp;&nbsp;@Html.RadioButtonFor(model => model.Estintori, "3")</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left"><b>OBLITERATRICI</b></td>
+                                        <td>@Html.RadioButtonFor(model => model.Obliteratrici, "1")</td>
+                                        <td>@Html.RadioButtonFor(model => model.Obliteratrici, "2")</td>
+                                        <td>&nbsp;&nbsp;&nbsp;@Html.RadioButtonFor(model => model.Obliteratrici, "3")</td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                            
+                        </tr>
+                       
+                        
+                        
                         @*<tr>
-                                <td class="beige">&nbsp;</td>
-                                <td class="beige" style="text-align:center">EQUIPAGGIAMENTI DI BORDO</td>
-                                <td class="beige">VAL</td>
-                                <td class="beige">NOTE</td>
-                            </tr>*@
+            <td class="grassetto">837</td>
+            <td class="azzurrino">STATO CINTURE DI SICUREZZA</td>
+            <td>
+                <table>
+                    <tr>
+                        <td class="verde">@Html.RadioButtonFor(model => model.CI837, "1")</td>
+                        <td class="giallo">@Html.RadioButtonFor(model => model.CI837, "2")</td>
+                        <td class="rosso">@Html.RadioButtonFor(model => model.CI837, "3")</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <details style="display:inline;">
+                    <summary content: "+"></summary>
+                    Note: @Html.TextAreaFor(model => model.NoteCI837, new { style = "width: 170px; height:100px;" })
+                </details>
+            </td>
+        </tr>*@
                         @*<tr>
-                                <td class="grassetto">1135</td>
-                                <td class="azzurrino">ADESIVI VARI (SECONDO LEGGE REG.) + ALTRI DI INFO E DIVIETO (ES. AREE DI SOSTA PORTE)</td>
-                                <td>
-                                    <table>
-                                        <tr>
-                                            <td class="verde">@Html.RadioButtonFor(model => model.CI1135, "1")</td>
-                                            <td class="giallo">@Html.RadioButtonFor(model => model.CI1135, "2")</td>
-                                            <td class="rosso">@Html.RadioButtonFor(model => model.CI1135, "3")</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <details style="display:inline;">
-                                        <summary content: "+"></summary>
-                                        Note: @Html.TextAreaFor(model => model.NoteCI1135, new { style = "width: 170px; height:100px;" })
-                                    </details>
-                                </td>
-                            </tr>*@
+            <td class="beige">&nbsp;</td>
+            <td class="beige" style="text-align:center">EQUIPAGGIAMENTI DI BORDO</td>
+            <td class="beige">VAL</td>
+            <td class="beige">NOTE</td>
+        </tr>*@
                         @*<tr>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                            </tr>*@
+            <td class="grassetto">1135</td>
+            <td class="azzurrino">ADESIVI VARI (SECONDO LEGGE REG.) + ALTRI DI INFO E DIVIETO (ES. AREE DI SOSTA PORTE)</td>
+            <td>
+                <table>
+                    <tr>
+                        <td class="verde">@Html.RadioButtonFor(model => model.CI1135, "1")</td>
+                        <td class="giallo">@Html.RadioButtonFor(model => model.CI1135, "2")</td>
+                        <td class="rosso">@Html.RadioButtonFor(model => model.CI1135, "3")</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <details style="display:inline;">
+                    <summary content: "+"></summary>
+                    Note: @Html.TextAreaFor(model => model.NoteCI1135, new { style = "width: 170px; height:100px;" })
+                </details>
+            </td>
+        </tr>*@
+                        @*<tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>*@
 
                     </table>
                 </div>
