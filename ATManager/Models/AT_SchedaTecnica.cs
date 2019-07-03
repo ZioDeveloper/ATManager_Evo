@@ -224,6 +224,10 @@ public partial class AT_SchedaTecnica
 
     public Nullable<int> Obliteratrici { get; set; }
 
+    public Nullable<int> PannelloFrontale { get; set; }
+
+    public Nullable<int> PannelloRetro { get; set; }
+
 
 
     public virtual AT_StatiMezzo AT_StatiMezzo { get; set; }

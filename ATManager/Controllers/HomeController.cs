@@ -961,7 +961,8 @@ namespace ATManager.Controllers
                                                    "CE265,CE135,CE160,CE145,CE150,CI820,CI825,CI835,CI837,CI1135, " +
                                                    "NoteCE110,NoteCE112,NoteCE115,NoteCE840,NoteCE841,NoteCE842,NoteCE843,NoteCE816," +
                                                    "NoteCE265,NoteCE135,NoteCE160,NoteCE145,NoteCE150,NoteCI820,NoteCI825,NoteCI835,NoteCI837,NoteCI1135," +
-                                                   "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria,Martelletti, Estintori, Obliteratrici")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
+                                                   "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria, " +
+                                                   "Martelletti, Estintori, Obliteratrici,PannelloFrontale,PannelloRetro")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
             string txtMatricola, string txtDataPerizia, string txtMarca, string txtDataImmatricolazione, string txtCartaCircolazione,
             string txtLuogoPerizia, string txtModello, string txtTelaio, string txtAziendaUtilizzatrice, FormCollection frmCreate)
         {
@@ -989,6 +990,12 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.Estintori = null;
                 aT_SchedaTecnica.Obliteratrici = null;
 
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo != 1 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 2 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 3)
+            {
+                aT_SchedaTecnica.PannelloFrontale = null;
+                aT_SchedaTecnica.PannelloRetro = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1)
@@ -1151,6 +1158,16 @@ namespace ATManager.Controllers
                                                                                                   && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
                                                                                                   && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("Obliteratrici", CompileErrorMessage("Obliteratrici"));
+
+            if (aT_SchedaTecnica.PannelloFrontale == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
+                ModelState.AddModelError("PanelloFrontale", CompileErrorMessage("PANNELLO INFORM. ANT."));
+
+            if (aT_SchedaTecnica.PannelloRetro == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                                              && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                                              && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
+                ModelState.AddModelError("PannelloRetro", CompileErrorMessage("PANNELLO INFORM. POST."));
 
 
 
@@ -1695,7 +1712,8 @@ namespace ATManager.Controllers
                                                    "CE265,CE135,CE160,CE145,CE150,CI820,CI825,CI835,CI837,CI1135, " +
                                                    "NoteCE110,NoteCE112,NoteCE115,NoteCE840,NoteCE841,NoteCE842,NoteCE843,NoteCE816," +
                                                    "NoteCE265,NoteCE135,NoteCE160,NoteCE145,NoteCE150,NoteCI820,NoteCI825,NoteCI835,NoteCI837,NoteCI1135," +
-                                                   "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria,Martelletti, Estintori, Obliteratrici")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
+                                                   "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria,Martelletti, " +
+                                                   "Estintori, Obliteratrici, PannelloFrontale, PannelloRetro")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
             string txtMatricola, string txtDataPerizia, string txtMarca, string txtDataImmatricolazione, string txtCartaCircolazione,
             string txtLuogoPerizia, string txtModello, string txtTelaio, string txtAziendaUtilizzatrice)
         {
@@ -1718,7 +1736,13 @@ namespace ATManager.Controllers
 
             }
 
-            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1)
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo != 1 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 2 && aT_SchedaTecnica.IDVisualizzazioneMezzo != 3)
+            {
+                aT_SchedaTecnica.PannelloFrontale = null;
+                aT_SchedaTecnica.PannelloRetro = null;
+            }
+
+                if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1)
             {
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
@@ -1896,6 +1920,16 @@ namespace ATManager.Controllers
                                                                                                   && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
                                                                                                   && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("Obliteratrici", CompileErrorMessage("Obliteratrici"));
+
+            if (aT_SchedaTecnica.PannelloFrontale == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                                  && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
+                ModelState.AddModelError("PanelloFrontale", CompileErrorMessage("PANNELLO INFORM. ANT."));
+
+            if (aT_SchedaTecnica.PannelloRetro == null && aT_SchedaTecnica.IsCompleted == true && aT_SchedaTecnica.IDVisualizzazioneMezzo != 4
+                                                                                                              && aT_SchedaTecnica.IDVisualizzazioneMezzo != 5
+                                                                                                              && aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
+                ModelState.AddModelError("PannelloRetro", CompileErrorMessage("PANNELLO INFORM. POST."));
 
 
 
@@ -2103,7 +2137,14 @@ namespace ATManager.Controllers
 
                 ViewBag.MostraChiusura = "NO";
 
+                //var model = new Models.AT_SchedaTecnica();
+                //var mySchedaT = from s in db.AT_SchedaTecnica
+                //               where s.ID == aT_SchedaTecnica.ID
+                //               select s;
+                //model = mySchedaT.ToList().FirstOrDefault();
+
                 return View(aT_SchedaTecnica);
+                //return View(model);
                 // END Test
                 //return RedirectToAction("DoRefresh", "Home");
             }

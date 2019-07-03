@@ -151,7 +151,7 @@
 
 
 
-<h2>Inserimento scheda</h2>
+<h3>Inserimento scheda</h3>
 
 <div>
     @Html.ActionLink("Torna a lista telai...", "DoRefresh")
@@ -267,9 +267,7 @@
                 <br />
                 <div id="mostraEU" style="display:none">
 
-                    @*<font color="red">Veicolo marciante &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
-                        @Html.EditorFor(model => model.isMarciante)
-                        @Html.ValidationMessageFor(model => model.isMarciante, "", new { @class = "text-danger" })*@
+                    
                     <table>
                         <tr>
                             <td>@Html.RadioButtonFor(model => model.isMarciante, true) Marciante</td>
@@ -279,10 +277,48 @@
                         </tr>
 
 
+                    </table>
+                    <br />
+                    <table border="1" style="vertical-align:top;border-collapse:collapse;width:100%" cellpadding="1" align="center">
+                        <tr>
+                            <td class="grigetto" style="text-align:center" colspan="4">EQUIPAGGIAMENTO DI BORDO</td>
+                        </tr>
+                        
+
+                        <tr>
+                            @*<td class="grassetto"></td>*@
+                            <td colspan="3">
+                                <table style="text-align:center" width="80%" border="0">
+                                    <tr>
+                                        <td style="text-align:left"><b></b></td>
+                                        <td style="text-align:left">Presente </td>
+                                        <td style="text-align:left">Assente </td>
+                                        <td style="text-align:left">N.P</td>
+                                    </tr>
+
+                                    
+                                        <tr>
+                                            <td style="text-align:left"><b>PANNELLO INFORM. ANT.</b></td>
+                                            <td style="text-align:left">@Html.RadioButtonFor(model => model.PannelloFrontale, "1")</td>
+                                            <td style="text-align:left">@Html.RadioButtonFor(model => model.PannelloFrontale, "2")</td>
+                                            <td style="text-align:left">@Html.RadioButtonFor(model => model.PannelloFrontale, "3")</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left"><b>PANNELLO INFORM. POST.</b></td>
+                                            <td style="text-align:left">@Html.RadioButtonFor(model => model.PannelloRetro, "1")</td>
+                                            <td style="text-align:left">@Html.RadioButtonFor(model => model.PannelloRetro, "2")</td>
+                                            <td style="text-align:left">@Html.RadioButtonFor(model => model.PannelloRetro, "3")</td>
+                                        </tr>
+                                </table>
+
+                            </td>
+
+                        </tr>
 
                     </table>
                     <br /><br />
                 </div>
+
                 <div id="mostraOfficina" style="display:none">
                     <table>
                         <tr>
@@ -732,31 +768,45 @@
                         <tr>
                             <td class="grassetto"></td>
                             <td colspan="3">
-                                <table style="text-align:center" width="60%" border="0">
+                                <table style="text-align:center" width="80%" border="0">
                                     <tr>
                                         <td style="text-align:left"><b></b></td>
-                                        <td>Presente</td>
-                                        <td>Assente</td>
-                                        <td>&nbsp;&nbsp;&nbsp;N.P</td>
+                                        <td style="text-align:left">Presente</td>
+                                        <td style="text-align:left">Assente</td>
+                                        <td style="text-align:left">N.P</td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:left"><b>MARTELLETTI</b></td>
-                                        <td>@Html.RadioButtonFor(model => model.Martelletti, "1")</td>
-                                        <td>@Html.RadioButtonFor(model => model.Martelletti, "2")</td>
-                                        <td>&nbsp;&nbsp;&nbsp;@Html.RadioButtonFor(model => model.Martelletti, "3")</td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.Martelletti, "1")</td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.Martelletti, "2")</td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.Martelletti, "3")</td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:left"><b>ESTINTORI</b></td>
-                                        <td>@Html.RadioButtonFor(model => model.Estintori, "1")</td>
-                                        <td>@Html.RadioButtonFor(model => model.Estintori, "2")</td>
-                                        <td>&nbsp;&nbsp;&nbsp;@Html.RadioButtonFor(model => model.Estintori, "3")</td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.Estintori, "1")</td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.Estintori, "2")</td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.Estintori, "3")</td>
                                     </tr>
                                     <tr>
                                         <td style="text-align:left"><b>OBLITERATRICI</b></td>
-                                        <td>@Html.RadioButtonFor(model => model.Obliteratrici, "1")</td>
-                                        <td>@Html.RadioButtonFor(model => model.Obliteratrici, "2")</td>
-                                        <td>&nbsp;&nbsp;&nbsp;@Html.RadioButtonFor(model => model.Obliteratrici, "3")</td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.Obliteratrici, "1")</td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.Obliteratrici, "2")</td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.Obliteratrici, "3")</td>
                                     </tr>
+                                   
+                                    <tr>
+                                        <td style="text-align:left"><b>PANNELLO INFORM. ANT.</b></td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.PannelloFrontale, "1")</td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.PannelloFrontale, "2")</td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.PannelloFrontale, "3")</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left"><b>PANNELLO INFORM. POST.</b></td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.PannelloRetro, "1")</td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.PannelloRetro, "2")</td>
+                                        <td style="text-align:left">@Html.RadioButtonFor(model => model.PannelloRetro, "3")</td>
+                                    </tr>
+
                                 </table>
 
                             </td>

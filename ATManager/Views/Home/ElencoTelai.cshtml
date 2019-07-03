@@ -15,7 +15,7 @@
 
 
 
-<h2>ElencoTelai</h2>
+<h3>ElencoTelai</h3>
 <div>
     @Html.ActionLink("Torna a selezione telai", "Index") @*|| @Html.ActionLink("Inserisci telaio","Index", "Telaio")*@
     <p></p>
@@ -45,234 +45,239 @@
 
 else
 {
-<table id="tblGrid"  class="display" >
-    @*<table id="tblGrid" class="display cell-border compact order-column hover">*@
-    <thead>
-        <tr>
-            @*<td  >Finito</td>*@
-            <td><b>Targa</b></td>
-            <td><b>Matricola</b></td>
-            <td><b>Azioni</b></td>
-            @if (myScelta == "FATTE" || myScelta == "FATTECHIUSE")
+    <table id="tblGrid" class="display">
+        @*<table id="tblGrid" class="display cell-border compact order-column hover">*@
+        <thead>
+            <tr>
+                @*<td  >Finito</td>*@
+                <td><b>Targa</b></td>
+                <td><b>Matricola</b></td>
+                <td><b>Azioni</b></td>
+                @if (myScelta == "FATTE" || myScelta == "FATTECHIUSE")
+                {
+                    <td> &nbsp; </td>}
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model.AT_ListaPratiche_vw.Count() == 0)
             {
-                <td> &nbsp; </td>}
-        </tr>
-    </thead>
-    <tbody>
 
-        @if (Model.AT_ListaPratiche_vw.Count() == 0)
-        {
+                // Placeholder
 
-            // Placeholder
-
-        }
-        else
-        {
-
-
-
-            foreach (var item in Model.AT_ListaPratiche_vw)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Targa)
-                    </td>
-
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.Matricola)
-                        </td>*@
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Matricola)
-                    </td>
-
-
-
-                    @*@Html.ActionLink("Create", "Create", new { id = item.Perizie_ID }, new { @class = "searchImg" })*@
-
-                    @if (myScelta == "TUTTE")
-                    {
-                        @*<td  >
-                                @Html.ActionLink("Create", "Create", new { id = item.Perizie_ID, marca = item.Prod_Descr })
-                            </td>
-                            <td  >
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Perizie_ID })
-                            </td>
-                            <td  >
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Perizie_ID })
-                            </td>*@
-
-                    }
-
-                    else if (myScelta == "DA FARE")
-                    {
-                        <td>
-                            @Html.ActionLink("Inserisci scheda", "Create", new
-                       {
-                           id = item.Perizie_ID,
-                           dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
-                           marca = item.Prod_Descr,
-                           targa = item.Targa,
-                           dataimmatricolazione = item.DataImmatricolazione,
-                           km = item.Km,
-                           luogoperizia = item.DescrITA,
-                           modello = item.Mod_Descr,
-                           cartacircolazione = item.CartaCircolazione,
-                           matricola = item.Matricola,
-                           telaio = item.Chassis1 + item.Chassis2,
-                           dataultimarevisione = item.DataUltimaRevisione,
-                           aziendautilizzatrice = item.DescrizioneAzienda
-
-
-                       })
-                            @*<br></br>@Html.ActionLink("Inserisci Foto perizia", "FotoPerizia", new { id = item.Perizie_ID })*@
-                        </td>
-                        @*<td  >
-                                @Html.ActionLink("Foto perizia", "FotoPerizia", new { id = item.Perizie_ID })
-                            </td>*@
-                    }
-
-                    else if (myScelta == "FATTE")
-                    {
-                        <td>
-                            @Html.ActionLink("Modifica scheda", "Edit", new
-                       {
-                           id = item.Perizie_ID,
-                           dataperizia = item.Perizie_DataPerizia,
-                           marca = item.Prod_Descr,
-                           targa = item.Targa,
-                           dataimmatricolazione = item.DataImmatricolazione,
-                           km = item.Km,
-                           luogoperizia = item.DescrITA,
-                           modello = item.Mod_Descr,
-                           cartacircolazione = item.CartaCircolazione,
-                           matricola = item.Matricola,
-                           telaio = item.Chassis1 + item.Chassis2,
-                           dataultimarevisione = item.DataUltimaRevisione,
-                           aziendautilizzatrice = item.DescrizioneAzienda,
-                           blocked = "NO"
-                       })
-                        </td>
-                        <td>
-                            @Html.ActionLink("Elimina scheda", "Delete", new { id = item.Perizie_ID })
-                        </td>
-
-                    }
-                    else if (myScelta == "FATTECHIUSE")
-                    {
-                        <td>
-                            @Html.ActionLink("Visualizza scheda", "Edit", new
-                               {
-                                   id = item.Perizie_ID,
-                                   dataperizia = item.Perizie_DataPerizia,
-                                   marca = item.Prod_Descr,
-                                   targa = item.Targa,
-                                   dataimmatricolazione = item.DataImmatricolazione,
-                                   km = item.Km,
-                                   luogoperizia = item.DescrITA,
-                                   modello = item.Mod_Descr,
-                                   cartacircolazione = item.CartaCircolazione,
-                                   matricola = item.Matricola,
-                                   telaio = item.Chassis1 + item.Chassis2,
-                                   dataultimarevisione = item.DataUltimaRevisione,
-                                   aziendautilizzatrice = item.DescrizioneAzienda,
-                                   blocked = "SI"
-                               })
-                        </td>
-
-
-                    }
-
-                </tr>
-            }
-        }
-    </tbody>
-</table>
-}
-<div>
-    @Html.ActionLink("Torna a selezione telai", "Index")
-</div>
-
-<script>
-
-
-    $(document).ready(function () {
-        gridDataTableView("lista telai.xls");
-    });
-
-    //gridDataTableView = function (fname) {
-    //    $('#tblGrid').dataTable({
-    //        "bFilter": false,
-    //        "bLengthChange": false, "bPaginate": true, "bInfo": true,
-    //        dom: 'Bfrtip',
-    //        "order": [[0, 'desc'], [1, 'desc']],
-    //        buttons: [{ extend: 'excelHtml5', text: 'Export data Excel', className: 'link_button', title: fname }]
-    //    });
-    //gridDataTableView = function (fname) {
-    //    $('#tblGrid').dataTable({
-    //        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-    //        "pageLength": 25, "pagingType": "full_numbers",
-    //        "bFilter": false,
-    //        "bLengthChange": false, "bPaginate": true, "bInfo": true,
-    //        dom: 'Bfrtip',
-    //        "order": [[0, 'desc'], [1, 'desc']],
-    //        buttons: []
-    //    });
-    gridDataTableView = function (fname) {
-        $('#tblGrid').dataTable({
-            language: {
-                processing: "Ricerca in corso...",
-                search: "Ricerca:",
-                lengthMenu: "Visualizza _MENU_ elementi",
-                info: "Elenca da _START_ a _END_ di _TOTAL_ elementi",
-                infoEmpty: "Elenca da 0 a 0 di 0 elementi",
-                infoFiltered: "(filtrati da _MAX_ elementi totali)",
-                infoPostFix: "",
-                loadingRecords: "Caricamento...",
-                zeroRecords: "La ricerca non ha portato alcun risultato.",
-                emptyTable: "Nessun record presente in tabella",
-                paginate: {
-                    first: "Inizio",
-                    previous: "Precedente",
-                    next: "Successivo",
-                    last: "Fine"
-                },
-                aria: {
-                    sortAscending: ": attiva per ordinare la colonna in ordine crescente",
-                    sortDescending: ": attiva per ordinare la colonna in ordine decrescente"
-                }
-            },
-            select: true,
-            searching: true,
-            lengthMenu: [[9, 25, 50, -1], [9, 25, 50, "Tutti    "]],
-            
-            "bFilter": false,
-            "bLengthChange": true,
-            "bPaginate": true,
-            "bInfo": true,
-            "order": [[0, 'desc'], [1, 'desc']],
-            buttons: []
-        });
-    }
-
-</script>
-
-<script>
-    var doit = true
-    var auto_refresh = setInterval(
-        function () {
-            if (doit) {
-
-                doit = false;
-                submitform();
             }
             else
-                return;
+            {
 
-        }, 10);   // mezzo secondo
 
-    function submitform() {
-        document.getElementById('Test').click();
-    }
 
-</script>
+                foreach (var item in Model.AT_ListaPratiche_vw)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Targa)
+                        </td>
+
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Matricola)
+                            </td>*@
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Matricola)
+                        </td>
+
+
+
+                        @*@Html.ActionLink("Create", "Create", new { id = item.Perizie_ID }, new { @class = "searchImg" })*@
+
+                        @if (myScelta == "TUTTE")
+                        {
+                            @*<td  >
+                                    @Html.ActionLink("Create", "Create", new { id = item.Perizie_ID, marca = item.Prod_Descr })
+                                </td>
+                                <td  >
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Perizie_ID })
+                                </td>
+                                <td  >
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Perizie_ID })
+                                </td>*@
+
+                        }
+
+                        else if (myScelta == "DA FARE")
+                        {
+                            <td>
+                                @Html.ActionLink("Inserisci scheda", "Create", new
+                           {
+                               id = item.Perizie_ID,
+                               dataperizia = DateTime.Now.ToString("dd/MM/yyyy"),
+                               marca = item.Prod_Descr,
+                               targa = item.Targa,
+                               dataimmatricolazione = item.DataImmatricolazione,
+                               km = item.Km,
+                               luogoperizia = item.DescrITA,
+                               modello = item.Mod_Descr,
+                               cartacircolazione = item.CartaCircolazione,
+                               matricola = item.Matricola,
+                               telaio = item.Chassis1 + item.Chassis2,
+                               dataultimarevisione = item.DataUltimaRevisione,
+                               aziendautilizzatrice = item.DescrizioneAzienda
+
+
+                           })
+                                @*<br></br>@Html.ActionLink("Inserisci Foto perizia", "FotoPerizia", new { id = item.Perizie_ID })*@
+                            </td>
+                            @*<td  >
+                                    @Html.ActionLink("Foto perizia", "FotoPerizia", new { id = item.Perizie_ID })
+                                </td>*@
+                        }
+
+                        else if (myScelta == "FATTE")
+                        {
+                            <td>
+                                @Html.ActionLink("Modifica scheda", "Edit", new
+                           {
+                               id = item.Perizie_ID,
+                               dataperizia = item.Perizie_DataPerizia,
+                               marca = item.Prod_Descr,
+                               targa = item.Targa,
+                               dataimmatricolazione = item.DataImmatricolazione,
+                               km = item.Km,
+                               luogoperizia = item.DescrITA,
+                               modello = item.Mod_Descr,
+                               cartacircolazione = item.CartaCircolazione,
+                               matricola = item.Matricola,
+                               telaio = item.Chassis1 + item.Chassis2,
+                               dataultimarevisione = item.DataUltimaRevisione,
+                               aziendautilizzatrice = item.DescrizioneAzienda,
+                               blocked = "NO"
+                           })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Elimina scheda", "Delete", new { id = item.Perizie_ID })
+                            </td>
+
+                        }
+                        else if (myScelta == "FATTECHIUSE")
+                        {
+                            <td>
+                                @Html.ActionLink("Visualizza scheda", "Edit", new
+                                   {
+                                       id = item.Perizie_ID,
+                                       dataperizia = item.Perizie_DataPerizia,
+                                       marca = item.Prod_Descr,
+                                       targa = item.Targa,
+                                       dataimmatricolazione = item.DataImmatricolazione,
+                                       km = item.Km,
+                                       luogoperizia = item.DescrITA,
+                                       modello = item.Mod_Descr,
+                                       cartacircolazione = item.CartaCircolazione,
+                                       matricola = item.Matricola,
+                                       telaio = item.Chassis1 + item.Chassis2,
+                                       dataultimarevisione = item.DataUltimaRevisione,
+                                       aziendautilizzatrice = item.DescrizioneAzienda,
+                                       blocked = "SI"
+                                   })
+                            </td>
+
+
+                        }
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+@if (Model.AT_ListaPratiche_vw.Count() != 0)
+{
+    <br />
+    <div>
+        @Html.ActionLink("Torna a selezione telai", "Index")
+    </div>
+}
+
+    <script>
+
+
+        $(document).ready(function () {
+            gridDataTableView("lista telai.xls");
+        });
+
+        //gridDataTableView = function (fname) {
+        //    $('#tblGrid').dataTable({
+        //        "bFilter": false,
+        //        "bLengthChange": false, "bPaginate": true, "bInfo": true,
+        //        dom: 'Bfrtip',
+        //        "order": [[0, 'desc'], [1, 'desc']],
+        //        buttons: [{ extend: 'excelHtml5', text: 'Export data Excel', className: 'link_button', title: fname }]
+        //    });
+        //gridDataTableView = function (fname) {
+        //    $('#tblGrid').dataTable({
+        //        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        //        "pageLength": 25, "pagingType": "full_numbers",
+        //        "bFilter": false,
+        //        "bLengthChange": false, "bPaginate": true, "bInfo": true,
+        //        dom: 'Bfrtip',
+        //        "order": [[0, 'desc'], [1, 'desc']],
+        //        buttons: []
+        //    });
+        gridDataTableView = function (fname) {
+            $('#tblGrid').dataTable({
+                language: {
+                    processing: "Ricerca in corso...",
+                    search: "Ricerca:",
+                    lengthMenu: "Visualizza _MENU_ elementi",
+                    info: "Elenca da _START_ a _END_ di _TOTAL_ elementi",
+                    infoEmpty: "Elenca da 0 a 0 di 0 elementi",
+                    infoFiltered: "(filtrati da _MAX_ elementi totali)",
+                    infoPostFix: "",
+                    loadingRecords: "Caricamento...",
+                    zeroRecords: "La ricerca non ha portato alcun risultato.",
+                    emptyTable: "Nessun record presente in tabella",
+                    paginate: {
+                        first: "Inizio",
+                        previous: "Precedente",
+                        next: "Successivo",
+                        last: "Fine"
+                    },
+                    aria: {
+                        sortAscending: ": attiva per ordinare la colonna in ordine crescente",
+                        sortDescending: ": attiva per ordinare la colonna in ordine decrescente"
+                    }
+                },
+                select: true,
+                searching: true,
+                lengthMenu: [[9, 25, 50, -1], [9, 25, 50, "Tutti    "]],
+
+                "bFilter": false,
+                "bLengthChange": true,
+                "bPaginate": true,
+                "bInfo": true,
+                "order": [[0, 'desc'], [1, 'desc']],
+                buttons: []
+            });
+        }
+
+    </script>
+
+    <script>
+        var doit = true
+        var auto_refresh = setInterval(
+            function () {
+                if (doit) {
+
+                    doit = false;
+                    submitform();
+                }
+                else
+                    return;
+
+            }, 10);   // mezzo secondo
+
+        function submitform() {
+            document.getElementById('Test').click();
+        }
+
+    </script>
