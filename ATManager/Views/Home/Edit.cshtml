@@ -158,6 +158,13 @@
     }
 </style>
 
+@*<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>*@
+
 @if (!Model.IsCompleted)
 {
     <h3>Modifica dati scheda</h3>
@@ -353,8 +360,7 @@ else
                     </table>
                     <br />
 
-                    <br /><br />
-                    <br /><br />
+
                 </div>
 
                 <div id="mostraSosta" style="display:none">
@@ -965,13 +971,13 @@ else
                 @if (ViewBag.cartacircolazione == "SI")
                 {
 
-                    <input type="submit" id="Evvai" value="Salva" />
+                    <input type="submit" id="Evvai" value="Salva"  />
                     @*<input type="submit" id="Evvai" value="Salva" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
                     @*<input type="submit" value="Salva & Chiudi" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
                 }
                 else
                 {
-                    <input type="submit" id="Evvai" value="Salva" />
+                    <input type="submit" id="Evvai" value="Salva"  />
                     @*<input type="submit" id="Test" value="Salva & Chiudi" onclick="return confirm('Ti sei ricordato di inserire  \n tutti i documenti e le foto relative a questa scheda?')" />*@
                 }
                 <font color="red">Salva e chiudi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>

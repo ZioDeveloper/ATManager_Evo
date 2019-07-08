@@ -298,7 +298,7 @@ namespace ATManager.Controllers
             if (Session["Location"].ToString() == "RESET")
                 Session["Location"] = "";
 
-            Session["User"] = "percossi" +
+            Session["User"] = "burzio" +
                 "";
             ViewBag.perito = Session["User"].ToString();
 
@@ -1576,7 +1576,14 @@ namespace ATManager.Controllers
             //ViewBag.dataperizia = tmpDate.ToString("dd/MM/yyyy");
 
             DateTime tmpDate = DateTime.Now;
-            ViewBag.dataperizia = tmpDate.ToString("dd/MM/yyyy");
+            ////ViewBag.dataperizia = tmpDate.ToString("dd/MM/yyyy");
+
+            var model1 = new Models.AT_SchedaTecnica();
+            var myScheda1 = (from s in db.AT_SchedaTecnica
+                           where s.IDPerizia.ToString() == id
+                           select s.insertTime).ToList();
+            ViewBag.dataperizia = myScheda1.ToList().FirstOrDefault().ToString("dd/MM/yyyy");
+
 
             ViewBag.marca = marca;
             ViewBag.targa = targa;
