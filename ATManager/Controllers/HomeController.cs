@@ -298,7 +298,7 @@ namespace ATManager.Controllers
             if (Session["Location"].ToString() == "RESET")
                 Session["Location"] = "";
 
-            Session["User"] = "burzio" +
+            Session["User"] = "percossi" +
                 "";
             ViewBag.perito = Session["User"].ToString();
 
@@ -1461,7 +1461,7 @@ namespace ATManager.Controllers
 
 
 
-                return RedirectToAction("DoRefresh", "Home");
+                //return RedirectToAction("DoRefresh", "Home");
             }
 
             aT_SchedaTecnica.IsCompleted = false;

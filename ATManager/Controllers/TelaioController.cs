@@ -639,8 +639,8 @@ namespace ATManager.Controllers
 
             }
 
-            aMessage = "";
-            return 0;
+            //aMessage = "";
+            //return 0;
 
         }
 
@@ -756,8 +756,8 @@ namespace ATManager.Controllers
 
             }
 
-            aMessage = "";
-            return 0;
+            //aMessage = "";
+            //return 0;
 
         }
 
