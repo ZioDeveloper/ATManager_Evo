@@ -962,7 +962,7 @@ namespace ATManager.Controllers
                                                    "NoteCE110,NoteCE112,NoteCE115,NoteCE840,NoteCE841,NoteCE842,NoteCE843,NoteCE816," +
                                                    "NoteCE265,NoteCE135,NoteCE160,NoteCE145,NoteCE150,NoteCI820,NoteCI825,NoteCI835,NoteCI837,NoteCI1135," +
                                                    "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria, " +
-                                                   "Martelletti, Estintori, Obliteratrici,PannelloFrontale,PannelloRetro")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
+                                                   "Martelletti, Estintori, Obliteratrici,PannelloFrontale,PannelloRetro,RottamareInfo")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
             string txtMatricola, string txtDataPerizia, string txtMarca, string txtDataImmatricolazione, string txtCartaCircolazione,
             string txtLuogoPerizia, string txtModello, string txtTelaio, string txtAziendaUtilizzatrice, FormCollection frmCreate)
         {
@@ -1002,18 +1002,21 @@ namespace ATManager.Controllers
             {
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
+                aT_SchedaTecnica.RottamareInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 2)
             {
                 aT_SchedaTecnica.isMarciante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
+                aT_SchedaTecnica.RottamareInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 3)
             {
                 aT_SchedaTecnica.isMarciante = null;
                 aT_SchedaTecnica.isAvviante = null;
+                aT_SchedaTecnica.RottamareInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 4)
@@ -1030,6 +1033,7 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
                 aT_SchedaTecnica.IDStatoMezzo = 3;
+                aT_SchedaTecnica.RottamareInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 6)
@@ -1037,6 +1041,7 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.isMarciante = null;
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
+                aT_SchedaTecnica.RottamareInfo = null;
 
             }
 
@@ -1053,7 +1058,15 @@ namespace ATManager.Controllers
             {
                 if (String.IsNullOrEmpty(aT_SchedaTecnica.Note_generali))
                 {
-                    ModelState.AddModelError("Note", CompileErrorMessage("Note obbligatorie per questo intervento."));
+                    ModelState.AddModelError("Note", "Note obbligatorie per questo intervento.");
+                }
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 4 && aT_SchedaTecnica.RottamareInfo == "D" && aT_SchedaTecnica.IsCompleted == true)
+            {
+                if (String.IsNullOrEmpty(aT_SchedaTecnica.Note_generali))
+                {
+                    ModelState.AddModelError("Note", "Note obbligatorie per veicolo dismesso.");
                 }
             }
 
@@ -1720,7 +1733,7 @@ namespace ATManager.Controllers
                                                    "NoteCE110,NoteCE112,NoteCE115,NoteCE840,NoteCE841,NoteCE842,NoteCE843,NoteCE816," +
                                                    "NoteCE265,NoteCE135,NoteCE160,NoteCE145,NoteCE150,NoteCI820,NoteCI825,NoteCI835,NoteCI837,NoteCI1135," +
                                                    "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria,Martelletti, " +
-                                                   "Estintori, Obliteratrici, PannelloFrontale, PannelloRetro")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
+                                                   "Estintori, Obliteratrici, PannelloFrontale, PannelloRetro,RottamareInfo")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
             string txtMatricola, string txtDataPerizia, string txtMarca, string txtDataImmatricolazione, string txtCartaCircolazione,
             string txtLuogoPerizia, string txtModello, string txtTelaio, string txtAziendaUtilizzatrice)
         {
@@ -1753,18 +1766,21 @@ namespace ATManager.Controllers
             {
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
+                aT_SchedaTecnica.RottamareInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 2)
             {
                 aT_SchedaTecnica.isMarciante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
+                aT_SchedaTecnica.RottamareInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 3)
             {
                 aT_SchedaTecnica.isMarciante = null;
                 aT_SchedaTecnica.isAvviante = null;
+                aT_SchedaTecnica.RottamareInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 4)
@@ -1780,6 +1796,7 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.isMarciante = null;
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
+                aT_SchedaTecnica.RottamareInfo = null;
                 aT_SchedaTecnica.IDStatoMezzo = 3;
             }
 
@@ -1788,6 +1805,7 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.isMarciante = null;
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
+                aT_SchedaTecnica.RottamareInfo = null;
 
             }
 
@@ -1825,6 +1843,14 @@ namespace ATManager.Controllers
                 if (String.IsNullOrEmpty(aT_SchedaTecnica.Note_generali))
                 {
                     ModelState.AddModelError("Note", CompileErrorMessage("Note obbligatorio per mezzo in manutenzione ordinaria"));
+                }
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 4 && aT_SchedaTecnica.RottamareInfo == "D" && aT_SchedaTecnica.IsCompleted == true)
+            {
+                if (String.IsNullOrEmpty(aT_SchedaTecnica.Note_generali))
+                {
+                    ModelState.AddModelError("Note", "Note obbligatorie per veicolo dismesso.");
                 }
             }
 

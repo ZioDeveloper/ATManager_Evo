@@ -139,6 +139,7 @@
           <Property Name="Obliteratrici" Type="int" />
           <Property Name="PannelloFrontale" Type="int" />
           <Property Name="PannelloRetro" Type="int" />
+          <Property Name="RottamareInfo" Type="varchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="AT_StatiMezzo">
           <Key>
@@ -1618,6 +1619,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
           <Property Name="Obliteratrici" Type="Int32" />
           <Property Name="PannelloFrontale" Type="Int32" />
           <Property Name="PannelloRetro" Type="Int32" />
+          <Property Name="RottamareInfo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="AT_StatiMezzo">
           <Key>
@@ -2872,6 +2874,7 @@ warning 6002: The table/view 'AUTOSDU.dbo.LuoghiTest_vw' does not have a primary
           <EntitySetMapping Name="AT_SchedaTecnica">
             <EntityTypeMapping TypeName="AUTOSDUModel.AT_SchedaTecnica">
               <MappingFragment StoreEntitySet="AT_SchedaTecnica">
+                <ScalarProperty Name="RottamareInfo" ColumnName="RottamareInfo" />
                 <ScalarProperty Name="PannelloRetro" ColumnName="PannelloRetro" />
                 <ScalarProperty Name="PannelloFrontale" ColumnName="PannelloFrontale" />
                 <ScalarProperty Name="Obliteratrici" ColumnName="Obliteratrici" />

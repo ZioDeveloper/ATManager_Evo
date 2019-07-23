@@ -228,6 +228,8 @@ public partial class AT_SchedaTecnica
 
     public Nullable<int> PannelloRetro { get; set; }
 
+    public string RottamareInfo { get; set; }
+
 
 
     public virtual AT_StatiMezzo AT_StatiMezzo { get; set; }
