@@ -230,6 +230,8 @@ public partial class AT_SchedaTecnica
 
     public string RottamareInfo { get; set; }
 
+    public string AvvianteInfo { get; set; }
+
 
 
     public virtual AT_StatiMezzo AT_StatiMezzo { get; set; }

@@ -962,7 +962,7 @@ namespace ATManager.Controllers
                                                    "NoteCE110,NoteCE112,NoteCE115,NoteCE840,NoteCE841,NoteCE842,NoteCE843,NoteCE816," +
                                                    "NoteCE265,NoteCE135,NoteCE160,NoteCE145,NoteCE150,NoteCI820,NoteCI825,NoteCI835,NoteCI837,NoteCI1135," +
                                                    "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria, " +
-                                                   "Martelletti, Estintori, Obliteratrici,PannelloFrontale,PannelloRetro,RottamareInfo")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
+                                                   "Martelletti, Estintori, Obliteratrici,PannelloFrontale,PannelloRetro,RottamareInfo,AvvianteInfo")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
             string txtMatricola, string txtDataPerizia, string txtMarca, string txtDataImmatricolazione, string txtCartaCircolazione,
             string txtLuogoPerizia, string txtModello, string txtTelaio, string txtAziendaUtilizzatrice, FormCollection frmCreate)
         {
@@ -1003,6 +1003,7 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
                 aT_SchedaTecnica.RottamareInfo = null;
+                aT_SchedaTecnica.AvvianteInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 2)
@@ -1010,6 +1011,7 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.isMarciante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
                 aT_SchedaTecnica.RottamareInfo = null;
+
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 3)
@@ -1017,6 +1019,7 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.isMarciante = null;
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.RottamareInfo = null;
+                aT_SchedaTecnica.AvvianteInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 4)
@@ -1025,6 +1028,7 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
                 aT_SchedaTecnica.IDStatoMezzo = 3;
+                aT_SchedaTecnica.AvvianteInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 5)
@@ -1034,6 +1038,7 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.IsManutOrdinaria = null;
                 aT_SchedaTecnica.IDStatoMezzo = 3;
                 aT_SchedaTecnica.RottamareInfo = null;
+                aT_SchedaTecnica.AvvianteInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 6)
@@ -1042,8 +1047,33 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
                 aT_SchedaTecnica.RottamareInfo = null;
+                aT_SchedaTecnica.AvvianteInfo = null;
 
             }
+
+            if (aT_SchedaTecnica.isAvviante != "N")
+            {
+                aT_SchedaTecnica.AvvianteInfo = null;
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 4 && aT_SchedaTecnica.IsCompleted == true)
+            {
+                if (aT_SchedaTecnica.RottamareInfo == null)
+                {
+                    ModelState.AddModelError("RottamareInfo", "Selezionare un opzione !");
+                }
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 2 && aT_SchedaTecnica.IsCompleted == true)
+            {
+               if (aT_SchedaTecnica.AvvianteInfo == null && aT_SchedaTecnica.isAvviante == "N")
+                {
+                    ModelState.AddModelError("AvvianteInfo", "Selezionare  una causa non avviamento");
+                }
+            }
+
+
+
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo != 1 &&
                 aT_SchedaTecnica.IDVisualizzazioneMezzo != 2 &&
@@ -1053,6 +1083,8 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.IDVisualizzazioneMezzo != 6)
                 ModelState.AddModelError("isAvviante", CompileErrorMessage("Riepilogo attività ispettiva"));
 
+
+            
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 6 && aT_SchedaTecnica.IsCompleted == true)
             {
@@ -1501,6 +1533,9 @@ namespace ATManager.Controllers
 
             ViewBag.myManutenzione = aT_SchedaTecnica.IsManutOrdinaria.ToString(); ;
 
+            ViewBag.AvvianteInfo = aT_SchedaTecnica.AvvianteInfo;
+            ViewBag.isAvviante = aT_SchedaTecnica.isAvviante;
+
             return View(aT_SchedaTecnica);
         }
 
@@ -1715,10 +1750,12 @@ namespace ATManager.Controllers
 
             ViewBag.myManutenzione = model.IsManutOrdinaria;
 
+            ViewBag.AvvianteInfo = model.AvvianteInfo;
+            ViewBag.isAvviante = model.isAvviante;
 
 
 
-            
+
 
             return View(model);
         }
@@ -1733,7 +1770,7 @@ namespace ATManager.Controllers
                                                    "NoteCE110,NoteCE112,NoteCE115,NoteCE840,NoteCE841,NoteCE842,NoteCE843,NoteCE816," +
                                                    "NoteCE265,NoteCE135,NoteCE160,NoteCE145,NoteCE150,NoteCI820,NoteCI825,NoteCI835,NoteCI837,NoteCI1135," +
                                                    "Note_danno, Note_generali,isMarciante,isAvviante,IsManutOrdinaria,Martelletti, " +
-                                                   "Estintori, Obliteratrici, PannelloFrontale, PannelloRetro,RottamareInfo")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
+                                                   "Estintori, Obliteratrici, PannelloFrontale, PannelloRetro,RottamareInfo,AvvianteInfo")] AT_SchedaTecnica aT_SchedaTecnica, string txtdataultimarevisione, string txtTarga, string txtKm,
             string txtMatricola, string txtDataPerizia, string txtMarca, string txtDataImmatricolazione, string txtCartaCircolazione,
             string txtLuogoPerizia, string txtModello, string txtTelaio, string txtAziendaUtilizzatrice)
         {
@@ -1762,11 +1799,12 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.PannelloRetro = null;
             }
 
-                if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1)
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 1)
             {
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
                 aT_SchedaTecnica.RottamareInfo = null;
+                aT_SchedaTecnica.AvvianteInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 2)
@@ -1781,6 +1819,7 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.isMarciante = null;
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.RottamareInfo = null;
+                aT_SchedaTecnica.AvvianteInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 4)
@@ -1789,6 +1828,7 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
                 aT_SchedaTecnica.IDStatoMezzo = 3;
+                aT_SchedaTecnica.AvvianteInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 5)
@@ -1798,6 +1838,7 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.IsManutOrdinaria = null;
                 aT_SchedaTecnica.RottamareInfo = null;
                 aT_SchedaTecnica.IDStatoMezzo = 3;
+                aT_SchedaTecnica.AvvianteInfo = null;
             }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 6)
@@ -1806,9 +1847,30 @@ namespace ATManager.Controllers
                 aT_SchedaTecnica.isAvviante = null;
                 aT_SchedaTecnica.IsManutOrdinaria = null;
                 aT_SchedaTecnica.RottamareInfo = null;
+                aT_SchedaTecnica.AvvianteInfo = null;
 
             }
 
+            if (aT_SchedaTecnica.isAvviante != "N")
+            {
+                aT_SchedaTecnica.AvvianteInfo = null;
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 4 && aT_SchedaTecnica.IsCompleted == true)
+            {
+                if (aT_SchedaTecnica.RottamareInfo == null)
+                {
+                    ModelState.AddModelError("RottamareInfo", "Selezionare un opzione !");
+                }
+            }
+
+            if (aT_SchedaTecnica.IDVisualizzazioneMezzo == 2 && aT_SchedaTecnica.IsCompleted == true)
+            {
+                if (aT_SchedaTecnica.AvvianteInfo == null && aT_SchedaTecnica.isAvviante == "N")
+                {
+                    ModelState.AddModelError("AvvianteInfo", "Selezionare  una causa non avviamento");
+                }
+            }
 
             if (aT_SchedaTecnica.IDVisualizzazioneMezzo != 1 &&
                 aT_SchedaTecnica.IDVisualizzazioneMezzo != 2 &&
@@ -2170,6 +2232,10 @@ namespace ATManager.Controllers
 
                 ViewBag.MostraChiusura = "NO";
 
+                if(aT_SchedaTecnica.AvvianteInfo != null)
+                    ViewBag.AvvianteInfo = aT_SchedaTecnica.AvvianteInfo.ToString();
+                if (aT_SchedaTecnica.isAvviante != null)
+                    ViewBag.isAvviante = aT_SchedaTecnica.isAvviante.ToString();
                 //var model = new Models.AT_SchedaTecnica();
                 //var mySchedaT = from s in db.AT_SchedaTecnica
                 //               where s.ID == aT_SchedaTecnica.ID
@@ -2244,6 +2310,11 @@ namespace ATManager.Controllers
             ViewBag.IDPerizia = aT_SchedaTecnica.IDPerizia.ToString();
             ViewBag.IDVisualizzazioneMezzo = aT_SchedaTecnica.IDVisualizzazioneMezzo.ToString();
             ViewBag.myManutenzione = aT_SchedaTecnica.IsManutOrdinaria;
+            if (aT_SchedaTecnica.AvvianteInfo != null)
+                ViewBag.AvvianteInfo = aT_SchedaTecnica.AvvianteInfo.ToString();
+            if (aT_SchedaTecnica.isAvviante != null)
+                ViewBag.isAvviante = aT_SchedaTecnica.isAvviante.ToString();
+
             aT_SchedaTecnica.IsCompleted = false;
 
             return View(aT_SchedaTecnica);
