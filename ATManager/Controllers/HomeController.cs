@@ -298,8 +298,7 @@ namespace ATManager.Controllers
             if (Session["Location"].ToString() == "RESET")
                 Session["Location"] = "";
 
-            Session["User"] = "percossi" +
-                "";
+            Session["User"] = "burzio" ;
             ViewBag.perito = Session["User"].ToString();
 
             Session["ExecJS"] = "true";

@@ -325,7 +325,6 @@
     <Content Include="Views\Home\FotoPratica.cshtml" />
     <Content Include="Views\Home\IncorrectLogin.cshtml" />
     <Content Include="Views\Home\CreateNew.cshtml" />
-    <Content Include="Views\Home\EditNew.cshtml" />
     <Content Include="Views\Home\FotoPeriziaEdit.cshtml" />
     <Content Include="Views\Home\FotoPraticaEdit.cshtml" />
     <Content Include="Views\Home\PerizieImages.cshtml" />
